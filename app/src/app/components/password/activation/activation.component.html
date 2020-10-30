@@ -1,0 +1,35 @@
+<div class="auth-main2 particles_js">
+    <div class="auth_div vivify fadeInTop">
+        <div class="card">            
+            <div class="body">
+                <div class="login-img">
+                    <img class="img-fluid" src="assets/images/login-img.png" />
+                </div>
+                <form #loginForm=ngForm (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <p class="lead">You are welcome.</p>
+                    </div>
+                 
+                    <p>Please activate your product here.</p>
+                    <div class="form-group">
+                        <label for="signin-password" class="control-label sr-only">Password</label>
+                        <input type="password" class="form-control round" id="signin-password" name="value" [(ngModel)] = "form.value" required value="thisisthepassword" placeholder="Password">
+                    </div>
+                   
+                    <button type="submit" [hidden]="disabled" class="btn btn-primary btn-round btn-block">ACTIVATE</button>
+                    <button type="button" [hidden]="!disabled" class="btn btn-primary btn-round btn-block" disabled="disabled"><i class="fa fa-spinner fa-spin"></i> <span>Loading...</span></button>
+                   
+                </form>
+                <div class="pattern">
+                    <span class="red"></span>
+                    <span class="indigo"></span>
+                    <span class="blue"></span>
+                    <span class="green"></span>
+                    <span class="orange"></span>
+                </div>
+            </div>            
+        </div>
+    </div>
+    <div id="particles-js"></div>
+</div>
+<!-- END WRAPPER -->
