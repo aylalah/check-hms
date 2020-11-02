@@ -31,7 +31,6 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
 
-    alert(this.editingPossition);
     this.submissionForm = this.formBuilder.group(
       {          
         company_name : [''],
@@ -111,7 +110,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmitPos(){
-    
+
   }
 
   oneditingPos(id){

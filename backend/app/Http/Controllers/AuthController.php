@@ -69,7 +69,7 @@ class AuthController extends Controller
 
         $update =General_settings::where('license_key','=', $activation_key)
         ->update([
-            'status'=> 'registration',
+            'status'=> 'activated',
             'create_date'=> $cDate, 
             'create_time'=> $cTime ,        
         ]);
