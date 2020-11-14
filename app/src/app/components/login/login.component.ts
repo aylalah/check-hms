@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // this.notifications()
   }
-  
+
 
   onSubmit(){
     this.disabled= true;
@@ -50,15 +50,20 @@ export class LoginComponent implements OnInit {
      data => this.handleResponse(data, ),
      error => this.handleError(error)
      );
-     
+
   }
 
   handleResponse(data){
     this.Token.handle(data.access_token);
+    this.Token.dashboard(data.role_id, data.role_name, data.pos_name);
     this.Auth.changeAuthStatus(true);
     this.router.navigateByUrl('/admin');
 
+    console.log(data);
+
     this.disabled= false;
+
+    window.location.reload();
 
     $(function() {
       toastr.options.timeOut = "1000";
@@ -74,14 +79,14 @@ export class LoginComponent implements OnInit {
     this.disabled= false;
 
     if (this.error) {
-      
+
     } else {
       $(function() {
         toastr.options.timeOut = "1000";
         toastr.options.closeButton = true;
         toastr.options.positionClass = 'toast-bottom-right';
         toastr['error']('Oops, There is an error, you may check your connection');
-    });      
+    });
     }
   }
 
