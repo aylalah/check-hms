@@ -28,13 +28,13 @@ const routes: Routes = [
   //   component : ActivationComponent ,
   //   canActivate : [BeforeLoginService]
   // },
-   {
-    path : '',
-    redirectTo : 'admin',
-    pathMatch : 'full',
-    // component : AdminhomeComponent,
-    canActivate : [AfterLoginService]
-  },
+  //  {
+  //   path : '',
+  //   redirectTo : 'admin',
+  //   pathMatch : 'full',
+  //   // component : AdminhomeComponent,
+  //   canActivate : [AfterLoginService]
+  // },
   {
     path : '',
     redirectTo : 'login',
