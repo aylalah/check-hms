@@ -4,6 +4,7 @@ import { TokenService } from 'src/app/Services/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import {FormBuilder, FormGroup, Validators, NgForm, FormControl} from '@angular/forms';
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 declare let alert: any;
 declare let $: any;
@@ -30,6 +31,7 @@ export class AppSettingsComponent implements OnInit {
   icon: string | ArrayBuffer;
   logo2: any;
   icon2: any;
+  disabled= false;
 
   constructor(
     private Jarwis: JarwisService,
@@ -37,10 +39,12 @@ export class AppSettingsComponent implements OnInit {
     private router: Router,
     private Auth: AuthService,
     private formBuilder: FormBuilder,
+    private ngxService: NgxUiLoaderService
   ) { }
 
   ngOnInit(): void {
-
+    this.ngxService.startLoader('loader-01'); 
+    this.disabled= false;
     this.submissionForm = this.formBuilder.group(
       {
         id : [''],
@@ -85,6 +89,10 @@ export class AppSettingsComponent implements OnInit {
           this.logo2 = this.appInfo.logo;
           this.icon2 = this.appInfo.icon;
 
+          setTimeout(() => {
+            this.ngxService.stopLoader('loader-01'); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+          });
+
           this.submissionForm = this.formBuilder.group(
             {
               id : [this.appInfo.id],
@@ -117,15 +125,9 @@ export class AppSettingsComponent implements OnInit {
               app : [this.appInfo.app],
             });
 
+           
+
         });
-
-        //LIST ALL POSSITION
-
-    this.Jarwis.GETAllPosition().subscribe(
-          data=>{
-              this.possitionsResponds = data;
-              this.possitions = this.possitionsResponds.Data;
-          });
   }
 
   uploadlogo(event){
@@ -157,7 +159,7 @@ export class AppSettingsComponent implements OnInit {
   }
 
   onSubmitsetting() {
-
+      this.disabled= true;
       console.log(this.submissionForm.value);
       this.Jarwis.updateGeneralSet(this.submissionForm.value).subscribe(
         data => this.handleResponse(data, ),
@@ -192,6 +194,8 @@ export class AppSettingsComponent implements OnInit {
     this.error = error.error.errors;
     // console.log(error);
 
+    this.disabled= false;
+
   }
   handleResponse(data) {
 
@@ -202,11 +206,18 @@ export class AppSettingsComponent implements OnInit {
       toastr.options.positionClass = 'toast-top-center';
       if (data.success == false) {
         toastr['error'](data.message);
+        this.disabled= false;
       } else {
         toastr['success'](data.message);
+        this.disabled= false;
       }
-
   });
+
+    if (data.success == false) {
+      this.disabled= false;
+    } else {
+      this.disabled= false;
+    }
 
   }
 

@@ -123,7 +123,7 @@ class AuthController extends Controller
 
     public function getPermission()
     {
-        $profile = DB::table('users')->join('roles','users.role_id','=','roles.id')->join('positions','users.position_id','=','positions.id')->where('users.id', auth()->user()->id)->select('users.permission','users.role_id', 'users.position_id', 'roles.slug', 'positions.position_name')->get();
+        $profile = DB::table('users')->join('roles','users.role_id','=','roles.id')->join('positions','users.position_id','=','positions.id')->where('users.id', auth()->user()->id)->select('users.role_id', 'users.position_id', 'roles.slug', 'positions.position_name')->get();
         return response()->json([
             'data' => $profile,
             'role_id' => auth()->user()->role_id,
@@ -170,7 +170,7 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        $profile = DB::table('users')->join('roles','users.role_id','=','roles.id')->join('positions','users.position_id','=','positions.id')->where('users.id', auth()->user()->id)->select('users.permission','users.role_id', 'users.position_id', 'roles.slug', 'positions.position_name')->first();
+        $profile = DB::table('users')->join('roles','users.role_id','=','roles.id')->join('positions','users.position_id','=','positions.id')->where('users.id', auth()->user()->id)->select('users.role_id', 'users.position_id', 'roles.slug', 'positions.position_name')->first();
 
         return response()->json([
             'access_token' => $token,

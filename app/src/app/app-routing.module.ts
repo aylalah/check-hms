@@ -16,6 +16,9 @@ import { SuspentionComponent } from './components/password/suspention/suspention
 
 //Admin Home
 import { AdminhomeComponent } from './components/dashboard/admin/adminhome/adminhome.component';
+import { PossitionComponent } from './components/settings/possition/possition.component';
+import { CentersComponent } from './components/settings/centers/centers.component';
+import { UnitsComponent } from './components/settings/units/units.component';
 
 const routes: Routes = [
 
@@ -25,6 +28,13 @@ const routes: Routes = [
   //   component : ActivationComponent ,
   //   canActivate : [BeforeLoginService]
   // },
+   {
+    path : '',
+    redirectTo : 'admin',
+    pathMatch : 'full',
+    // component : AdminhomeComponent,
+    canActivate : [AfterLoginService]
+  },
   {
     path : '',
     redirectTo : 'login',
@@ -62,6 +72,26 @@ const routes: Routes = [
     canActivate : [AfterLoginService],
     data: {role: 'Administrator'}
   },
+  {
+    path : 'Position',
+    component : PossitionComponent,
+    canActivate : [AfterLoginService],
+    data: {role: 'Administrator'}
+  },
+
+  {
+    path : 'Centers',
+    component : CentersComponent,
+    canActivate : [AfterLoginService],
+    data: {role: 'Administrator'}
+  },
+  {
+    path : 'Units',
+    component : UnitsComponent,
+    canActivate : [AfterLoginService],
+    data: {role: 'Administrator'}
+  },
+
 
   {
     path : 'admin',

@@ -2,16 +2,6 @@
 
     <div *ngIf="!loggedIn">
 
-        <!-- Page Loader -->
-
-        <div class="pattern">
-            <span class="red"></span>
-            <span class="indigo"></span>
-            <span class="blue"></span>
-            <span class="green"></span>
-            <span class="orange"></span>
-        </div>
-
         <div>
             <router-outlet></router-outlet>
         </div>
@@ -235,83 +225,3 @@
   </div>
 </div>
 <!-- </div> -->
-
-<div *ngIf="status == 'license'">
-    <div *ngIf="!loggedIn">
-
-        <!-- Page Loader -->
-
-        <div class="pattern">
-            <span class="red"></span>
-            <span class="indigo"></span>
-            <span class="blue"></span>
-            <span class="green"></span>
-            <span class="orange"></span>
-        </div>
-
-        <div>
-            <app-activation></app-activation>
-        </div>
-
-    </div>
-</div>
-
-<div *ngIf="status == 'suspended'">
-    <div *ngIf="!loggedIn">
-
-        <!-- Page Loader -->
-
-        <div class="pattern">
-            <span class="red"></span>
-            <span class="indigo"></span>
-            <span class="blue"></span>
-            <span class="green"></span>
-            <span class="orange"></span>
-        </div>
-
-        <div>
-            <app-suspention></app-suspention>
-        </div>
-
-    </div>
-</div>
-
-<div *ngIf="status == 'maintenance'">
-    <div *ngIf="!loggedIn">
-
-        <!-- Page Loader -->
-
-        <div class="pattern">
-            <span class="red"></span>
-            <span class="indigo"></span>
-            <span class="blue"></span>
-            <span class="green"></span>
-            <span class="orange"></span>
-        </div>
-
-        <div>
-            <app-maintenance></app-maintenance>
-        </div>
-
-    </div>
-</div>
-
-<div *ngIf="status == 'registration'">
-    <div *ngIf="!loggedIn">
-
-        <!-- Page Loader -->
-
-        <div class="pattern">
-            <span class="red"></span>
-            <span class="indigo"></span>
-            <span class="blue"></span>
-            <span class="green"></span>
-            <span class="orange"></span>
-        </div>
-
-        <div class="container mt-3">
-            <app-registration></app-registration>
-        </div>
-
-    </div>
-</div>

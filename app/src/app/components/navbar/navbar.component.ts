@@ -74,7 +74,7 @@ export class NavbarComponent implements OnInit {
     this.Jarwis.getPermission().subscribe(
       datas =>{
           this.permissionResponse = datas;
-          this.menus = JSON.parse(this.permissionResponse.data[0].permission);
+          // this.menus = JSON.parse(this.permissionResponse.data[0].permission);
           this.position = this.permissionResponse.data[0].position_name;
       });
   }

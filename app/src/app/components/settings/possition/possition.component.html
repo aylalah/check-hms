@@ -1,0 +1,154 @@
+<div id="main-content">
+  <div class="container-fluid">
+      <div class="block-header">
+          <div class="row clearfix">
+              <div class="col-md-6 col-sm-12">
+                  <h1>Position Setings</h1>
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="../html/index.html">Home</a></li>
+                      <li class="breadcrumb-item"><a href="index.html">Positions</a></li>
+                      </ol>
+                  </nav>
+              </div>
+              <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                  <button class="btn btn-sm btn-primary" title="">Add</button>
+                  <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
+              </div> -->
+          </div>
+      </div>
+
+      <div style="position: relative">
+        <!-- the position of the parent container must be set to relative -->
+        <!-- It is really important to set loaderId for non-master loader -->
+        <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+
+        <div class="row clearfix">
+          <div class="col-sm-12" *ngIf="!editingPossition">
+              <div class="table-responsive">
+                  <table class="table table-hover table-custom spacing8">
+                      <thead>
+                          <tr>
+                            <th class="w60">Image</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                           
+                            <th>Department</th>
+                            <th class="w100">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody *ngFor="let pos of possitions; let r=index">
+                        <tr >
+                            <td class="w60">
+                                <img src="{{app_url}}/upload/uploads/{{pos.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">                                                   </td>
+                            <td>
+                                <h6 class="mb-0">{{pos.position_name}}</h6>
+                            </td>
+                            <td><span>{{pos.description}}</span></td>
+                           
+                            <td>{{pos.department}}</td>
+                            <td>
+                              <button class="btn btn-primary btn-round" (click)="oneditingPos(pos.id)" type="button" >
+                                Permission
+                            </button>
+                            </td>
+                          </tr>                        
+                      </tbody>
+  
+                  </table>
+              </div>
+          </div>
+        </div>
+
+
+         <!-- Editin ppossition -->
+         <div class="card" *ngIf="editingPossition">
+          <div class="body mt-2">
+              <div class="row clearfix">
+          <form  class="form-auth-small m-t-20 row" role="form" (ngSubmit)="onSubmitPosEdit(editposs)" #editposs="ngForm" >
+              <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="form-group">
+                  <label >Position Name</label>
+              <input type="text" class="form-control" [(ngModel)]="editPosName" [ngModelOptions]="{standalone: true}" name="position_name">
+              </div>
+              </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="form-group">
+                  <label >Department</label>
+              <input type="text" class="form-control" disabled [(ngModel)]="editPosdept" [ngModelOptions]="{standalone: true}">
+              </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="form-group" >
+              <label >Description</label>
+              <textarea  class="form-control"  [(ngModel)]="editPosdescription" [ngModelOptions]="{standalone: true}" name="description"></textarea>
+          </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="form-group">
+              <label >Status</label>
+                  <select class="form-control" [(ngModel)]="editPosStatus">
+                      <option>{{editPosStatus}}</option>
+                     <option value="active">Active</option>
+                     <option value="suspend">Suspend</option>
+                  </select>
+              </div>
+              </div>
+          <div class="col-12">
+          <h6>Module Permission</h6>
+          <div class="table-responsive">
+          <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <td>Module</td>
+                  <th>Permite</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let grant of addedCompToPos">
+                  <td>{{grant.component_name}}</td>
+                  <td>{{grant.module}}</td>
+                  <td>
+                      <label class="fancy-checkbox" *ngIf="grant.pos_status == 'permite'">
+                          <input  class="checkbox-tick" type="checkbox" (click)="Checkchanging(grant.id)" checked>
+                          <span></span>
+                      </label>
+                      <label class="fancy-checkbox" *ngIf="grant.pos_status == 'unpermite' || grant.pos_status ==null">
+                          <input  class="checkbox-tick" type="checkbox" (click)="Checkchanging(grant.id)">
+                          <span></span>
+                      </label>
+                  </td>
+              </tr>
+              <tr *ngFor="let mods of newaddCompToPos">
+                  <td>{{mods.component_name}}</td>
+                  <td>{{mods.module}}</td>
+
+                  <td>
+                      <label class="fancy-checkbox">
+                          <input class="checkbox-tick" type="checkbox" (click)="Checkchanging(mods.id)" name="checkbox">
+                          <span></span>
+                      </label>
+                  </td>
+              </tr>
+          </tbody>
+          </table>
+          </div>
+          </div>
+          <div class="col-12">
+              <div  class="float-right">
+                  <button type="submit" class="btn btn-primary">Update</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeEdit()">CLOSE</button>
+              </div>
+          </div>
+          </form>
+          </div>
+          </div>
+      </div>
+       
+      </div>
+  
+  
+    </div>            
+  </div>

@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private Jarwis: JarwisService,
-    private Token:TokenService,
-    private router  : Router,
-    private Auth : AuthService
+    private Token: TokenService,
+    private router: Router,
+    private Auth: AuthService
     ) { }
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit(){
-    this.disabled= true;
+    this.disabled = true;
     this.Jarwis.login(this.form).subscribe(
      data => this.handleResponse(data, ),
      error => this.handleError(error)
@@ -59,11 +59,9 @@ export class LoginComponent implements OnInit {
     this.Auth.changeAuthStatus(true);
     this.router.navigateByUrl('/admin');
 
-    console.log(data);
-
     this.disabled= false;
 
-    window.location.reload();
+    // window.location.reload();
 
     $(function() {
       toastr.options.timeOut = "1000";

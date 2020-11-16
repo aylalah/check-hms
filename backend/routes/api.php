@@ -22,9 +22,18 @@ Route::group([
     //GENERAL SETTINGS
     Route::post('updateGeneralset', 'App\Http\Controllers\SettingsController@updateGeneralset');
     Route::post('updateAppImage', 'App\Http\Controllers\SettingsController@updateAppImage');
+
     //POSSITIONS
     Route::get('GETAllPosition', 'App\Http\Controllers\SettingsController@GETAllPosition');
+    Route::get('onEditPos/{id}','App\Http\Controllers\SettingsController@onEditPos');
+    Route::post('permtes', 'App\Http\Controllers\SettingsController@permtes');
 
+    //DEPERTMENTS-CENTERS
+    Route::get('centerType','App\Http\Controllers\CenterController@centerType');
+    Route::post('CenterTypes','App\Http\Controllers\CenterController@CenterTypes');
+    Route::post('editCenterType','App\Http\Controllers\CenterController@editCenterType');
+    Route::post('editCentertype','App\Http\Controllers\CenterController@editCentertypes');
+    Route::post('deleteCenterType','App\Http\Controllers\CenterController@deleteCenterType');
 });
 /*
 |--------------------------------------------------------------------------

@@ -601,7 +601,7 @@
        <nav id="left-sidebar-nav" class="sidebar-nav">
            <ul id="main-menu" class="metismenu">
                <li class="header">Admin</li>
-                <li class="active"><a href="index.html"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
+                <li class="active"><a [routerLink]="['/admin']"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
 
                 <li class="header">Components</li>
                 <li>
@@ -614,16 +614,29 @@
                     </ul>
                 </li>
 
-                <li class="header">Configutation</li>
+                <li class="header">Configuration</li>
+                <li>
+                  <a class="has-arrow"><i class="icon-settings"></i><span>Patient</span></a>
+                  <ul >
+                      <li><a href="dr-schedule.html">NHIS</a></li>
+                      <li><a href="dr-schedule.html">Categories</a></li>
+                  </ul>
+              </li>
                <li>
-                   <a class="has-arrow"><i class="icon-settings"></i><span>Settings</span></a>
+                   <a class="has-arrow"><i class="icon-settings"></i><span>Depertments</span></a>
                    <ul >
-                       <li *ngFor="let menu of menus"><a  [routerLink]="['/appsettings']">{{ menu.name }}</a></li>
-                       <!-- <li><a href="dr-add.html">Add Doctors</a></li>
-                       <li><a href="dr-profile.html">Doctors Profile</a></li>
-                       <li><a href="dr-schedule.html">Doctors Schedule</a></li> -->
+                       <li><a [routerLink]="['/Centers']">Centers</a></li>
+                       <li><a [routerLink]="['/Units']">Units</a></li>
                    </ul>
                </li>
+               <li>
+                <a class="has-arrow"><i class="icon-settings"></i><span>App</span></a>
+                <ul >
+                    <!-- <li *ngFor="let menu of menus"><a  [routerLink]="['/appsettings']">{{ menu.name }}</a></li> -->
+                    <li><a [routerLink]="['/appsettings']">Application</a></li>
+                    <li><a [routerLink]="['/Position']">Possition</a></li>  
+                </ul>
+            </li>
 
            </ul>
        </nav>

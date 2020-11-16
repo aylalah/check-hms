@@ -25,8 +25,8 @@
                           <span>Remember me</span>
                       </label>
                   </div>
-                  <button type="submit" [hidden]="disabled" class="btn btn-primary btn-round btn-block">LOGIN</button>
-                  <button type="button" [hidden]="!disabled" class="btn btn-primary btn-round btn-block" disabled="disabled"><i class="fa fa-spinner fa-spin"></i> <span>Loading...</span></button>
+                  <button type="submit" *ngIf="!disabled" class="btn btn-primary btn-round btn-block">LOGIN</button>
+                  <button type="button" *ngIf="disabled" disabled class="btn btn-primary btn-round btn-block" disabled="disabled"><i class="fa fa-spinner fa-spin"></i> <span>Loading...</span></button>
                   <div class="bottom">
                       <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a routerLink="/forget-password">Forgot password?</a></span>
                       <!-- <span>Don't have an account? <a href="page-register.html">Register</a></span> -->
