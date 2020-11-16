@@ -65,19 +65,20 @@ export class AppComponent {
 
     this.status = data.Data.status;
 
-    if (this.status == 'activated') {
+    // if (this.status == 'activated') {
 
-      this.router.navigateByUrl('/admin');
+    //   this.router.navigateByUrl('/admin');
 
-    } else if (this.status == 'license') {
+    // } else
+    // if (this.status == 'license') {
 
-      this.router.navigateByUrl('/activation');
+    //   this.router.navigateByUrl('/activation');
 
-    } else if (this.status == 'suspended') {
+    // } else if (this.status == 'suspended') {
 
-      this.router.navigateByUrl('/404');
+    //   this.router.navigateByUrl('/404');
 
-    }
+    // }
 
     this.disabled= false;
 

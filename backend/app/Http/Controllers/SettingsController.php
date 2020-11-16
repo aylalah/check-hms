@@ -34,6 +34,8 @@ class SettingsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
+    //POSITION SETTINGS
+
     public function GETAllPosition()
     {
         $possition= Possitions::join('departments','positions.dept_id','=','departments.id')->select('positions.*','departments.name AS department')->get();
@@ -45,6 +47,100 @@ class SettingsController extends Controller
             'ErrorResponse' => 'success'
         ]);
     }
+
+    public function onEditPos($id)
+    {
+        $pos = auth()->user()->position_id;
+
+        if($id == 4){
+            $adminpos = DB::table('component_tb')
+            ->join('module','component_tb.module_id','=','module.id')
+            ->join('departments','module.id','=','departments.module_id')
+            ->join('positions','departments.id','=','positions.dept_id')
+            ->select('component_tb.id','module.module','component_tb.component_name','component_tb.description')
+            ->get(); 
+        }else{
+            $adminpos = DB::table('component_tb')
+            ->join('module','component_tb.module_id','=','module.id')
+            ->join('departments','module.id','=','departments.module_id')
+            ->join('positions','departments.id','=','positions.dept_id')
+            ->select('component_tb.id','module.module','component_tb.component_name','component_tb.description')
+            ->where('positions.id','=', $id)
+            ->get(); 
+        }
+
+
+        return response()->json([
+            'position'=>DB::table('positions')->join('departments','positions.dept_id','=','departments.id')
+            ->select('positions.position_name','positions.description','positions.id','departments.name')
+            ->where('positions.id',$id)->get(),
+
+           "positionCom" => DB::table('component_tb')
+            ->join('possition_module','component_tb.id' ,'=', 'possition_module.component_id')
+            ->select('component_tb.*','possition_module.status AS pos_status')
+            ->where('possition_module.position_id','=', $id)
+            ->get(),
+
+            "deptCom" =>  $adminpos,
+        ]);
+
+    }
+
+    public function permtes(Request $request)
+    {
+        $user_id = Auth()->user()->id;
+        $request ->merge(['created_by'=>$user_id]);
+        $request ->merge(['updated_by'=>$user_id]);
+        $positioned = DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->select('status')->get();
+   
+        if ($positioned->count()>0) {
+            if ($positioned[0]->status =='permite') {
+                $update=  DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->update(['status' => 'unpermite','updated_by'=>$user_id]);
+            } else {
+                $update=  DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->update(['status' => 'permite','updated_by'=>$user_id]);
+                
+            }
+
+            if($update){
+                return '{
+                    "ResponseCode": 0,
+                    "success":true,
+                    "message":"Updated Successful"
+                }' ;
+            } else {
+                return '{
+                    "ResponseCode": 1,
+                    "success":false,
+                    "message":"Failed"
+                }';
+            }
+            
+        } else {
+            $update= DB::table('possition_module')->insert([
+                'position_id' =>$request->id,
+                'component_id' => $request->component_id,
+                'status'       =>'permite',  
+                'created_by'   =>  $user_id,
+                'updated_by'   =>  $user_id
+           ]); 
+
+           if($update){
+            return '{
+                "ResponseCode": 0,
+                "success":true,
+                "message":"Updated Successful"
+            }' ;
+        } else {
+            return '{
+                "ResponseCode": 1,
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+           
+        }
+    }
+
 
 
     public function updateGeneralSet(Request $request)
