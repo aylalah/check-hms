@@ -5,8 +5,8 @@ import { JarwisService } from 'src/app/Services/jarwis.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { IfStmt } from '@angular/compiler';
 
-declare let $ : any;
-declare let  toastr : any;
+declare let $: any;
+declare let  toastr: any;
 
 @Component({
   selector: 'app-activation',
@@ -41,7 +41,7 @@ export class ActivationComponent implements OnInit {
      data => this.handleResponse(data, ),
      error => this.handleError(error)
      );
-     
+
   }
 
   handleResponse(data){
@@ -70,9 +70,9 @@ export class ActivationComponent implements OnInit {
         //   toastr.options.onclick = function() {
         //     alert('onclick callback');
         // },
-        
+
         toastr['error'](data.Message);
-      });  
+      });
 
     }
   }
@@ -83,19 +83,19 @@ export class ActivationComponent implements OnInit {
     this.disabled= false;
 
     if (this.error) {
-      
+
     } else {
       $(function() {
         toastr.options.timeOut = "100";
         toastr.options.closeButton = true;
         toastr.options.positionClass = 'toast-bottom-right';
-        toastr.options = {          
+        toastr.options = {
           "onCloseClick": function() {
               alert('onCloseClick callback');
           }
       };
         toastr['error']('Oops, There is an error, you may check your connection');
-    });      
+    });
     }
   }
 

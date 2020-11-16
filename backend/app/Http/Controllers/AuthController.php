@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\SignUpRequest;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\General_Settings;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Image;
 
 class AuthController extends Controller
 {
@@ -61,7 +63,7 @@ class AuthController extends Controller
         if($activation_key == ''){
             return response()->json([
                 'ResponseCode' => 2,
-                'Message' => 'Empty Value, Please input your 
+                'Message' => 'Empty Value, Please input your
                 activation key',
                 // 'Data' => $app,
                 'ErrorResponse' => 'error'
@@ -71,8 +73,8 @@ class AuthController extends Controller
         $update =General_settings::where('license_key','=', $activation_key)
         ->update([
             'status'=> 'activated',
-            'create_date'=> $cDate, 
-            'create_time'=> $cTime ,        
+            'create_date'=> $cDate,
+            'create_time'=> $cTime ,
         ]);
         if($update){
             return response()->json([
@@ -91,7 +93,7 @@ class AuthController extends Controller
         }
 
     }
-    
+
 
     public function login()
     {
@@ -113,9 +115,22 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+
     public function me()
     {
         return response()->json(auth()->user());
+    }
+
+    public function getPermission()
+    {
+        $profile = DB::table('users')->join('roles','users.role_id','=','roles.id')->join('positions','users.position_id','=','positions.id')->where('users.id', auth()->user()->id)->select('users.permission','users.role_id', 'users.position_id', 'roles.slug', 'positions.position_name')->get();
+        return response()->json([
+            'data' => $profile,
+            'role_id' => auth()->user()->role_id,
+            'ResponseCode' => 0,
+            'Message' => "Processing Completed"
+
+        ]);
     }
 
     public function signup(SignUpRequest $request)
@@ -155,11 +170,16 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+        $profile = DB::table('users')->join('roles','users.role_id','=','roles.id')->join('positions','users.position_id','=','positions.id')->where('users.id', auth()->user()->id)->select('users.permission','users.role_id', 'users.position_id', 'roles.slug', 'positions.position_name')->first();
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
+            'role_id' => auth()->user()->role_id,
+            'role_name' => $profile->slug,
+            'pos_name' => $profile->position_name,
             'expires_in' => auth('api')->factory()->getTTL() * 60,
             'user' => auth()->user()->firstname .' '. auth()->user()->firstname
         ]);
     }
-}   
+}

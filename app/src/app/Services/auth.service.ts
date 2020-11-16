@@ -10,11 +10,11 @@ export class AuthService {
 
   private loggedIn = new BehaviorSubject<boolean>(this.Token.loggedIn());
   authStatus = this.loggedIn.asObservable();
-  constructor(private Token:TokenService) { 
+  constructor(private Token:TokenService) {
 
   }
 
-  changeAuthStatus(value : boolean) {
+  changeAuthStatus(value: boolean) {
     this.loggedIn.next(value);
   }
 }

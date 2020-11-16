@@ -16,7 +16,9 @@ import { ActivationComponent } from './components/password/activation/activation
 import { SuspentionComponent } from './components/password/suspention/suspention.component';
 import { RegistrationComponent } from './components/password/registration/registration.component';
 import { MaintenanceComponent } from './components/password/maintenance/maintenance.component';
+import { AppSettingsComponent } from './components/settings/app-settings/app-settings.component';
 import { RouterModule } from '@angular/router';
+import { StaffNavbarComponent } from './components/navbar/staff-navbar/staff-navbar.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { RouterModule } from '@angular/router';
     ActivationComponent,
     SuspentionComponent,
     RegistrationComponent,
-    MaintenanceComponent
+    MaintenanceComponent,
+    AppSettingsComponent,
+    StaffNavbarComponent
   ],
   imports: [
     BrowserModule,

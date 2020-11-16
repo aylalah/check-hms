@@ -8,6 +8,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { AfterLoginService } from './Services/after-login.service';
 import { BeforeLoginService } from './Services/before-login.service';
 import { ForgetPasswordComponent } from './components/password/forget-password/forget-password.component';
+import { AppSettingsComponent } from './components/settings/app-settings/app-settings.component';
 
 //ACTIVATION KEY
 import { ActivationComponent } from './components/password/activation/activation.component';
@@ -29,7 +30,7 @@ const routes: Routes = [
     redirectTo : 'login',
     pathMatch : 'full',
     // component : LoginComponent ,
-    // canActivate : [BeforeLoginService]
+    canActivate : [BeforeLoginService]
   },
   {
     path : 'forget-password',
@@ -55,6 +56,12 @@ const routes: Routes = [
   //   component : AdminhomeComponent,
   //   canActivate : [AfterLoginService]
   // },
+  {
+    path : 'appsettings',
+    component : AppSettingsComponent,
+    canActivate : [AfterLoginService],
+    data: {role: 'Administrator'}
+  },
 
   {
     path : 'admin',

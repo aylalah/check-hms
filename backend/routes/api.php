@@ -13,12 +13,16 @@ Route::group([
     Route::post('login', 'App\Http\Controllers\AuthController@login');
     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
     Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
-    Route::post('me', 'App\Http\Controllers\AuthController@me');
+    Route::get('me', 'App\Http\Controllers\AuthController@me');
+    Route::get('getPermission', 'App\Http\Controllers\AuthController@getPermission');
     Route::post('signup', 'App\Http\Controllers\AuthController@signup');
     Route::get('check', 'App\Http\Controllers\AuthController@check');
     Route::get('app_info', 'App\Http\Controllers\AuthController@app_info');
 
-    //POSSITIONS 
+    //GENERAL SETTINGS
+    Route::post('updateGeneralset', 'App\Http\Controllers\SettingsController@updateGeneralset');
+    Route::post('updateAppImage', 'App\Http\Controllers\SettingsController@updateAppImage');
+    //POSSITIONS
     Route::get('GETAllPosition', 'App\Http\Controllers\SettingsController@GETAllPosition');
 
 });
