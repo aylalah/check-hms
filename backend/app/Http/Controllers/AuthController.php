@@ -9,6 +9,7 @@ use App\Http\Requests\SignUpRequest;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\General_Settings;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -97,10 +98,14 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = JWTAuth::attempt($credentials)) {
-            return response()->json(['error' => 'Email or password doesn\'t exist'], 401);
+            return response()->json([
+                'ResponseCode' => 1,
+                'Error' => 'invalid access',
+                "Message" => "The user name or password is incorrect",
+            ]);
+        } else {
+            return $this->respondWithToken($token);
         }
-
-        return $this->respondWithToken($token);
     }
 
     /**
@@ -154,7 +159,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60,
-            'user' => auth()->user()->name
+            'user' => auth()->user()->firstname .' '. auth()->user()->firstname
         ]);
     }
 }   
