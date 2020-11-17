@@ -14,7 +14,7 @@ declare let $ : any;
 export class AdminhomeComponent implements OnInit {
 
   public users = []
-  
+
   constructor(
     private Notificate: NotificationsService,
     private Jarwis: JarwisService,
@@ -28,7 +28,7 @@ export class AdminhomeComponent implements OnInit {
       this.Notificate.receiveloginnotification().subscribe(
         data=>{
           $(function() {
-            toastr.options.timeOut = "2000";
+            toastr.options.timeOut = "1000";
             toastr.options.closeButton = true;
             toastr.options.positionClass = 'toast-bottom-right';
             toastr['success'](data.message);
