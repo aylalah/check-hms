@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { JarwisService } from 'src/app/Services/jarwis.service';
 
+import { NotificationsService } from 'src/app/Services/notifications.service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -25,6 +27,7 @@ export class NavbarComponent implements OnInit {
   logo: any;
   short_name: any;
   app_url: any;
+  loggedinUsers: any;
 
 
   private tokenExpired(token: string) {
@@ -37,11 +40,20 @@ export class NavbarComponent implements OnInit {
     private router  : Router,
     private Token : TokenService,
     private Jarwis: JarwisService,
+    private Notificate: NotificationsService,
   ) {
 
   }
 
   ngOnInit(): void {
+
+    this.Notificate.receiveloginnotification().subscribe(
+      data=>{
+       this.loggedinUsers = data.identity
+      }
+    )
+
+
     this.Auth.authStatus.subscribe(Value => this.loggedIn = Value);
 
     let token= localStorage.getItem("token");

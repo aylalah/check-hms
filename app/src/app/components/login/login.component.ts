@@ -5,7 +5,7 @@ import { JarwisService } from 'src/app/Services/jarwis.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { IfStmt } from '@angular/compiler';
 
-import { PushNotificationOptions, PushNotificationService } from 'ngx-push-notifications';
+// import { PushNotificationOptions, PushNotificationService } from 'ngx-push-notifications';
 
 declare let c3 : any;
 declare let jQuery: any;
@@ -39,57 +39,57 @@ export class LoginComponent implements OnInit {
     private Token: TokenService,
     private router: Router,
     private Auth: AuthService,
-    private _pushNotificationService: PushNotificationService,
+    // private _pushNotificationService: PushNotificationService,
     ) { }
 
   ngOnInit(): void {
-    const isGranted = this._pushNotificationService.isPermissionGranted;
-    if(isGranted){
-      this.myFunction()
-    } else{ 
-      this._pushNotificationService.requestPermission();
-    }
+    // const isGranted = this._pushNotificationService.isPermissionGranted;
+    // if(isGranted){
+    //   this.myFunction()
+    // } else{ 
+    //   this._pushNotificationService.requestPermission();
+    // }
     // this.notifications()
   }
 
 
-  public PushNotificationOptions = {
-    icon: '../assets/images/checklogo_3.png',
-    sound: 'default',
-    data:  'any',
-    tag: 'string',
-    dir: 'NotificationDirection',
-    lang: 'string',
-    renotify: 'boolean',
-    sticky: 'boolean',
-    vibrate: [100, 50, 10, 20, 20],
-    noscreen: 'boolean',
-    silent: false,
-  };
+  // public PushNotificationOptions = {
+  //   icon: '../assets/images/checklogo_3.png',
+  //   sound: 'default',
+  //   data:  'any',
+  //   tag: 'string',
+  //   dir: 'NotificationDirection',
+  //   lang: 'string',
+  //   renotify: 'boolean',
+  //   sticky: 'boolean',
+  //   vibrate: [100, 50, 10, 20, 20],
+  //   noscreen: 'boolean',
+  //   silent: false,
+  // };
 
-  myFunction() {
-    const title = 'Check Inventory';
-    const options = new PushNotificationOptions();
-    options.body = 'Native Push Notification';
+  // myFunction() {
+  //   const title = 'Check Inventory';
+  //   const options = new PushNotificationOptions();
+  //   options.body = 'Native Push Notification';
  
-    this._pushNotificationService.create(title, options).subscribe((notif) => {
-      if (notif.event.type === 'show') {
-        setTimeout(() => {
-          notif.notification.close();
-        }, 10000);
-      }
-      if (notif.event.type === 'click') {
-        console.log('click');
-        notif.notification.close();
-      }
-      if (notif.event.type === 'close') {
-        console.log('close');
-      }
-    },
-    (err) => {
-         console.log(err);
-    });
-  }
+  //   this._pushNotificationService.create(title, options).subscribe((notif) => {
+  //     if (notif.event.type === 'show') {
+  //       setTimeout(() => {
+  //         notif.notification.close();
+  //       }, 10000);
+  //     }
+  //     if (notif.event.type === 'click') {
+  //       console.log('click');
+  //       notif.notification.close();
+  //     }
+  //     if (notif.event.type === 'close') {
+  //       console.log('close');
+  //     }
+  //   },
+  //   (err) => {
+  //        console.log(err);
+  //   });
+  // }
 
 
   onSubmit(){

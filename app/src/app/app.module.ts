@@ -7,6 +7,8 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
@@ -26,6 +28,8 @@ import { PossitionComponent } from './components/settings/possition/possition.co
 import { CentersComponent } from './components/settings/centers/centers.component';
 import { UnitsComponent } from './components/settings/units/units.component';
 
+
+const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 
 @NgModule({
@@ -57,6 +61,7 @@ import { UnitsComponent } from './components/settings/units/units.component';
     HttpClientModule,
     NgxUiLoaderModule,
     NgxSkeletonLoaderModule,
+    SocketIoModule.forRoot(config),
     ],
   providers: [],
   bootstrap: [AppComponent]
