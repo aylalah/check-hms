@@ -10,21 +10,32 @@ import { JarwisService } from 'src/app/Services/jarwis.service';
 
 export class GetFunctionsService {
   token: string;
-  resp: any;
-  profile: any;
-  public role: any;
+  permissionResponse: any;
+  permission: any;
+  
+
+  public user = {
+    position: null,
+  }
 
   constructor(private Token: TokenService, private Jarwis: JarwisService) { }
 
   getUser() {
-   this.Jarwis.getPermission().subscribe(
-          datas =>{
-              this.resp = datas;
-              this.profile = this.resp.data[0];
-              this.role= this.profile.position_name;
 
-              return this.role;
-          });
+    this.Jarwis.getPermission().subscribe(
+      datas =>{
+          // this.permissionResponse = datas;
+          // this.permission = JSON.parse(this.permissionResponse.data[0].permission);
+          // this.user.position = this.permissionResponse.data[0].position_name;
+          // console.log(this.permissionResponse);
+      });
+  }
+
+  getPosition(){
+
+    console.log(this.user.position);
+    return this.user;
+   
   }
 
 

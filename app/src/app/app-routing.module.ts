@@ -28,6 +28,11 @@ const routes: Routes = [
   //   component : ActivationComponent ,
   //   canActivate : [BeforeLoginService]
   // },
+  {
+    path : '',
+    component : LoginComponent ,
+    canActivate : [BeforeLoginService]
+  },
    {
     path : '',
     redirectTo : 'admin',
@@ -35,13 +40,7 @@ const routes: Routes = [
     // component : AdminhomeComponent,
     canActivate : [AfterLoginService]
   },
-  {
-    path : '',
-    redirectTo : 'login',
-    pathMatch : 'full',
-    // component : LoginComponent ,
-    canActivate : [BeforeLoginService]
-  },
+ 
   {
     path : 'forget-password',
     component : ForgetPasswordComponent ,

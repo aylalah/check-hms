@@ -1,3 +1,6 @@
+
+
+    <ngx-ui-loader [loaderId]="'loader-02'"></ngx-ui-loader>
 <div id="main-content">
     <div class="container-fluid">
         <div class="block-header">
@@ -19,29 +22,29 @@
             </div>
         </div>
   
-        <div class="row clearfix">
+        <div class="row clearfix" style="position: relative">
+
+            <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-hover table-custom spacing8">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Center Type Name </th>
                                 <th>Depertment</th>
                                 <th>Description</th>
-                                <!-- <th>Total Staff</th> -->
-                                <!-- <th>position</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let center of center_type">
-                                <!-- <td class="w60">
-                                    <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{d.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
-                                </td> -->
+                            <tr *ngFor="let center of center_type; let r=index">
+                                <td>{{r+1}}</td>   
                                 <td>{{center. name}}</td>
                                 <td>{{center.deptname}}</td>
                                 <td>{{center.description}}</td>
-                                <!-- <td>{{d.position_name}}</td>    -->
+                              
                                 <td>
                                     <button type="button" class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditCenterType" (click)="editcentertype(center.id)"><i class="fa fa-pencil"></i></button>
                                     <button type="button" class="btn btn-default btn-sm" title="Delete" data-toggle="modal" data-target="#delete" (click)="onDelete(center.id)"><i class="fa fa-trash-o"></i></button>
@@ -62,7 +65,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title h4" id="myLargeModalLabel">Add Center Type</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
             </button>
         </div>
@@ -98,7 +101,8 @@
         </div>
     </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-round btn-primary">Add</button>
+            <button type="submit" class="btn btn-round btn-primary" *ngIf="!disabled">Add</button>
+            <button type="submit" class="btn btn-round btn-primary" *ngIf="disabled" disabled disabled="disabled"><i class="fa fa-spinner fa-spin"></i> <span>Loading...</span></button>
             <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
         </div>
         </form>
@@ -106,13 +110,13 @@
   </div>
   </div>
   
-  
+
   <div class="modal fade" id="EditCenterType" tabindex="1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
               <h5 class="modal-title h4" id="myLargeModalLabel">Edit Center Type</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" id="editclose" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
               </button>
           </div>
@@ -148,13 +152,15 @@
           </div>
       </div>
           <div class="modal-footer">
-              <button type="submit" class="btn btn-round btn-primary">Add</button>
+            <button type="submit" class="btn btn-round btn-primary" *ngIf="!disabled">Update</button>
+            <button type="submit" class="btn btn-round btn-primary" *ngIf="disabled" disabled disabled="disabled"><i class="fa fa-spinner fa-spin"></i> <span>Loading...</span></button>
               <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
           </div>
           </form>
       </div>
     </div>
     </div>
+
   
   
   

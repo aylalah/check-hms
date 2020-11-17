@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { JarwisService } from 'src/app/Services/jarwis.service';
+import { GetFunctionsService } from 'src/app/Services/get-functions.service';
 
 @Component({
   selector: 'app-navbar',
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit {
   logo: any;
   short_name: any;
   app_url: any;
+  pos: any;
 
 
   private tokenExpired(token: string) {
@@ -37,6 +39,7 @@ export class NavbarComponent implements OnInit {
     private router  : Router,
     private Token : TokenService,
     private Jarwis: JarwisService,
+    private getFunction: GetFunctionsService 
   ) {
 
   }

@@ -31,9 +31,15 @@ Route::group([
     //DEPERTMENTS-CENTERS
     Route::get('centerType','App\Http\Controllers\CenterController@centerType');
     Route::post('CenterTypes','App\Http\Controllers\CenterController@CenterTypes');
-    Route::post('editCenterType','App\Http\Controllers\CenterController@editCenterType');
+    Route::post('updateCenterType','App\Http\Controllers\CenterController@updateCenterType');
     Route::post('editCentertype','App\Http\Controllers\CenterController@editCentertypes');
-    Route::post('deleteCenterType','App\Http\Controllers\CenterController@deleteCenterType');
+    Route::post('deleteCenterType','App\Http\Controllers\CenterController@deleteCenterType'); 
+
+    //CENTER
+    Route::get('getDepertment','App\Http\Controllers\CenterController@getDepertment');
+    Route::get('displaysetBranch','App\Http\Controllers\CenterController@displaysetBranch');
+    Route::get('getAllUnits','App\Http\Controllers\CenterController@getAllUnits');
+    Route::post('createCenters', 'App\Http\Controllers\CenterController@createCenters');
 });
 /*
 |--------------------------------------------------------------------------

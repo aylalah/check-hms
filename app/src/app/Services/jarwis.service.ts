@@ -13,7 +13,7 @@ export class JarwisService {
 
   private baseUrl = environment.baseUrl;
   public imageUrl = environment.imageUrl;
-  lazyload={load:'loading'};
+  lazyload= {load:'loading'};
 
   constructor(private http : HttpClient) { }
 
@@ -67,26 +67,29 @@ export class JarwisService {
 
   //DEPERTMENTS-CENTERS
   centerType() {
-    return this.http.get(this.baseUrl + 'centerType',)
-  }
-
-  CenterTypes(data) {
-    return this.http.post<any>(`${this.baseUrl}/CenterTypes`, data,{headers:{
+    return this.http.get(this.baseUrl + 'centerType', {headers:{
       Authorization:`Bearer ${localStorage.token}`
-    }})
+    }}
+    );
   }
-  editCenterType(data){
-    return this.http.post<any>(`${this.baseUrl}/editCenterType`, data,{headers:{
+  CenterTypes(data) {
+    return this.http.post<any>(this.baseUrl + 'CenterTypes', data, {headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }}
+    );
+  }
+  updateCenterType(data){
+    return this.http.post<any>( this.baseUrl + 'updateCenterType', data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
   editCentertype(data){
-    return this.http.post<any>(`${this.baseUrl}/editCentertype`, data,{headers:{
+    return this.http.post<any>(this.baseUrl + 'editCentertype', data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
   deleteCenterType(data){
-    return this.http.post<any>(`${this.baseUrl}/deleteCenterType`, data,{headers:{
+    return this.http.post<any>(this.baseUrl + 'deleteCenterType', data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
@@ -94,6 +97,63 @@ export class JarwisService {
   displayDepartments() {
     return this.http.get(`${this.baseUrl}/displayDepartments`,)
   }
+
+
+  //CENTERS
+  getDepertment() {
+    return this.http.get(this.baseUrl + 'getDepertment',{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }});
+  }
+  displaysetBranch() {
+    return this.http.get(this.baseUrl + 'displaysetBranch',{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }});
+  }
+  getAllUnits() {
+    return this.http.get(this.baseUrl + 'getAllUnits',{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  addCenter(data) {
+    return this.http.post(`${this.baseUrl}/addCenter`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  createCenters(data) {
+  return this.http.post(this.baseUrl + 'createCenters', data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+  }
+  createBranchs(data) {
+  return this.http.post(`${this.baseUrl}/addBranchs`, data,{headers:{
+    Authorization:`Bearer ${localStorage.token}`
+  }})
+  }
+  edtBranch(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/edtBranch/${id}`)
+  }
+
+  updateBranch(data) {
+    return this.http.post(`${this.baseUrl}/updateBranch`, data)
+  }
+  deleteBranch(data) {
+    return this.http.post(`${this.baseUrl}/deleteBranch`, data)
+  }
+  suspendBranch(data) {
+    return this.http.post(`${this.baseUrl}/suspendBranch`, data)
+  }
+  activateBranch(data) {
+    return this.http.post(`${this.baseUrl}/activateBranch`, data)
+  }
+  onEditBranch(data){
+    return this.http.post(`${this.baseUrl}/onEditBranch`,data)
+  }
+  centerBranch() {
+    return this.http.get(`${this.baseUrl}/centerBranch`,)
+  }
+
+
 
   //POSSITIONS
   GETAllPosition() {
