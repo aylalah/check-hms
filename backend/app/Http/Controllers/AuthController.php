@@ -100,10 +100,14 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = JWTAuth::attempt($credentials)) {
-            return response()->json(['error' => 'Email or password doesn\'t exist'], 401);
+            return response()->json([
+                'ResponseCode' => 1,
+                'Error' => 'invalid access',
+                "Message" => "The user name or password is incorrect",
+            ]);
+        } else {
+            return $this->respondWithToken($token);
         }
-
-        return $this->respondWithToken($token);
     }
 
     /**
@@ -119,10 +123,9 @@ class AuthController extends Controller
 
     public function getPermission()
     {
-        $profile = DB::table('users')->join('roles','users.role_id','=','roles.id')->join('positions','users.position_id','=','positions.id')->where('users.id', auth()->user()->id)->select('users.permission','users.role_id', 'users.position_id', 'roles.slug', 'positions.position_name')->get();
+        $profile = DB::table('users')->join('roles','users.role_id','=','roles.id')->join('positions','users.position_id','=','positions.id')->where('users.id', auth()->user()->id)->select('users.permission','users.role_id', 'users.position_id', 'roles.slug', 'positions.position_name')->first();
         return response()->json([
             'data' => $profile,
-            'role_id' => auth()->user()->role_id,
             'ResponseCode' => 0,
             'Message' => "Processing Completed"
 
@@ -175,7 +178,7 @@ class AuthController extends Controller
             'role_name' => $profile->slug,
             'pos_name' => $profile->position_name,
             'expires_in' => auth('api')->factory()->getTTL() * 60,
-            'user' => auth()->user()->name
+            'user' => auth()->user()->firstname .' '. auth()->user()->firstname
         ]);
     }
 }

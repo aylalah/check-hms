@@ -78,6 +78,17 @@ export class CentersComponent implements OnInit {
   admin: any;
   center_type: any;
   responseMsg:any;
+  permissionResponse: any
+  userPermission: any
+  public permission = {
+    actions: null,
+    approve: null,
+    delete: null,
+    edit: null,
+    read: null,
+    write: null,
+  };
+  position: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -109,13 +120,23 @@ export class CentersComponent implements OnInit {
         depart : [''],
         staffs: [''],
           })
-    this.Jarwis.profile().subscribe(
-      data=>{
-        // console.log(data)    
-      this.res = data;  
-      this.role= this.res.det[0].role_id;
-      this.department=this.res.det[0].nameD;
-    });
+
+    this.Jarwis.getPermission().subscribe(
+      datas =>{
+          this.permissionResponse = datas;
+          this.userPermission = JSON.parse(this.permissionResponse.data.permission);
+          this.permission.read = this.userPermission[0].read;
+          this.permission.actions = this.userPermission[0].actions;
+          this.permission.delete = this.userPermission[0].delete;
+          this.permission.approve = this.userPermission[0].approve;
+          this.permission.write = this.userPermission[0].write;
+          this.position = this.permissionResponse.data.position_name;
+
+          alert(this.permission.read);
+   
+      });
+
+
 
     this.Jarwis.getDepertment().subscribe(
       data=>{ 

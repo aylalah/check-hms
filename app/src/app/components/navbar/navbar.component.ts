@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { JarwisService } from 'src/app/Services/jarwis.service';
 import { GetFunctionsService } from 'src/app/Services/get-functions.service';
+import { NotificationsService } from 'src/app/Services/notifications.service';
 
 @Component({
   selector: 'app-navbar',
@@ -28,6 +29,8 @@ export class NavbarComponent implements OnInit {
   app_url: any;
   pos: any;
 
+  loggedinUsers: any;
+
 
   private tokenExpired(token: string) {
     const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
@@ -39,12 +42,21 @@ export class NavbarComponent implements OnInit {
     private router  : Router,
     private Token : TokenService,
     private Jarwis: JarwisService,
-    private getFunction: GetFunctionsService 
+    private Notificate: NotificationsService,
+
   ) {
 
   }
 
   ngOnInit(): void {
+
+    this.Notificate.receiveloginnotification().subscribe(
+      data=>{
+       this.loggedinUsers = data.identity
+      }
+    )
+
+
     this.Auth.authStatus.subscribe(Value => this.loggedIn = Value);
 
     let token= localStorage.getItem("token");
@@ -78,7 +90,7 @@ export class NavbarComponent implements OnInit {
       datas =>{
           this.permissionResponse = datas;
           // this.menus = JSON.parse(this.permissionResponse.data[0].permission);
-          this.position = this.permissionResponse.data[0].position_name;
+          this.position = this.permissionResponse.data.position_name;
       });
   }
 

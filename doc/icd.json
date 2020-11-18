@@ -1,0 +1,2596 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ICD-API",
+    "description": "ICD-API is a REST API that allows programmatic access to the International Classification of Diseases (ICD)",
+    "license": {
+      "name": "Non-commercial research license",
+      "url": "https://icd.who.int/icdapi/docs/license.html"
+    },
+    "version": "2.0.1"
+  },
+  "paths": {
+    "/icd/entity": {
+      "get": {
+        "tags": [
+          "Foundation"
+        ],
+        "summary": "This endpoint returns basic information on the latest release of the ICD-11 Foundation together with the top level Foundation entities.",
+        "operationId": "GetFoundation",
+        "parameters": [
+          {
+            "name": "releaseId",
+            "in": "query",
+            "description": "This is an optional parameter and if ignored, the API will return values from the latest released version of the Foundation.\r\n            If provided, the API will respond using that particular release. The values are like 2019-04",
+            "schema": {
+              "type": "string",
+              "description": "This is an optional parameter and if ignored, the API will return values from the latest released version of the Foundation.\r\n            If provided, the API will respond using that particular release. The values are like 2019-04",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopLevel"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForTopLevel.json\",\n  \"@id\": \"http://id.who.int/icd/entity\",\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"International Classification of Diseases 11th Revision\"\n  },\n  \"releaseId\": \"2019-04\",\n  \"releaseDate\": \"2019-04-06\",\n  \"child\": [\n    \"http://id.who.int/icd/entity/1435254666\",\n    \"http://id.who.int/icd/entity/1630407678\",\n    \"http://id.who.int/icd/entity/1766440644\",\n    \"http://id.who.int/icd/entity/1954798891\",\n    \"http://id.who.int/icd/entity/21500692\",\n    \"http://id.who.int/icd/entity/334423054\",\n    \"http://id.who.int/icd/entity/274880002\",\n    \"http://id.who.int/icd/entity/1296093776\",\n    \"http://id.who.int/icd/entity/868865918\",\n    \"http://id.who.int/icd/entity/1218729044\",\n    \"http://id.who.int/icd/entity/426429380\",\n    \"http://id.who.int/icd/entity/197934298\",\n    \"http://id.who.int/icd/entity/1256772020\",\n    \"http://id.who.int/icd/entity/1639304259\",\n    \"http://id.who.int/icd/entity/1473673350\",\n    \"http://id.who.int/icd/entity/30659757\",\n    \"http://id.who.int/icd/entity/577470983\",\n    \"http://id.who.int/icd/entity/714000734\",\n    \"http://id.who.int/icd/entity/1306203631\",\n    \"http://id.who.int/icd/entity/223744320\",\n    \"http://id.who.int/icd/entity/1843895818\",\n    \"http://id.who.int/icd/entity/435227771\",\n    \"http://id.who.int/icd/entity/850137482\",\n    \"http://id.who.int/icd/entity/1249056269\",\n    \"http://id.who.int/icd/entity/1596590595\",\n    \"http://id.who.int/icd/entity/718687701\",\n    \"http://id.who.int/icd/entity/231358748\",\n    \"http://id.who.int/icd/entity/979408586\",\n    \"http://id.who.int/icd/entity/1801349023\"\n  ],\n  \"browserUrl\": \"NA\"\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopLevel"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForTopLevel.json\",\r\n  \"@id\": \"http://id.who.int/icd/entity\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"International Classification of Diseases 11th Revision\"\r\n  },\r\n  \"releaseId\": \"2019-04\",\r\n  \"releaseDate\": \"2019-04-06\",\r\n  \"child\": [\r\n    \"http://id.who.int/icd/entity/1435254666\",\r\n    \"http://id.who.int/icd/entity/1630407678\",\r\n    \"http://id.who.int/icd/entity/1766440644\",\r\n    \"http://id.who.int/icd/entity/1954798891\",\r\n    \"http://id.who.int/icd/entity/21500692\",\r\n    \"http://id.who.int/icd/entity/334423054\",\r\n    \"http://id.who.int/icd/entity/274880002\",\r\n    \"http://id.who.int/icd/entity/1296093776\",\r\n    \"http://id.who.int/icd/entity/868865918\",\r\n    \"http://id.who.int/icd/entity/1218729044\",\r\n    \"http://id.who.int/icd/entity/426429380\",\r\n    \"http://id.who.int/icd/entity/197934298\",\r\n    \"http://id.who.int/icd/entity/1256772020\",\r\n    \"http://id.who.int/icd/entity/1639304259\",\r\n    \"http://id.who.int/icd/entity/1473673350\",\r\n    \"http://id.who.int/icd/entity/30659757\",\r\n    \"http://id.who.int/icd/entity/577470983\",\r\n    \"http://id.who.int/icd/entity/714000734\",\r\n    \"http://id.who.int/icd/entity/1306203631\",\r\n    \"http://id.who.int/icd/entity/223744320\",\r\n    \"http://id.who.int/icd/entity/1843895818\",\r\n    \"http://id.who.int/icd/entity/435227771\",\r\n    \"http://id.who.int/icd/entity/850137482\",\r\n    \"http://id.who.int/icd/entity/1249056269\",\r\n    \"http://id.who.int/icd/entity/1596590595\",\r\n    \"http://id.who.int/icd/entity/718687701\",\r\n    \"http://id.who.int/icd/entity/231358748\",\r\n    \"http://id.who.int/icd/entity/979408586\",\r\n    \"http://id.who.int/icd/entity/1801349023\"\r\n  ],\r\n  \"browserUrl\": \"NA\"\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopLevel"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForTopLevel.json\",\r\n  \"@id\": \"http://id.who.int/icd/entity\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"International Classification of Diseases 11th Revision\"\r\n  },\r\n  \"releaseId\": \"2019-04\",\r\n  \"releaseDate\": \"2019-04-06\",\r\n  \"child\": [\r\n    \"http://id.who.int/icd/entity/1435254666\",\r\n    \"http://id.who.int/icd/entity/1630407678\",\r\n    \"http://id.who.int/icd/entity/1766440644\",\r\n    \"http://id.who.int/icd/entity/1954798891\",\r\n    \"http://id.who.int/icd/entity/21500692\",\r\n    \"http://id.who.int/icd/entity/334423054\",\r\n    \"http://id.who.int/icd/entity/274880002\",\r\n    \"http://id.who.int/icd/entity/1296093776\",\r\n    \"http://id.who.int/icd/entity/868865918\",\r\n    \"http://id.who.int/icd/entity/1218729044\",\r\n    \"http://id.who.int/icd/entity/426429380\",\r\n    \"http://id.who.int/icd/entity/197934298\",\r\n    \"http://id.who.int/icd/entity/1256772020\",\r\n    \"http://id.who.int/icd/entity/1639304259\",\r\n    \"http://id.who.int/icd/entity/1473673350\",\r\n    \"http://id.who.int/icd/entity/30659757\",\r\n    \"http://id.who.int/icd/entity/577470983\",\r\n    \"http://id.who.int/icd/entity/714000734\",\r\n    \"http://id.who.int/icd/entity/1306203631\",\r\n    \"http://id.who.int/icd/entity/223744320\",\r\n    \"http://id.who.int/icd/entity/1843895818\",\r\n    \"http://id.who.int/icd/entity/435227771\",\r\n    \"http://id.who.int/icd/entity/850137482\",\r\n    \"http://id.who.int/icd/entity/1249056269\",\r\n    \"http://id.who.int/icd/entity/1596590595\",\r\n    \"http://id.who.int/icd/entity/718687701\",\r\n    \"http://id.who.int/icd/entity/231358748\",\r\n    \"http://id.who.int/icd/entity/979408586\",\r\n    \"http://id.who.int/icd/entity/1801349023\"\r\n  ],\r\n  \"browserUrl\": \"NA\"\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/icd/entity/{id}": {
+      "get": {
+        "tags": [
+          "Foundation"
+        ],
+        "summary": "This endpoint provides you information on a specific ICD-11 foundation entity",
+        "operationId": "GetFoundationEntity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric part at the end of the URI for an entity",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Numeric part at the end of the URI for an entity",
+              "nullable": true
+            }
+          },
+          {
+            "name": "releaseId",
+            "in": "query",
+            "description": "This is an optional parameter and if ignored, the API will return values from the latest released version of the Foundation.\r\n            If provided, the API will respond using that particular release. The values are like 2019-04",
+            "schema": {
+              "type": "string",
+              "description": "This is an optional parameter and if ignored, the API will return values from the latest released version of the Foundation.\r\n            If provided, the API will respond using that particular release. The values are like 2019-04",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationEntity"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForFoundationEntity.json\",\n  \"@id\": \"http://id.who.int/icd/entity/250688797\",\n  \"parent\": [\n    \"http://id.who.int/icd/entity/941543084\",\n    \"http://id.who.int/icd/entity/135352227\",\n    \"http://id.who.int/icd/entity/734592989\"\n  ],\n  \"child\": [\n    \"http://id.who.int/icd/entity/2114593305\"\n  ],\n  \"browserUrl\": \"NA\",\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"Enterocolitis due to Clostridium difficile\"\n  },\n  \"synonym\": [\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Clostridium difficile diarrhoea\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"colitis due to Clostridium difficile\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Clostridium difficile gastroenteritis\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Clostridial difficile colitis\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"C diff colitis\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"necrotizing enterocolitis due to clostricium difficile infection\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"foodborne clostridium difficile infection\"\n      }\n    }\n  ],\n  \"definition\": {\n    \"@language\": \"en\",\n    \"@value\": \"A disease of the colon, caused by an infection with the gram-positive bacteria Clostridium difficile. This disease is characterized by colitis, diarrhoea, abdominal pain, and fever. Transmission is commonly by direct or indirect contact, or from a disturbance of the normal bacterial flora of the colon. Confirmation is by identification of Clostridium difficile in a faecal sample.\"\n  }\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationEntity"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForFoundationEntity.json\",\r\n  \"@id\": \"http://id.who.int/icd/entity/250688797\",\r\n  \"parent\": [\r\n    \"http://id.who.int/icd/entity/941543084\",\r\n    \"http://id.who.int/icd/entity/135352227\",\r\n    \"http://id.who.int/icd/entity/734592989\"\r\n  ],\r\n  \"child\": [\r\n    \"http://id.who.int/icd/entity/2114593305\"\r\n  ],\r\n  \"browserUrl\": \"NA\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Enterocolitis due to Clostridium difficile\"\r\n  },\r\n  \"synonym\": [\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Clostridium difficile diarrhoea\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"colitis due to Clostridium difficile\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Clostridium difficile gastroenteritis\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Clostridial difficile colitis\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"C diff colitis\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"necrotizing enterocolitis due to clostricium difficile infection\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"foodborne clostridium difficile infection\"\r\n      }\r\n    }\r\n  ],\r\n  \"definition\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"A disease of the colon, caused by an infection with the gram-positive bacteria Clostridium difficile. This disease is characterized by colitis, diarrhoea, abdominal pain, and fever. Transmission is commonly by direct or indirect contact, or from a disturbance of the normal bacterial flora of the colon. Confirmation is by identification of Clostridium difficile in a faecal sample.\"\r\n  }\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationEntity"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForFoundationEntity.json\",\r\n  \"@id\": \"http://id.who.int/icd/entity/250688797\",\r\n  \"parent\": [\r\n    \"http://id.who.int/icd/entity/941543084\",\r\n    \"http://id.who.int/icd/entity/135352227\",\r\n    \"http://id.who.int/icd/entity/734592989\"\r\n  ],\r\n  \"child\": [\r\n    \"http://id.who.int/icd/entity/2114593305\"\r\n  ],\r\n  \"browserUrl\": \"NA\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Enterocolitis due to Clostridium difficile\"\r\n  },\r\n  \"synonym\": [\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Clostridium difficile diarrhoea\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"colitis due to Clostridium difficile\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Clostridium difficile gastroenteritis\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Clostridial difficile colitis\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"C diff colitis\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"necrotizing enterocolitis due to clostricium difficile infection\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"foodborne clostridium difficile infection\"\r\n      }\r\n    }\r\n  ],\r\n  \"definition\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"A disease of the colon, caused by an infection with the gram-positive bacteria Clostridium difficile. This disease is characterized by colitis, diarrhoea, abdominal pain, and fever. Transmission is commonly by direct or indirect contact, or from a disturbance of the normal bacterial flora of the colon. Confirmation is by identification of Clostridium difficile in a faecal sample.\"\r\n  }\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/entity/search": {
+      "get": {
+        "tags": [
+          "Foundation"
+        ],
+        "summary": "This endpoint is for searching the foundation component of the ICD-11. The search can be customized using the parameters as described. Search endpoint accepts both GET and POST requests. If the size of the request is too large, you may need to use POST\r\nas HTTP GET has a size limit of 2K",
+        "operationId": "SearchFoundation",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Text to be searched. Having the character % at the end will be regarded as a wild card for that word",
+            "schema": {
+              "type": "string",
+              "description": "Text to be searched. Having the character % at the end will be regarded as a wild card for that word",
+              "nullable": true
+            }
+          },
+          {
+            "name": "subtreesFilter",
+            "in": "query",
+            "description": "Optional parameter. Comma separated list of URIs. If provided, the search will be performed on the entities provided and their descendants",
+            "schema": {
+              "type": "string",
+              "description": "Optional parameter. Comma separated list of URIs. If provided, the search will be performed on the entities provided and their descendants",
+              "nullable": true
+            }
+          },
+          {
+            "name": "chapterFilter",
+            "in": "query",
+            "description": "Optional, comma or semicolon separated list of chapter codes eg:01;02;21 When provided, the search will be performed only on these chapters",
+            "schema": {
+              "type": "string",
+              "description": "Optional, comma or semicolon separated list of chapter codes eg:01;02;21 When provided, the search will be performed only on these chapters",
+              "nullable": true
+            }
+          },
+          {
+            "name": "useFlexisearch",
+            "in": "query",
+            "description": "Changes the search mode to flexible search.\r\n            - In the regular search mode, the Coding Tool will only give you results that contain all of the words that you've used in your search. It accepts different variants or \r\n            synonyms of the words but essentially it searches for a result that contains all components of your search. Whereas in flexible search mode, the results do not have to \r\n            contain all of the words that are typed. It would still try to find the best matching phrase but there may be words in your search that are not matched at all\r\n            - It is recommended to use flexible search only when regular search does not provide a result",
+            "schema": {
+              "type": "boolean",
+              "description": "Changes the search mode to flexible search.\r\n            - In the regular search mode, the Coding Tool will only give you results that contain all of the words that you've used in your search. It accepts different variants or \r\n            synonyms of the words but essentially it searches for a result that contains all components of your search. Whereas in flexible search mode, the results do not have to \r\n            contain all of the words that are typed. It would still try to find the best matching phrase but there may be words in your search that are not matched at all\r\n            - It is recommended to use flexible search only when regular search does not provide a result",
+              "default": false
+            }
+          },
+          {
+            "name": "flatResults",
+            "in": "query",
+            "description": "Optional parameter. Default value false. If set to true the search result entities are provided in a nested data structure\r\n            representing the ICD-11 hierarchy. Otherwise they are listed as flat list of matches",
+            "schema": {
+              "type": "boolean",
+              "description": "Optional parameter. Default value false. If set to true the search result entities are provided in a nested data structure\r\n            representing the ICD-11 hierarchy. Otherwise they are listed as flat list of matches",
+              "default": true
+            }
+          },
+          {
+            "name": "propertiesToBeSearched",
+            "in": "query",
+            "description": "Optional. When not provided, the search is performed on the title, synonym and narrowerTerm properties of the entity.",
+            "schema": {
+              "type": "string",
+              "description": "Optional. When not provided, the search is performed on the title, synonym and narrowerTerm properties of the entity.",
+              "nullable": true
+            }
+          },
+          {
+            "name": "releaseId",
+            "in": "query",
+            "description": "This is an optional parameter and if ignored, the API will return values from the latest released version of the Foundation.\r\n            If provided, the API will respond using that particular release. The values are like 2019-04",
+            "schema": {
+              "type": "string",
+              "description": "This is an optional parameter and if ignored, the API will return values from the latest released version of the Foundation.\r\n            If provided, the API will respond using that particular release. The values are like 2019-04",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISearchResult"
+                },
+                "example": "{\n  \"destinationEntities\": [\n    {\n      \"id\": \"http://id.who.int/icd/entity/279489890\",\n      \"title\": \"Sequelae of <em class='found'>respiratory</em> or unspecified <em class='found'>tuberculosis</em>\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 0.011675735,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/279489890\",\n      \"isLeaf\": true,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"Late effect of <em class='found'>respiratory</em> or unspecified <em class='found'>tuberculosis</em>\",\n          \"score\": 0.00009121668,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/entity/882244568\",\n      \"title\": \"<em class='found'>Tuberculosis</em> of the <em class='found'>respiratory</em> system\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 0.46675602,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": false,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/882244568\",\n      \"isLeaf\": false,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em>\",\n          \"score\": 0.46675602,\n          \"important\": true\n        },\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em> NOS\",\n          \"score\": 0.46675602,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"<em class='found'>tuberculosis</em> of <em class='found'>respiratory</em> tract\",\n          \"score\": 0.011675735,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/entity/1311939281\",\n      \"title\": \"<em class='found'>Respiratory</em> <em class='found'>tuberculosis</em>, not confirmed\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 0.00009121668,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/1311939281\",\n      \"isLeaf\": false,\n      \"matchingPVs\": []\n    },\n    {\n      \"id\": \"http://id.who.int/icd/entity/60063379\",\n      \"title\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em> without mention of bacteriological or histological confirmation\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 0.011675735,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": false,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/60063379\",\n      \"isLeaf\": false,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em>\",\n          \"score\": 0.011675735,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em> NOS\",\n          \"score\": 0.011675735,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/entity/983550510\",\n      \"title\": \"<em class='found'>Respiratory</em> <em class='found'>tuberculosis</em>, confirmed\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 0.011675735,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/983550510\",\n      \"isLeaf\": false,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"<em class='found'>Respiratory</em> TB - [<em class='found'>tuberculosis</em>]\",\n          \"score\": 0.00009121668,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em>, with bacteriological and histological confirmation\",\n          \"score\": 1.5595305e-7,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/entity/34856621\",\n      \"title\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em>, confirmed bacteriologically or histologically\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 6.53069e-11,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/34856621\",\n      \"isLeaf\": false,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"primary <em class='found'>respiratory</em> <em class='found'>tuberculous</em> with bacteriological and histological confirmation\",\n          \"score\": 6.53069e-11,\n          \"important\": false\n        }\n      ]\n    }\n  ],\n  \"error\": false,\n  \"errorMessage\": null,\n  \"resultChopped\": false,\n  \"wordSuggestionsChopped\": false,\n  \"guessType\": 1,\n  \"uniqueSearchId\": \"fed465f5-6df2-4723-be8a-9a54b5b08e17\",\n  \"words\": null\n}"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Foundation"
+        ],
+        "summary": "This endpoint is for searching the foundation component of the ICD-11. The search can be customized using the parameters as described. Search endpoint accepts both GET and POST requests. If the size of the request is too large, you may need to use POST\r\nas HTTP GET has a size limit of 2K",
+        "operationId": "SearchFoundation",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Text to be searched. Having the character % at the end will be regarded as a wild card for that word",
+            "schema": {
+              "type": "string",
+              "description": "Text to be searched. Having the character % at the end will be regarded as a wild card for that word",
+              "nullable": true
+            }
+          },
+          {
+            "name": "subtreesFilter",
+            "in": "query",
+            "description": "Optional parameter. Comma separated list of URIs. If provided, the search will be performed on the entities provided and their descendants",
+            "schema": {
+              "type": "string",
+              "description": "Optional parameter. Comma separated list of URIs. If provided, the search will be performed on the entities provided and their descendants",
+              "nullable": true
+            }
+          },
+          {
+            "name": "chapterFilter",
+            "in": "query",
+            "description": "Optional, comma or semicolon separated list of chapter codes eg:01;02;21 When provided, the search will be performed only on these chapters",
+            "schema": {
+              "type": "string",
+              "description": "Optional, comma or semicolon separated list of chapter codes eg:01;02;21 When provided, the search will be performed only on these chapters",
+              "nullable": true
+            }
+          },
+          {
+            "name": "useFlexisearch",
+            "in": "query",
+            "description": "Changes the search mode to flexible search.\r\n            - In the regular search mode, the Coding Tool will only give you results that contain all of the words that you've used in your search. It accepts different variants or \r\n            synonyms of the words but essentially it searches for a result that contains all components of your search. Whereas in flexible search mode, the results do not have to \r\n            contain all of the words that are typed. It would still try to find the best matching phrase but there may be words in your search that are not matched at all\r\n            - It is recommended to use flexible search only when regular search does not provide a result",
+            "schema": {
+              "type": "boolean",
+              "description": "Changes the search mode to flexible search.\r\n            - In the regular search mode, the Coding Tool will only give you results that contain all of the words that you've used in your search. It accepts different variants or \r\n            synonyms of the words but essentially it searches for a result that contains all components of your search. Whereas in flexible search mode, the results do not have to \r\n            contain all of the words that are typed. It would still try to find the best matching phrase but there may be words in your search that are not matched at all\r\n            - It is recommended to use flexible search only when regular search does not provide a result",
+              "default": false
+            }
+          },
+          {
+            "name": "flatResults",
+            "in": "query",
+            "description": "Optional parameter. Default value false. If set to true the search result entities are provided in a nested data structure\r\n            representing the ICD-11 hierarchy. Otherwise they are listed as flat list of matches",
+            "schema": {
+              "type": "boolean",
+              "description": "Optional parameter. Default value false. If set to true the search result entities are provided in a nested data structure\r\n            representing the ICD-11 hierarchy. Otherwise they are listed as flat list of matches",
+              "default": true
+            }
+          },
+          {
+            "name": "propertiesToBeSearched",
+            "in": "query",
+            "description": "Optional. When not provided, the search is performed on the title, synonym and narrowerTerm properties of the entity.",
+            "schema": {
+              "type": "string",
+              "description": "Optional. When not provided, the search is performed on the title, synonym and narrowerTerm properties of the entity.",
+              "nullable": true
+            }
+          },
+          {
+            "name": "releaseId",
+            "in": "query",
+            "description": "This is an optional parameter and if ignored, the API will return values from the latest released version of the Foundation.\r\n            If provided, the API will respond using that particular release. The values are like 2019-04",
+            "schema": {
+              "type": "string",
+              "description": "This is an optional parameter and if ignored, the API will return values from the latest released version of the Foundation.\r\n            If provided, the API will respond using that particular release. The values are like 2019-04",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISearchResult"
+                },
+                "example": "{\n  \"destinationEntities\": [\n    {\n      \"id\": \"http://id.who.int/icd/entity/279489890\",\n      \"title\": \"Sequelae of <em class='found'>respiratory</em> or unspecified <em class='found'>tuberculosis</em>\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 0.011675735,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/279489890\",\n      \"isLeaf\": true,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"Late effect of <em class='found'>respiratory</em> or unspecified <em class='found'>tuberculosis</em>\",\n          \"score\": 0.00009121668,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/entity/882244568\",\n      \"title\": \"<em class='found'>Tuberculosis</em> of the <em class='found'>respiratory</em> system\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 0.46675602,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": false,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/882244568\",\n      \"isLeaf\": false,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em>\",\n          \"score\": 0.46675602,\n          \"important\": true\n        },\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em> NOS\",\n          \"score\": 0.46675602,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"<em class='found'>tuberculosis</em> of <em class='found'>respiratory</em> tract\",\n          \"score\": 0.011675735,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/entity/1311939281\",\n      \"title\": \"<em class='found'>Respiratory</em> <em class='found'>tuberculosis</em>, not confirmed\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 0.00009121668,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/1311939281\",\n      \"isLeaf\": false,\n      \"matchingPVs\": []\n    },\n    {\n      \"id\": \"http://id.who.int/icd/entity/60063379\",\n      \"title\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em> without mention of bacteriological or histological confirmation\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 0.011675735,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": false,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/60063379\",\n      \"isLeaf\": false,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em>\",\n          \"score\": 0.011675735,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em> NOS\",\n          \"score\": 0.011675735,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/entity/983550510\",\n      \"title\": \"<em class='found'>Respiratory</em> <em class='found'>tuberculosis</em>, confirmed\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 0.011675735,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/983550510\",\n      \"isLeaf\": false,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"<em class='found'>Respiratory</em> TB - [<em class='found'>tuberculosis</em>]\",\n          \"score\": 0.00009121668,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em>, with bacteriological and histological confirmation\",\n          \"score\": 1.5595305e-7,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/entity/34856621\",\n      \"title\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em>, confirmed bacteriologically or histologically\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": null,\n      \"score\": 6.53069e-11,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/entity/34856621\",\n      \"isLeaf\": false,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"Synonym\",\n          \"label\": \"primary <em class='found'>respiratory</em> <em class='found'>tuberculous</em> with bacteriological and histological confirmation\",\n          \"score\": 6.53069e-11,\n          \"important\": false\n        }\n      ]\n    }\n  ],\n  \"error\": false,\n  \"errorMessage\": null,\n  \"resultChopped\": false,\n  \"wordSuggestionsChopped\": false,\n  \"guessType\": 1,\n  \"uniqueSearchId\": \"fed465f5-6df2-4723-be8a-9a54b5b08e17\",\n  \"words\": null\n}"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/icd/release/10": {
+      "get": {
+        "tags": [
+          "ICD10"
+        ],
+        "summary": "Lists the available ICD-10 releases",
+        "operationId": "GetICD10Releases",
+        "parameters": [
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\n  \"@id\": \"http://id.who.int/icd/release/10\",\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"International Statistical Classification of Diseases and Related Health Problems 10th Revision (ICD-10)\"\n  },\n  \"latestRelease\": \"http://id.who.int/icd/release/10/2016\",\n  \"release\": [\n    \"http://id.who.int/icd/release/10/2016\",\n    \"http://id.who.int/icd/release/10/2010\",\n    \"http://id.who.int/icd/release/10/2008\"\n  ]\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/10\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"International Statistical Classification of Diseases and Related Health Problems 10th Revision (ICD-10)\"\r\n  },\r\n  \"latestRelease\": \"http://id.who.int/icd/release/10/2016\",\r\n  \"release\": [\r\n    \"http://id.who.int/icd/release/10/2016\",\r\n    \"http://id.who.int/icd/release/10/2010\",\r\n    \"http://id.who.int/icd/release/10/2008\"\r\n  ]\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/10\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"International Statistical Classification of Diseases and Related Health Problems 10th Revision (ICD-10)\"\r\n  },\r\n  \"latestRelease\": \"http://id.who.int/icd/release/10/2016\",\r\n  \"release\": [\r\n    \"http://id.who.int/icd/release/10/2016\",\r\n    \"http://id.who.int/icd/release/10/2010\",\r\n    \"http://id.who.int/icd/release/10/2008\"\r\n  ]\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/icd/release/10/{releaseId}": {
+      "get": {
+        "tags": [
+          "ICD10"
+        ],
+        "summary": "This endpoint returns basic information on the released version of ICD-10 together with the chapters in it",
+        "operationId": "GetICD10Release",
+        "parameters": [
+          {
+            "name": "releaseId",
+            "in": "path",
+            "description": "The id for the release. For ICD-10, this is generally the year e.g. 2016",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id for the release. For ICD-10, this is generally the year e.g. 2016",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopLevel"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForTopLevel.json\",\n  \"@id\": \"http://id.who.int/icd/release/10/2016\",\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"International Statistical Classification of Diseases and Related Health Problems 10th Revision (ICD-10) Version for 2016\"\n  },\n  \"releaseDate\": \"2016-11-01\",\n  \"child\": [\n    \"http://id.who.int/icd/release/10/2016/I\",\n    \"http://id.who.int/icd/release/10/2016/II\",\n    \"http://id.who.int/icd/release/10/2016/III\",\n    \"http://id.who.int/icd/release/10/2016/IV\",\n    \"http://id.who.int/icd/release/10/2016/V\",\n    \"http://id.who.int/icd/release/10/2016/VI\",\n    \"http://id.who.int/icd/release/10/2016/VII\",\n    \"http://id.who.int/icd/release/10/2016/VIII\",\n    \"http://id.who.int/icd/release/10/2016/IX\",\n    \"http://id.who.int/icd/release/10/2016/X\",\n    \"http://id.who.int/icd/release/10/2016/XI\",\n    \"http://id.who.int/icd/release/10/2016/XII\",\n    \"http://id.who.int/icd/release/10/2016/XIII\",\n    \"http://id.who.int/icd/release/10/2016/XIV\",\n    \"http://id.who.int/icd/release/10/2016/XV\",\n    \"http://id.who.int/icd/release/10/2016/XVI\",\n    \"http://id.who.int/icd/release/10/2016/XVII\",\n    \"http://id.who.int/icd/release/10/2016/XVIII\",\n    \"http://id.who.int/icd/release/10/2016/XIX\",\n    \"http://id.who.int/icd/release/10/2016/XX\",\n    \"http://id.who.int/icd/release/10/2016/XXI\",\n    \"http://id.who.int/icd/release/10/2016/XXII\"\n  ],\n  \"browserUrl\": \"http://apps.who.int/classifications/icd10/browse/2016/en\"\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopLevel"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForTopLevel.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/10/2016\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"International Statistical Classification of Diseases and Related Health Problems 10th Revision (ICD-10) Version for 2016\"\r\n  },\r\n  \"releaseDate\": \"2016-11-01\",\r\n  \"child\": [\r\n    \"http://id.who.int/icd/release/10/2016/I\",\r\n    \"http://id.who.int/icd/release/10/2016/II\",\r\n    \"http://id.who.int/icd/release/10/2016/III\",\r\n    \"http://id.who.int/icd/release/10/2016/IV\",\r\n    \"http://id.who.int/icd/release/10/2016/V\",\r\n    \"http://id.who.int/icd/release/10/2016/VI\",\r\n    \"http://id.who.int/icd/release/10/2016/VII\",\r\n    \"http://id.who.int/icd/release/10/2016/VIII\",\r\n    \"http://id.who.int/icd/release/10/2016/IX\",\r\n    \"http://id.who.int/icd/release/10/2016/X\",\r\n    \"http://id.who.int/icd/release/10/2016/XI\",\r\n    \"http://id.who.int/icd/release/10/2016/XII\",\r\n    \"http://id.who.int/icd/release/10/2016/XIII\",\r\n    \"http://id.who.int/icd/release/10/2016/XIV\",\r\n    \"http://id.who.int/icd/release/10/2016/XV\",\r\n    \"http://id.who.int/icd/release/10/2016/XVI\",\r\n    \"http://id.who.int/icd/release/10/2016/XVII\",\r\n    \"http://id.who.int/icd/release/10/2016/XVIII\",\r\n    \"http://id.who.int/icd/release/10/2016/XIX\",\r\n    \"http://id.who.int/icd/release/10/2016/XX\",\r\n    \"http://id.who.int/icd/release/10/2016/XXI\",\r\n    \"http://id.who.int/icd/release/10/2016/XXII\"\r\n  ],\r\n  \"browserUrl\": \"http://apps.who.int/classifications/icd10/browse/2016/en\"\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopLevel"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForTopLevel.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/10/2016\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"International Statistical Classification of Diseases and Related Health Problems 10th Revision (ICD-10) Version for 2016\"\r\n  },\r\n  \"releaseDate\": \"2016-11-01\",\r\n  \"child\": [\r\n    \"http://id.who.int/icd/release/10/2016/I\",\r\n    \"http://id.who.int/icd/release/10/2016/II\",\r\n    \"http://id.who.int/icd/release/10/2016/III\",\r\n    \"http://id.who.int/icd/release/10/2016/IV\",\r\n    \"http://id.who.int/icd/release/10/2016/V\",\r\n    \"http://id.who.int/icd/release/10/2016/VI\",\r\n    \"http://id.who.int/icd/release/10/2016/VII\",\r\n    \"http://id.who.int/icd/release/10/2016/VIII\",\r\n    \"http://id.who.int/icd/release/10/2016/IX\",\r\n    \"http://id.who.int/icd/release/10/2016/X\",\r\n    \"http://id.who.int/icd/release/10/2016/XI\",\r\n    \"http://id.who.int/icd/release/10/2016/XII\",\r\n    \"http://id.who.int/icd/release/10/2016/XIII\",\r\n    \"http://id.who.int/icd/release/10/2016/XIV\",\r\n    \"http://id.who.int/icd/release/10/2016/XV\",\r\n    \"http://id.who.int/icd/release/10/2016/XVI\",\r\n    \"http://id.who.int/icd/release/10/2016/XVII\",\r\n    \"http://id.who.int/icd/release/10/2016/XVIII\",\r\n    \"http://id.who.int/icd/release/10/2016/XIX\",\r\n    \"http://id.who.int/icd/release/10/2016/XX\",\r\n    \"http://id.who.int/icd/release/10/2016/XXI\",\r\n    \"http://id.who.int/icd/release/10/2016/XXII\"\r\n  ],\r\n  \"browserUrl\": \"http://apps.who.int/classifications/icd10/browse/2016/en\"\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/release/10/{code}": {
+      "get": {
+        "tags": [
+          "ICD10"
+        ],
+        "summary": "Lists the available ICD-10 releases for the requested category",
+        "operationId": "GetAvailableReleasesForICD10Entity",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "ICD-10 category code. For blocks the code range",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "ICD-10 category code. For blocks the code range",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\n  \"@id\": \"http://id.who.int/icd/release/10/A00.0\",\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n  },\n  \"latestRelease\": \"http://id.who.int/icd/release/10/2016/A00.0\",\n  \"release\": [\n    \"http://id.who.int/icd/release/10/2016/A00.0\",\n    \"http://id.who.int/icd/release/10/2010/A00.0\",\n    \"http://id.who.int/icd/release/10/2008/A00.0\"\n  ]\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/10/A00.0\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Cholera due to Vibrio cholerae 01, biovar cholerae\"\r\n  },\r\n  \"latestRelease\": \"http://id.who.int/icd/release/10/2016/A00.0\",\r\n  \"release\": [\r\n    \"http://id.who.int/icd/release/10/2016/A00.0\",\r\n    \"http://id.who.int/icd/release/10/2010/A00.0\",\r\n    \"http://id.who.int/icd/release/10/2008/A00.0\"\r\n  ]\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/10/A00.0\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Cholera due to Vibrio cholerae 01, biovar cholerae\"\r\n  },\r\n  \"latestRelease\": \"http://id.who.int/icd/release/10/2016/A00.0\",\r\n  \"release\": [\r\n    \"http://id.who.int/icd/release/10/2016/A00.0\",\r\n    \"http://id.who.int/icd/release/10/2010/A00.0\",\r\n    \"http://id.who.int/icd/release/10/2008/A00.0\"\r\n  ]\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/release/10/{releaseId}/{code}": {
+      "get": {
+        "tags": [
+          "ICD10"
+        ],
+        "summary": "This endpoint returns  information on the category together with its children categories",
+        "operationId": "GetICD10Entity",
+        "parameters": [
+          {
+            "name": "releaseId",
+            "in": "path",
+            "description": "The id for the release. For ICD-10, this is generally the year e.g. 2016",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id for the release. For ICD-10, this is generally the year e.g. 2016",
+              "nullable": true
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "ICD-10 category code. For blocks the code range",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "ICD-10 category code. For blocks the code range",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICD10Entity"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForICD10Entity.json\",\n  \"@id\": \"http://id.who.int/icd/release/10/2016/A00.0\",\n  \"parent\": [\n    \"http://id.who.int/icd/release/10/2016/A00\"\n  ],\n  \"browserUrl\": \"http://apps.who.int/classifications/icd10/browse/2016/en#/A00.0\",\n  \"code\": \"A00.0\",\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n  },\n  \"inclusion\": [\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Classical cholera\"\n      }\n    }\n  ],\n  \"classKind\": \"category\"\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICD10Entity"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForICD10Entity.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/10/2016/A00.0\",\r\n  \"parent\": [\r\n    \"http://id.who.int/icd/release/10/2016/A00\"\r\n  ],\r\n  \"browserUrl\": \"http://apps.who.int/classifications/icd10/browse/2016/en#/A00.0\",\r\n  \"code\": \"A00.0\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Cholera due to Vibrio cholerae 01, biovar cholerae\"\r\n  },\r\n  \"inclusion\": [\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Classical cholera\"\r\n      }\r\n    }\r\n  ],\r\n  \"classKind\": \"category\"\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICD10Entity"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForICD10Entity.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/10/2016/A00.0\",\r\n  \"parent\": [\r\n    \"http://id.who.int/icd/release/10/2016/A00\"\r\n  ],\r\n  \"browserUrl\": \"http://apps.who.int/classifications/icd10/browse/2016/en#/A00.0\",\r\n  \"code\": \"A00.0\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Cholera due to Vibrio cholerae 01, biovar cholerae\"\r\n  },\r\n  \"inclusion\": [\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Classical cholera\"\r\n      }\r\n    }\r\n  ],\r\n  \"classKind\": \"category\"\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/release/11/{linearizationname}": {
+      "get": {
+        "tags": [
+          "Linearization"
+        ],
+        "summary": "This endpoint returns basic information on the linearization such as MMS together with the list of \r\navailable releases",
+        "operationId": "GetReleasesForLinerization",
+        "parameters": [
+          {
+            "name": "linearizationname",
+            "in": "path",
+            "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\n  \"@id\": \"http://id.who.int/icd/release/11/mms\",\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"International Classification of Diseases 11th Revision - Mortality and Morbidity Statistics\"\n  },\n  \"latestRelease\": \"http://id.who.int/icd/release/11/2019-04/mms\",\n  \"release\": [\n    \"http://id.who.int/icd/release/11/2019-04/mms\",\n    \"http://id.who.int/icd/release/11/2018-12/mms\"\n  ]\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/mms\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"International Classification of Diseases 11th Revision - Mortality and Morbidity Statistics\"\r\n  },\r\n  \"latestRelease\": \"http://id.who.int/icd/release/11/2019-04/mms\",\r\n  \"release\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms\",\r\n    \"http://id.who.int/icd/release/11/2018-12/mms\"\r\n  ]\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/mms\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"International Classification of Diseases 11th Revision - Mortality and Morbidity Statistics\"\r\n  },\r\n  \"latestRelease\": \"http://id.who.int/icd/release/11/2019-04/mms\",\r\n  \"release\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms\",\r\n    \"http://id.who.int/icd/release/11/2018-12/mms\"\r\n  ]\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/release/11/{releaseId}/{linearizationname}": {
+      "get": {
+        "tags": [
+          "Linearization"
+        ],
+        "summary": "This endpoint returns basic information on the released linearization (such as MMS) together with the chapters in it",
+        "operationId": "GetLinearization",
+        "parameters": [
+          {
+            "name": "linearizationname",
+            "in": "path",
+            "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+              "nullable": true
+            }
+          },
+          {
+            "name": "releaseId",
+            "in": "path",
+            "description": "The id for the release. This is generally formatted like this: 2019-04",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id for the release. This is generally formatted like this: 2019-04",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopLevel"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForTopLevel.json\",\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms\",\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"International Classification of Diseases 11th Revision - Mortality and Morbidity Statistics\"\n  },\n  \"releaseId\": \"2019-04\",\n  \"releaseDate\": \"2019-04-06\",\n  \"child\": [\n    \"http://id.who.int/icd/release/11/2019-04/mms/1435254666\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1630407678\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1766440644\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1954798891\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/21500692\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/334423054\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/274880002\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1296093776\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/868865918\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1218729044\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/426429380\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/197934298\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1256772020\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1639304259\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1473673350\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/30659757\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/577470983\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/714000734\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1306203631\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/223744320\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1843895818\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/435227771\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/850137482\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1249056269\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/1596590595\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/718687701\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/231358748\",\n    \"http://id.who.int/icd/release/11/2019-04/mms/979408586\"\n  ],\n  \"browserUrl\": \"https://icd.who.int/browse11/l-m/en\"\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopLevel"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForTopLevel.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"International Classification of Diseases 11th Revision - Mortality and Morbidity Statistics\"\r\n  },\r\n  \"releaseId\": \"2019-04\",\r\n  \"releaseDate\": \"2019-04-06\",\r\n  \"child\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1435254666\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1630407678\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1766440644\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1954798891\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/21500692\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/334423054\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/274880002\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1296093776\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/868865918\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1218729044\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/426429380\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/197934298\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1256772020\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1639304259\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1473673350\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/30659757\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/577470983\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/714000734\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1306203631\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/223744320\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1843895818\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/435227771\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/850137482\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1249056269\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1596590595\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/718687701\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/231358748\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/979408586\"\r\n  ],\r\n  \"browserUrl\": \"https://icd.who.int/browse11/l-m/en\"\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopLevel"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForTopLevel.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"International Classification of Diseases 11th Revision - Mortality and Morbidity Statistics\"\r\n  },\r\n  \"releaseId\": \"2019-04\",\r\n  \"releaseDate\": \"2019-04-06\",\r\n  \"child\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1435254666\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1630407678\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1766440644\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1954798891\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/21500692\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/334423054\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/274880002\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1296093776\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/868865918\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1218729044\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/426429380\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/197934298\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1256772020\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1639304259\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1473673350\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/30659757\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/577470983\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/714000734\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1306203631\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/223744320\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1843895818\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/435227771\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/850137482\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1249056269\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/1596590595\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/718687701\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/231358748\",\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/979408586\"\r\n  ],\r\n  \"browserUrl\": \"https://icd.who.int/browse11/l-m/en\"\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/release/11/{linearizationname}/{id}": {
+      "get": {
+        "tags": [
+          "Linearization"
+        ],
+        "summary": "This endpoint returns lists the URIs of the entity in the available releases",
+        "operationId": "GetAvailableReleasesForLinearizationEntity",
+        "parameters": [
+          {
+            "name": "linearizationname",
+            "in": "path",
+            "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+              "nullable": true
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric part at the end of the URI for an entity",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Numeric part at the end of the URI for an entity",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\n  \"@id\": \"http://id.who.int/icd/release/11/mms/257068234\",\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"Cholera\"\n  },\n  \"latestRelease\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234\",\n  \"release\": [\n    \"http://id.who.int/icd/release/11/2019-04/mms/257068234\",\n    \"http://id.who.int/icd/release/11/2018-12/mms/257068234\"\n  ]\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/mms/257068234\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Cholera\"\r\n  },\r\n  \"latestRelease\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234\",\r\n  \"release\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/257068234\",\r\n    \"http://id.who.int/icd/release/11/2018-12/mms/257068234\"\r\n  ]\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/mms/257068234\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Cholera\"\r\n  },\r\n  \"latestRelease\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234\",\r\n  \"release\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/257068234\",\r\n    \"http://id.who.int/icd/release/11/2018-12/mms/257068234\"\r\n  ]\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/release/11/{linearizationname}/{id}/{residual}": {
+      "get": {
+        "tags": [
+          "Linearization"
+        ],
+        "summary": "This endpoint returns lists the URIs of the residual entity in the available releases.",
+        "operationId": "GetAvailableReleasesForLinearizationResidualEntity",
+        "parameters": [
+          {
+            "name": "linearizationname",
+            "in": "path",
+            "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+              "nullable": true
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric part at the end of the URI for an entity.  For residual categories this number is the same as its parent but the residual categories also have other or unspecified at the end",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Numeric part at the end of the URI for an entity.  For residual categories this number is the same as its parent but the residual categories also have other or unspecified at the end",
+              "nullable": true
+            }
+          },
+          {
+            "name": "residual",
+            "in": "path",
+            "description": "For residual categories:\r\n            - this could be 'other' for other specified residual category\r\n            - or 'unspecified' for the unspecified residual category",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "For residual categories:\r\n            - this could be 'other' for other specified residual category\r\n            - or 'unspecified' for the unspecified residual category",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\n  \"@id\": \"http://id.who.int/icd/release/11/mms/other\",\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"Other specified bacterial intestinal infections\"\n  },\n  \"latestRelease\": \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other\",\n  \"release\": [\n    \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other\",\n    \"http://id.who.int/icd/release/11/2018-12/mms/135352227/other\"\n  ]\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/mms/other\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Other specified bacterial intestinal infections\"\r\n  },\r\n  \"latestRelease\": \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other\",\r\n  \"release\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other\",\r\n    \"http://id.who.int/icd/release/11/2018-12/mms/135352227/other\"\r\n  ]\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiVersion"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForMultiVersion.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/mms/other\",\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Other specified bacterial intestinal infections\"\r\n  },\r\n  \"latestRelease\": \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other\",\r\n  \"release\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other\",\r\n    \"http://id.who.int/icd/release/11/2018-12/mms/135352227/other\"\r\n  ]\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/release/11/{releaseId}/{linearizationname}/{id}": {
+      "get": {
+        "tags": [
+          "Linearization"
+        ],
+        "summary": "This endpoint return information on a linearization entity",
+        "operationId": "GetLinearizationEntity",
+        "parameters": [
+          {
+            "name": "linearizationname",
+            "in": "path",
+            "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+              "nullable": true
+            }
+          },
+          {
+            "name": "releaseId",
+            "in": "path",
+            "description": "The id for the release. This is generally formatted like this: 2019-04",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id for the release. This is generally formatted like this: 2019-04",
+              "nullable": true
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric part at the end of the URI for an entity",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Numeric part at the end of the URI for an entity",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinearizationEntity"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForLinearizationEntity.json\",\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234\",\n  \"parent\": [\n    \"http://id.who.int/icd/release/11/2019-04/mms/135352227\"\n  ],\n  \"browserUrl\": \"https://icd.who.int/browse11/l-m/en#/http%3a%2f%2fid.who.int%2ficd%2fentity%2f257068234\",\n  \"code\": \"1A00\",\n  \"source\": \"http://id.who.int/icd/entity/257068234\",\n  \"classKind\": \"category\",\n  \"postcoordinationScale\": [\n    {\n      \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234/postcoordinationScale/infectiousAgent\",\n      \"axisName\": \"http://id.who.int/icd/schema/infectiousAgent\",\n      \"requiredPostcoordination\": \"false\",\n      \"allowMultipleValues\": \"AllowAlways\",\n      \"scaleEntity\": [\n        \"http://id.who.int/icd/release/11/2019-04/mms/824826401\"\n      ]\n    },\n    {\n      \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234/postcoordinationScale/associatedWith\",\n      \"axisName\": \"http://id.who.int/icd/schema/associatedWith\",\n      \"requiredPostcoordination\": \"false\",\n      \"allowMultipleValues\": \"AllowAlways\",\n      \"scaleEntity\": [\n        \"http://id.who.int/icd/release/11/2019-04/mms/1215034670\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/1839638766\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/501791005\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/1975056531\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/828922344\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/174465822\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/612672352\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/other\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/unspecified\"\n      ]\n    }\n  ],\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"Cholera\"\n  },\n  \"inclusion\": [\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"cholera syndrome\"\n      }\n    }\n  ],\n  \"indexTerm\": [\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Cholera\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"cholera syndrome\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"asiatic cholera\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"epidemic cholera\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Enteritis due to cholera due to Vibrio cholerae, non-O1 strains\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1170831944\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Cholera due to Vibrio cholerae O1, biovar cholerae\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1205958647\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"classical cholera\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1205958647\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Enteritis due to Cholera due to Vibrio cholerae O1, biovar cholerae\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1384028266\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Enteritis due to classical cholera\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1384028266\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Cholera due to Vibrio cholerae O1, biovar eltor\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"cholera - vibrio cholerae 01 eltor biotype\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"cholera due to Vibrio cholerae 01, Cholera eltor\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"cholera due to Cholera eltor\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Enteritis due to cholera due to Vibrio cholerae O1, biovar eltor\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Enteritis due to cholera due to Cholera eltor\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"eltor enteritis\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"infectious enteritis due to vibrio cholerae 01, biovar eltor\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\n    }\n  ]\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinearizationEntity"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForLinearizationEntity.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234\",\r\n  \"parent\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/135352227\"\r\n  ],\r\n  \"browserUrl\": \"https://icd.who.int/browse11/l-m/en#/http%3a%2f%2fid.who.int%2ficd%2fentity%2f257068234\",\r\n  \"code\": \"1A00\",\r\n  \"source\": \"http://id.who.int/icd/entity/257068234\",\r\n  \"classKind\": \"category\",\r\n  \"postcoordinationScale\": [\r\n    {\r\n      \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234/postcoordinationScale/infectiousAgent\",\r\n      \"axisName\": \"http://id.who.int/icd/schema/infectiousAgent\",\r\n      \"requiredPostcoordination\": \"false\",\r\n      \"allowMultipleValues\": \"AllowAlways\",\r\n      \"scaleEntity\": [\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/824826401\"\r\n      ]\r\n    },\r\n    {\r\n      \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234/postcoordinationScale/associatedWith\",\r\n      \"axisName\": \"http://id.who.int/icd/schema/associatedWith\",\r\n      \"requiredPostcoordination\": \"false\",\r\n      \"allowMultipleValues\": \"AllowAlways\",\r\n      \"scaleEntity\": [\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1215034670\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1839638766\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/501791005\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1975056531\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/828922344\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/174465822\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/612672352\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/other\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/unspecified\"\r\n      ]\r\n    }\r\n  ],\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Cholera\"\r\n  },\r\n  \"inclusion\": [\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"cholera syndrome\"\r\n      }\r\n    }\r\n  ],\r\n  \"indexTerm\": [\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Cholera\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"cholera syndrome\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"asiatic cholera\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"epidemic cholera\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to cholera due to Vibrio cholerae, non-O1 strains\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1170831944\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Cholera due to Vibrio cholerae O1, biovar cholerae\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1205958647\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"classical cholera\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1205958647\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to Cholera due to Vibrio cholerae O1, biovar cholerae\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1384028266\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to classical cholera\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1384028266\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Cholera due to Vibrio cholerae O1, biovar eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"cholera - vibrio cholerae 01 eltor biotype\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"cholera due to Vibrio cholerae 01, Cholera eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"cholera due to Cholera eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to cholera due to Vibrio cholerae O1, biovar eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to cholera due to Cholera eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"eltor enteritis\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"infectious enteritis due to vibrio cholerae 01, biovar eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\r\n    }\r\n  ]\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinearizationEntity"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForLinearizationEntity.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234\",\r\n  \"parent\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/135352227\"\r\n  ],\r\n  \"browserUrl\": \"https://icd.who.int/browse11/l-m/en#/http%3a%2f%2fid.who.int%2ficd%2fentity%2f257068234\",\r\n  \"code\": \"1A00\",\r\n  \"source\": \"http://id.who.int/icd/entity/257068234\",\r\n  \"classKind\": \"category\",\r\n  \"postcoordinationScale\": [\r\n    {\r\n      \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234/postcoordinationScale/infectiousAgent\",\r\n      \"axisName\": \"http://id.who.int/icd/schema/infectiousAgent\",\r\n      \"requiredPostcoordination\": \"false\",\r\n      \"allowMultipleValues\": \"AllowAlways\",\r\n      \"scaleEntity\": [\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/824826401\"\r\n      ]\r\n    },\r\n    {\r\n      \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/257068234/postcoordinationScale/associatedWith\",\r\n      \"axisName\": \"http://id.who.int/icd/schema/associatedWith\",\r\n      \"requiredPostcoordination\": \"false\",\r\n      \"allowMultipleValues\": \"AllowAlways\",\r\n      \"scaleEntity\": [\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1215034670\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1839638766\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/501791005\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1975056531\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/828922344\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/174465822\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/612672352\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/other\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/unspecified\"\r\n      ]\r\n    }\r\n  ],\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Cholera\"\r\n  },\r\n  \"inclusion\": [\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"cholera syndrome\"\r\n      }\r\n    }\r\n  ],\r\n  \"indexTerm\": [\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Cholera\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"cholera syndrome\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"asiatic cholera\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"epidemic cholera\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to cholera due to Vibrio cholerae, non-O1 strains\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1170831944\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Cholera due to Vibrio cholerae O1, biovar cholerae\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1205958647\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"classical cholera\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1205958647\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to Cholera due to Vibrio cholerae O1, biovar cholerae\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1384028266\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to classical cholera\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1384028266\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Cholera due to Vibrio cholerae O1, biovar eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"cholera - vibrio cholerae 01 eltor biotype\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"cholera due to Vibrio cholerae 01, Cholera eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"cholera due to Cholera eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/581614179\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to cholera due to Vibrio cholerae O1, biovar eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to cholera due to Cholera eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"eltor enteritis\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"infectious enteritis due to vibrio cholerae 01, biovar eltor\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/375406584\"\r\n    }\r\n  ]\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/release/11/{releaseId}/{linearizationname}/{id}/{residual}": {
+      "get": {
+        "tags": [
+          "Linearization"
+        ],
+        "summary": "This endpoint return information on a residual linearization entity",
+        "operationId": "GetLinearizationResidualEntity",
+        "parameters": [
+          {
+            "name": "linearizationname",
+            "in": "path",
+            "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+              "nullable": true
+            }
+          },
+          {
+            "name": "releaseId",
+            "in": "path",
+            "description": "The id for the release. This is generally formatted like this: 2019-04",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id for the release. This is generally formatted like this: 2019-04",
+              "nullable": true
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric part at the end of the URI for an entity. For residual categories this number is the same as its parent but the residual categories also have other or unspecified at the end",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Numeric part at the end of the URI for an entity. For residual categories this number is the same as its parent but the residual categories also have other or unspecified at the end",
+              "nullable": true
+            }
+          },
+          {
+            "name": "residual",
+            "in": "path",
+            "description": "For residual categories:\r\n            - this could be 'other' for other specified residual category\r\n            - or 'unspecified' for the unspecified residual category",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "For residual categories:\r\n            - this could be 'other' for other specified residual category\r\n            - or 'unspecified' for the unspecified residual category",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinearizationEntity"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForLinearizationEntity.json\",\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other\",\n  \"parent\": [\n    \"http://id.who.int/icd/release/11/2019-04/mms/135352227\"\n  ],\n  \"browserUrl\": \"https://icd.who.int/browse11/l-m/en#/http%3a%2f%2fid.who.int%2ficd%2fentity%2f135352227%2fmms%2fother\",\n  \"code\": \"1A0Y\",\n  \"classKind\": \"category\",\n  \"postcoordinationScale\": [\n    {\n      \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other/postcoordinationScale/associatedWith\",\n      \"axisName\": \"http://id.who.int/icd/schema/associatedWith\",\n      \"requiredPostcoordination\": \"false\",\n      \"allowMultipleValues\": \"AllowAlways\",\n      \"scaleEntity\": [\n        \"http://id.who.int/icd/release/11/2019-04/mms/1215034670\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/1839638766\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/501791005\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/1975056531\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/828922344\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/174465822\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/612672352\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/other\",\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/unspecified\"\n      ]\n    }\n  ],\n  \"title\": {\n    \"@language\": \"en\",\n    \"@value\": \"Other specified bacterial intestinal infections\"\n  },\n  \"indexTerm\": [\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Other specified bacterial intestinal infections\"\n      }\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Intestinal infections due to Salmonella\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1561949126\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Enteritis due to Enterobacter\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1151962231\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Colitis due to methicillin resistant Staphylococcus aureus\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1681048785\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"colitis due to MRSA - [methicillin-resistant Staphylococcus aureus]\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1681048785\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Colitis due to Pseudomonas aeruginosa\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1446711512\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Colitis due to Klebsiella oxytoca\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1776745893\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Colonic spirochaetosis\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/1584782555\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Brachyspira colitis\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/2017284467\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Colonic infection due to Brachyspira pilosicoli\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/2017284467\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Enteritis due to Pseudomonas aeruginosa\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/36782675\"\n    },\n    {\n      \"label\": {\n        \"@language\": \"en\",\n        \"@value\": \"Neonatal bacterial intestinal infection\"\n      },\n      \"foundationReference\": \"http://id.who.int/icd/entity/125643609\"\n    }\n  ]\n}"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinearizationEntity"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForLinearizationEntity.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other\",\r\n  \"parent\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/135352227\"\r\n  ],\r\n  \"browserUrl\": \"https://icd.who.int/browse11/l-m/en#/http%3a%2f%2fid.who.int%2ficd%2fentity%2f135352227%2fmms%2fother\",\r\n  \"code\": \"1A0Y\",\r\n  \"classKind\": \"category\",\r\n  \"postcoordinationScale\": [\r\n    {\r\n      \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other/postcoordinationScale/associatedWith\",\r\n      \"axisName\": \"http://id.who.int/icd/schema/associatedWith\",\r\n      \"requiredPostcoordination\": \"false\",\r\n      \"allowMultipleValues\": \"AllowAlways\",\r\n      \"scaleEntity\": [\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1215034670\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1839638766\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/501791005\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1975056531\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/828922344\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/174465822\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/612672352\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/other\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/unspecified\"\r\n      ]\r\n    }\r\n  ],\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Other specified bacterial intestinal infections\"\r\n  },\r\n  \"indexTerm\": [\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Other specified bacterial intestinal infections\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Intestinal infections due to Salmonella\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1561949126\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to Enterobacter\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1151962231\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Colitis due to methicillin resistant Staphylococcus aureus\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1681048785\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"colitis due to MRSA - [methicillin-resistant Staphylococcus aureus]\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1681048785\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Colitis due to Pseudomonas aeruginosa\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1446711512\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Colitis due to Klebsiella oxytoca\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1776745893\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Colonic spirochaetosis\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1584782555\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Brachyspira colitis\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/2017284467\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Colonic infection due to Brachyspira pilosicoli\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/2017284467\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to Pseudomonas aeruginosa\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/36782675\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Neonatal bacterial intestinal infection\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/125643609\"\r\n    }\r\n  ]\r\n}</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinearizationEntity"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForLinearizationEntity.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other\",\r\n  \"parent\": [\r\n    \"http://id.who.int/icd/release/11/2019-04/mms/135352227\"\r\n  ],\r\n  \"browserUrl\": \"https://icd.who.int/browse11/l-m/en#/http%3a%2f%2fid.who.int%2ficd%2fentity%2f135352227%2fmms%2fother\",\r\n  \"code\": \"1A0Y\",\r\n  \"classKind\": \"category\",\r\n  \"postcoordinationScale\": [\r\n    {\r\n      \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/135352227/other/postcoordinationScale/associatedWith\",\r\n      \"axisName\": \"http://id.who.int/icd/schema/associatedWith\",\r\n      \"requiredPostcoordination\": \"false\",\r\n      \"allowMultipleValues\": \"AllowAlways\",\r\n      \"scaleEntity\": [\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1215034670\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1839638766\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/501791005\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1975056531\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/828922344\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/174465822\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/612672352\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/other\",\r\n        \"http://id.who.int/icd/release/11/2019-04/mms/1882742628/unspecified\"\r\n      ]\r\n    }\r\n  ],\r\n  \"title\": {\r\n    \"@language\": \"en\",\r\n    \"@value\": \"Other specified bacterial intestinal infections\"\r\n  },\r\n  \"indexTerm\": [\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Other specified bacterial intestinal infections\"\r\n      }\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Intestinal infections due to Salmonella\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1561949126\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to Enterobacter\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1151962231\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Colitis due to methicillin resistant Staphylococcus aureus\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1681048785\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"colitis due to MRSA - [methicillin-resistant Staphylococcus aureus]\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1681048785\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Colitis due to Pseudomonas aeruginosa\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1446711512\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Colitis due to Klebsiella oxytoca\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1776745893\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Colonic spirochaetosis\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/1584782555\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Brachyspira colitis\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/2017284467\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Colonic infection due to Brachyspira pilosicoli\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/2017284467\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Enteritis due to Pseudomonas aeruginosa\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/36782675\"\r\n    },\r\n    {\r\n      \"label\": {\r\n        \"@language\": \"en\",\r\n        \"@value\": \"Neonatal bacterial intestinal infection\"\r\n      },\r\n      \"foundationReference\": \"http://id.who.int/icd/entity/125643609\"\r\n    }\r\n  ]\r\n}</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/release/11/{releaseId}/{linearizationname}/codeinfo/{code}": {
+      "get": {
+        "tags": [
+          "Linearization"
+        ],
+        "summary": "This endpoint allows looking up an entity from its code. For postcoordinated code combinations, it provides \r\nmore information on the code combination such as which axes are used and what values do they have",
+        "operationId": "GetCodeInfo",
+        "parameters": [
+          {
+            "name": "linearizationname",
+            "in": "path",
+            "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+              "nullable": true
+            }
+          },
+          {
+            "name": "releaseId",
+            "in": "path",
+            "description": "The id for the release. This is generally formatted like this: 2019-04",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id for the release. This is generally formatted like this: 2019-04",
+              "nullable": true
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code or code combination that will be looked up. (The & and / characters need to be URL encoded)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The code or code combination that will be looked up. (The & and / characters need to be URL encoded)",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeInfo"
+                },
+                "example": "{\n  \"@context\": \"http://id.who.int/icd/contexts/contextForCodeInfo.json\",\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/codeinfo/2C25.Z%26XK8G%26XA9HN5\",\n  \"code\": \"2C25.Z&XK8G&XA9HN5\",\n  \"stemId\": \"http://id.who.int/icd/release/11/2019-04/mms/316539081/unspecified\",\n  \"stemCode\": \"2C25.Z\",\n  \"laterality\": [\n    \"XK8G\"\n  ],\n  \"specificAnatomy\": [\n    \"XA9HN5\"\n  ]\n}\n\n"
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeInfo"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForCodeInfo.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/codeinfo/2C25.Z%26XK8G%26XA9HN5\",\r\n  \"code\": \"2C25.Z&amp;XK8G&amp;XA9HN5\",\r\n  \"stemId\": \"http://id.who.int/icd/release/11/2019-04/mms/316539081/unspecified\",\r\n  \"stemCode\": \"2C25.Z\",\r\n  \"laterality\": [\r\n    \"XK8G\"\r\n  ],\r\n  \"specificAnatomy\": [\r\n    \"XA9HN5\"\r\n  ]\r\n}\r\n\r\n</string>"
+              },
+              "application/rdf+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CodeInfo"
+                },
+                "example": "<string>{\r\n  \"@context\": \"http://id.who.int/icd/contexts/contextForCodeInfo.json\",\r\n  \"@id\": \"http://id.who.int/icd/release/11/2019-04/mms/codeinfo/2C25.Z%26XK8G%26XA9HN5\",\r\n  \"code\": \"2C25.Z&amp;XK8G&amp;XA9HN5\",\r\n  \"stemId\": \"http://id.who.int/icd/release/11/2019-04/mms/316539081/unspecified\",\r\n  \"stemCode\": \"2C25.Z\",\r\n  \"laterality\": [\r\n    \"XK8G\"\r\n  ],\r\n  \"specificAnatomy\": [\r\n    \"XA9HN5\"\r\n  ]\r\n}\r\n\r\n</string>"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/icd/release/11/{releaseId}/{linearizationname}/search": {
+      "get": {
+        "tags": [
+          "Linearization"
+        ],
+        "summary": "This endpoint is for searching the linearization (such as MMS). The search can be customized using the parameters as described\r\nSearch endpoint accepts both GET and POST requests. If the size of the request is too large, you may need to use POST\r\nas HTTP GET has a size limit of 2K",
+        "operationId": "SearchLinearization",
+        "parameters": [
+          {
+            "name": "linearizationname",
+            "in": "path",
+            "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+              "nullable": true
+            }
+          },
+          {
+            "name": "releaseId",
+            "in": "path",
+            "description": "The id for the release. This is generally formatted like this: 2019-04",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id for the release. This is generally formatted like this: 2019-04",
+              "nullable": true
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Text to be searched. Having the character % at the end will be regarded as a wild card for that word",
+            "schema": {
+              "type": "string",
+              "description": "Text to be searched. Having the character % at the end will be regarded as a wild card for that word",
+              "nullable": true
+            }
+          },
+          {
+            "name": "subtreesFilter",
+            "in": "query",
+            "description": "Optional parameter. Comma separated list of URIs. If provided, the search will be performed on the entities provided and their descendants",
+            "schema": {
+              "type": "string",
+              "description": "Optional parameter. Comma separated list of URIs. If provided, the search will be performed on the entities provided and their descendants",
+              "nullable": true
+            }
+          },
+          {
+            "name": "includeKeywordResult",
+            "in": "query",
+            "description": "Optional parameter. Default false. \r\n            If set to true, the search result will also include keyword list \r\n            - if the last word provided is incomplete, keyword list includes all words that start with the incomplete word (word completion mode)\r\n            - if the last word is complete, the keyword list will provide suggested additional words that could be added to the search query. (word suggestion mode)\r\n            The behavior can be seen in the 1st column of the ICD-11 Coding Tool search results",
+            "schema": {
+              "type": "boolean",
+              "description": "Optional parameter. Default false. \r\n            If set to true, the search result will also include keyword list \r\n            - if the last word provided is incomplete, keyword list includes all words that start with the incomplete word (word completion mode)\r\n            - if the last word is complete, the keyword list will provide suggested additional words that could be added to the search query. (word suggestion mode)\r\n            The behavior can be seen in the 1st column of the ICD-11 Coding Tool search results",
+              "default": false
+            }
+          },
+          {
+            "name": "chapterFilter",
+            "in": "query",
+            "description": "Optional, comma or semicolon separated list of chapter codes eg:01;02;21 When provided, the search will be performed only on these chapters",
+            "schema": {
+              "type": "string",
+              "description": "Optional, comma or semicolon separated list of chapter codes eg:01;02;21 When provided, the search will be performed only on these chapters",
+              "nullable": true
+            }
+          },
+          {
+            "name": "useFlexisearch",
+            "in": "query",
+            "description": "Changes the search mode to flexible search.\r\n            - In the regular search mode, the Coding Tool will only give you results that contain all of the words that you've used in your search. It accepts different variants or \r\n            synonyms of the words but essentially it searches for a result that contains all components of your search. Whereas in flexible search mode, the results do not have to \r\n            contain all of the words that are typed. It would still try to find the best matching phrase but there may be words in your search that are not matched at all\r\n            - It is recommended to use flexible search only when regular search does not provide a result",
+            "schema": {
+              "type": "boolean",
+              "description": "Changes the search mode to flexible search.\r\n            - In the regular search mode, the Coding Tool will only give you results that contain all of the words that you've used in your search. It accepts different variants or \r\n            synonyms of the words but essentially it searches for a result that contains all components of your search. Whereas in flexible search mode, the results do not have to \r\n            contain all of the words that are typed. It would still try to find the best matching phrase but there may be words in your search that are not matched at all\r\n            - It is recommended to use flexible search only when regular search does not provide a result",
+              "default": false
+            }
+          },
+          {
+            "name": "flatResults",
+            "in": "query",
+            "description": "Optional parameter. Default value false. If set to true the search result entities are provided in a nested data structure\r\n            representing the ICD-11 hierarchy. Otherwise they are listed as flat list of matches",
+            "schema": {
+              "type": "boolean",
+              "description": "Optional parameter. Default value false. If set to true the search result entities are provided in a nested data structure\r\n            representing the ICD-11 hierarchy. Otherwise they are listed as flat list of matches",
+              "default": true
+            }
+          },
+          {
+            "name": "propertiesToBeSearched",
+            "in": "query",
+            "description": "Optional. When not provided, the search is performed on the \"IndexTerm\" property only.",
+            "schema": {
+              "type": "string",
+              "description": "Optional. When not provided, the search is performed on the \"IndexTerm\" property only.",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISearchResult"
+                },
+                "example": "{\n  \"destinationEntities\": [\n    {\n      \"id\": \"http://id.who.int/icd/release/11/2018-12/mms/983550510\",\n      \"title\": \"<em class='found'>Respiratory</em> <em class='found'>tuberculosis</em>, confirmed\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": \"1B10.0\",\n      \"score\": 0.013513304,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/release/11/2018-12/mms/983550510\",\n      \"isLeaf\": true,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>Respiratory</em> TB - [<em class='found'>tuberculosis</em>]\",\n          \"score\": 0.00010557269,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em>, with bacteriological and histological confirmation\",\n          \"score\": 1.8048e-7,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em>, confirmed bacteriologically or histologically\",\n          \"score\": 7.556804e-11,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"primary <em class='found'>respiratory</em> <em class='found'>tuberculous</em> with bacteriological and histological confirmation\",\n          \"score\": 7.556804e-11,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/release/11/2018-12/mms/1311939281\",\n      \"title\": \"<em class='found'>Respiratory</em> <em class='found'>tuberculosis</em>, not confirmed\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": \"1B10.1\",\n      \"score\": 0.013513304,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": false,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/release/11/2018-12/mms/1311939281\",\n      \"isLeaf\": true,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em>\",\n          \"score\": 0.013513304,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em> NOS\",\n          \"score\": 0.013513304,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em> without mention of bacteriological or histological confirmation\",\n          \"score\": 2.3473455e-19,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/release/11/2018-12/mms/882244568/unspecified\",\n      \"title\": \"<em class='found'>Respiratory</em> <em class='found'>tuberculosis</em>, without mention of bacteriological or histological confirmation\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": true,\n      \"chapter\": \"01\",\n      \"theCode\": \"1B10.Z\",\n      \"score\": 0.5402892,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": false,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/release/11/2018-12/mms/882244568/unspecified\",\n      \"isLeaf\": true,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em>\",\n          \"score\": 0.5402892,\n          \"important\": true\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em> NOS\",\n          \"score\": 0.5402892,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>Tuberculosis</em> of the <em class='found'>respiratory</em> system\",\n          \"score\": 0.013513304,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>tuberculosis</em> of <em class='found'>respiratory</em> tract\",\n          \"score\": 0.013513304,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/release/11/2018-12/mms/1968623900\",\n      \"title\": \"Sequelae of tuberculosis\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": \"1G80\",\n      \"score\": 0.013513304,\n      \"titleIsASearchResult\": false,\n      \"titleIsTopScore\": false,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/release/11/2018-12/mms/1968623900\",\n      \"isLeaf\": true,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"Sequelae of <em class='found'>respiratory</em> or unspecified <em class='found'>tuberculosis</em>\",\n          \"score\": 0.013513304,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"Late effect of <em class='found'>respiratory</em> or unspecified <em class='found'>tuberculosis</em>\",\n          \"score\": 0.00010557269,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/release/11/2018-12/mms/534466036\",\n      \"title\": \"Special screening examination for <em class='found'>respiratory</em> <em class='found'>tuberculosis</em>\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"24\",\n      \"theCode\": \"QA08.1\",\n      \"score\": 1.8048e-7,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/release/11/2018-12/mms/534466036\",\n      \"isLeaf\": true,\n      \"matchingPVs\": []\n    }\n  ],\n  \"error\": false,\n  \"errorMessage\": null,\n  \"resultChopped\": false,\n  \"wordSuggestionsChopped\": false,\n  \"guessType\": 1,\n  \"uniqueSearchId\": \"8db16902-72e5-491d-876d-1cbe369e8c28\",\n  \"words\": null\n}"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Linearization"
+        ],
+        "summary": "This endpoint is for searching the linearization (such as MMS). The search can be customized using the parameters as described\r\nSearch endpoint accepts both GET and POST requests. If the size of the request is too large, you may need to use POST\r\nas HTTP GET has a size limit of 2K",
+        "operationId": "SearchLinearization",
+        "parameters": [
+          {
+            "name": "linearizationname",
+            "in": "path",
+            "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Short name for the linearization. e.g. mms for ICD Mortality and Morbidity Statistics",
+              "nullable": true
+            }
+          },
+          {
+            "name": "releaseId",
+            "in": "path",
+            "description": "The id for the release. This is generally formatted like this: 2019-04",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id for the release. This is generally formatted like this: 2019-04",
+              "nullable": true
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Text to be searched. Having the character % at the end will be regarded as a wild card for that word",
+            "schema": {
+              "type": "string",
+              "description": "Text to be searched. Having the character % at the end will be regarded as a wild card for that word",
+              "nullable": true
+            }
+          },
+          {
+            "name": "subtreesFilter",
+            "in": "query",
+            "description": "Optional parameter. Comma separated list of URIs. If provided, the search will be performed on the entities provided and their descendants",
+            "schema": {
+              "type": "string",
+              "description": "Optional parameter. Comma separated list of URIs. If provided, the search will be performed on the entities provided and their descendants",
+              "nullable": true
+            }
+          },
+          {
+            "name": "includeKeywordResult",
+            "in": "query",
+            "description": "Optional parameter. Default false. \r\n            If set to true, the search result will also include keyword list \r\n            - if the last word provided is incomplete, keyword list includes all words that start with the incomplete word (word completion mode)\r\n            - if the last word is complete, the keyword list will provide suggested additional words that could be added to the search query. (word suggestion mode)\r\n            The behavior can be seen in the 1st column of the ICD-11 Coding Tool search results",
+            "schema": {
+              "type": "boolean",
+              "description": "Optional parameter. Default false. \r\n            If set to true, the search result will also include keyword list \r\n            - if the last word provided is incomplete, keyword list includes all words that start with the incomplete word (word completion mode)\r\n            - if the last word is complete, the keyword list will provide suggested additional words that could be added to the search query. (word suggestion mode)\r\n            The behavior can be seen in the 1st column of the ICD-11 Coding Tool search results",
+              "default": false
+            }
+          },
+          {
+            "name": "chapterFilter",
+            "in": "query",
+            "description": "Optional, comma or semicolon separated list of chapter codes eg:01;02;21 When provided, the search will be performed only on these chapters",
+            "schema": {
+              "type": "string",
+              "description": "Optional, comma or semicolon separated list of chapter codes eg:01;02;21 When provided, the search will be performed only on these chapters",
+              "nullable": true
+            }
+          },
+          {
+            "name": "useFlexisearch",
+            "in": "query",
+            "description": "Changes the search mode to flexible search.\r\n            - In the regular search mode, the Coding Tool will only give you results that contain all of the words that you've used in your search. It accepts different variants or \r\n            synonyms of the words but essentially it searches for a result that contains all components of your search. Whereas in flexible search mode, the results do not have to \r\n            contain all of the words that are typed. It would still try to find the best matching phrase but there may be words in your search that are not matched at all\r\n            - It is recommended to use flexible search only when regular search does not provide a result",
+            "schema": {
+              "type": "boolean",
+              "description": "Changes the search mode to flexible search.\r\n            - In the regular search mode, the Coding Tool will only give you results that contain all of the words that you've used in your search. It accepts different variants or \r\n            synonyms of the words but essentially it searches for a result that contains all components of your search. Whereas in flexible search mode, the results do not have to \r\n            contain all of the words that are typed. It would still try to find the best matching phrase but there may be words in your search that are not matched at all\r\n            - It is recommended to use flexible search only when regular search does not provide a result",
+              "default": false
+            }
+          },
+          {
+            "name": "flatResults",
+            "in": "query",
+            "description": "Optional parameter. Default value false. If set to true the search result entities are provided in a nested data structure\r\n            representing the ICD-11 hierarchy. Otherwise they are listed as flat list of matches",
+            "schema": {
+              "type": "boolean",
+              "description": "Optional parameter. Default value false. If set to true the search result entities are provided in a nested data structure\r\n            representing the ICD-11 hierarchy. Otherwise they are listed as flat list of matches",
+              "default": true
+            }
+          },
+          {
+            "name": "propertiesToBeSearched",
+            "in": "query",
+            "description": "Optional. When not provided, the search is performed on the \"IndexTerm\" property only.",
+            "schema": {
+              "type": "string",
+              "description": "Optional. When not provided, the search is performed on the \"IndexTerm\" property only.",
+              "nullable": true
+            }
+          },
+          {
+            "name": "API-Version",
+            "in": "header",
+            "description": "Version of the API. Values are like v1,v2.\n For example, if you provide value v2, the API will respond in the format of the version 2 of the API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "description": "ICD-API is multi-lingual. By changing this header, you may make the API respond in different languages\nLanguages will be available as the translations of ICD-11 completes. \nThe values are language codes such as en, es, zh, etc.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISearchResult"
+                },
+                "example": "{\n  \"destinationEntities\": [\n    {\n      \"id\": \"http://id.who.int/icd/release/11/2018-12/mms/983550510\",\n      \"title\": \"<em class='found'>Respiratory</em> <em class='found'>tuberculosis</em>, confirmed\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": \"1B10.0\",\n      \"score\": 0.013513304,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/release/11/2018-12/mms/983550510\",\n      \"isLeaf\": true,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>Respiratory</em> TB - [<em class='found'>tuberculosis</em>]\",\n          \"score\": 0.00010557269,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em>, with bacteriological and histological confirmation\",\n          \"score\": 1.8048e-7,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em>, confirmed bacteriologically or histologically\",\n          \"score\": 7.556804e-11,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"primary <em class='found'>respiratory</em> <em class='found'>tuberculous</em> with bacteriological and histological confirmation\",\n          \"score\": 7.556804e-11,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/release/11/2018-12/mms/1311939281\",\n      \"title\": \"<em class='found'>Respiratory</em> <em class='found'>tuberculosis</em>, not confirmed\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": \"1B10.1\",\n      \"score\": 0.013513304,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": false,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/release/11/2018-12/mms/1311939281\",\n      \"isLeaf\": true,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em>\",\n          \"score\": 0.013513304,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em> NOS\",\n          \"score\": 0.013513304,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"Primary <em class='found'>respiratory</em> <em class='found'>tuberculosis</em> without mention of bacteriological or histological confirmation\",\n          \"score\": 2.3473455e-19,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/release/11/2018-12/mms/882244568/unspecified\",\n      \"title\": \"<em class='found'>Respiratory</em> <em class='found'>tuberculosis</em>, without mention of bacteriological or histological confirmation\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": true,\n      \"chapter\": \"01\",\n      \"theCode\": \"1B10.Z\",\n      \"score\": 0.5402892,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": false,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/release/11/2018-12/mms/882244568/unspecified\",\n      \"isLeaf\": true,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em>\",\n          \"score\": 0.5402892,\n          \"important\": true\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>respiratory</em> <em class='found'>tuberculosis</em> NOS\",\n          \"score\": 0.5402892,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>Tuberculosis</em> of the <em class='found'>respiratory</em> system\",\n          \"score\": 0.013513304,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"<em class='found'>tuberculosis</em> of <em class='found'>respiratory</em> tract\",\n          \"score\": 0.013513304,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/release/11/2018-12/mms/1968623900\",\n      \"title\": \"Sequelae of tuberculosis\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"01\",\n      \"theCode\": \"1G80\",\n      \"score\": 0.013513304,\n      \"titleIsASearchResult\": false,\n      \"titleIsTopScore\": false,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/release/11/2018-12/mms/1968623900\",\n      \"isLeaf\": true,\n      \"matchingPVs\": [\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"Sequelae of <em class='found'>respiratory</em> or unspecified <em class='found'>tuberculosis</em>\",\n          \"score\": 0.013513304,\n          \"important\": false\n        },\n        {\n          \"propertyId\": \"IndexTerm\",\n          \"label\": \"Late effect of <em class='found'>respiratory</em> or unspecified <em class='found'>tuberculosis</em>\",\n          \"score\": 0.00010557269,\n          \"important\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"http://id.who.int/icd/release/11/2018-12/mms/534466036\",\n      \"title\": \"Special screening examination for <em class='found'>respiratory</em> <em class='found'>tuberculosis</em>\",\n      \"propertiesTruncated\": false,\n      \"isResidualOther\": false,\n      \"isResidualUnspecified\": false,\n      \"chapter\": \"24\",\n      \"theCode\": \"QA08.1\",\n      \"score\": 1.8048e-7,\n      \"titleIsASearchResult\": true,\n      \"titleIsTopScore\": true,\n      \"entityType\": 0,\n      \"important\": false,\n      \"descendants\": [],\n      \"stemId\": \"http://id.who.int/icd/release/11/2018-12/mms/534466036\",\n      \"isLeaf\": true,\n      \"matchingPVs\": []\n    }\n  ],\n  \"error\": false,\n  \"errorMessage\": null,\n  \"resultChopped\": false,\n  \"wordSuggestionsChopped\": false,\n  \"guessType\": 1,\n  \"uniqueSearchId\": \"8db16902-72e5-491d-876d-1cbe369e8c28\",\n  \"words\": null\n}"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LanguageSpecificText": {
+        "type": "object",
+        "properties": {
+          "@language": {
+            "type": "string",
+            "description": "Language code for the string",
+            "nullable": true
+          },
+          "@value": {
+            "type": "string",
+            "description": "Label in the given language",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Language specific text as used in JSON-LD"
+      },
+      "TopLevel": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string",
+            "description": "JSON-LD Context for the endpoint",
+            "nullable": true
+          },
+          "@id": {
+            "type": "string",
+            "description": "unique id for the classification",
+            "nullable": true
+          },
+          "title": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "definition": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "child": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of top level entities",
+            "nullable": true
+          },
+          "releaseDate": {
+            "type": "string",
+            "description": "Release date",
+            "nullable": true
+          },
+          "releaseId": {
+            "type": "string",
+            "description": "Release identifier for this particular release of the classification",
+            "nullable": true
+          },
+          "browserUrl": {
+            "type": "string",
+            "description": "ICD Browser is a web site that allows users see the ICD in its hierarchical structure at the same time providing search and post-coordination features.\r\nBrowser URL property provides a direct link to the classification in the WHO's on-line ICD Browser.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class representing top level foundation or linearization"
+      },
+      "Term": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "foundationReference": {
+            "type": "string",
+            "description": "In some cases such as in exclusions or index terms, the term itself could be coming from another entity in the classification\r\nIn these cases foundationReference holds the foundation URI for that entity\r\nIndex terms generated from foundation entities that are not located in the linearization have this reference",
+            "nullable": true
+          },
+          "linearizationReference": {
+            "type": "string",
+            "description": "In some cases such as in exclusions or index terms, the term itself could be coming from another entity in the classification\r\nIn these cases linearizationReference holds the linearization (or release) URI for that entity",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class representing a term with language specific label and optional cross references"
+      },
+      "FoundationEntity": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string",
+            "description": "JSON-LD Context for the endpoint",
+            "nullable": true
+          },
+          "@id": {
+            "type": "string",
+            "description": "unique id for this entity (URI)",
+            "nullable": true
+          },
+          "title": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "definition": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "longDefinition": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "fullySpecifiedName": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "child": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of URIs for the child entities",
+            "nullable": true
+          },
+          "parent": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of URIs for the parent entities",
+            "nullable": true
+          },
+          "synonym": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "List of synonyms for this entity",
+            "nullable": true
+          },
+          "narrowerTerm": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "List of narrower terms for this entity",
+            "nullable": true
+          },
+          "inclusion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "List of inclusions for this entity",
+            "nullable": true
+          },
+          "exclusion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "List of exclusions for this entity",
+            "nullable": true
+          },
+          "browserUrl": {
+            "type": "string",
+            "description": "ICD Browser is a web site that allows users see the ICD in its hierarchical structure at the same time providing search and post-coordination features.\r\nBrowser URL property provides a direct link to the classification in the WHO's on-line ICD Browser.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class representing a foundation entity"
+      },
+      "PostcoordinationAvailabilityEnum": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "ISimplePropertyValue": {
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "type": "string",
+            "description": "Id of the property",
+            "nullable": true,
+            "readOnly": true
+          },
+          "label": {
+            "type": "string",
+            "description": "Label that matches the search query. The matched part of the label has a special markup for highlighting. \r\nFor example when searched for the cholera the Vibrio cholera will be like Vibrio <em class=\"found\">cholera</em>",
+            "nullable": true,
+            "readOnly": true
+          },
+          "score": {
+            "type": "number",
+            "description": "Score of the match for this particular property value",
+            "format": "double",
+            "readOnly": true
+          },
+          "important": {
+            "type": "boolean",
+            "description": "Identifies a very good match. The result matches all words from the search query.",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents PropertyValues returned in the search result"
+      },
+      "EntityTypeEnum": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "description": "Real (0): real entity in the linearization / foundation\r\nUnderShoreLine (1): Entity in the foundation that can be represented as a post-coordination combination in the linearization\r\nPostCoordinationCombination (2): does not exist in the foundation but can be represented as post-coordination combination",
+        "format": "int32"
+      },
+      "ISimpleEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "URI of the Entity",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the Entity. The matched part of the title has a special markup for highlighting. \r\nFor example when searched for the cholera the title Vibrio cholera will be like Vibrio <em class=\"found\">cholera</em>",
+            "nullable": true
+          },
+          "stemId": {
+            "type": "string",
+            "description": "If the search result is composed of multiple URIs (i.e. postcoordinated result), Stem Id contains the URI of the stem code",
+            "nullable": true
+          },
+          "isLeaf": {
+            "type": "boolean",
+            "description": "Shows whether the entity is a leaf node (i.e. does not have any children)"
+          },
+          "postcoordinationAvailability": {
+            "$ref": "#/components/schemas/PostcoordinationAvailabilityEnum"
+          },
+          "hasCodingNote": {
+            "type": "boolean",
+            "description": "Shows whether there is a coding note attached to the item"
+          },
+          "hasMaternalChapterLink": {
+            "type": "boolean",
+            "description": "Shows whether the entity has maternal chapter link"
+          },
+          "matchingPVs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISimplePropertyValue"
+            },
+            "description": "List of property values that match the search string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "propertiesTruncated": {
+            "type": "boolean",
+            "description": "Shows if the list of matching property values is truncated as a result of too many maching property values",
+            "readOnly": true
+          },
+          "isResidualOther": {
+            "type": "boolean",
+            "description": "Shows if this entity is an other specified residual category. (Not applicable for foundation search )",
+            "readOnly": true
+          },
+          "isResidualUnspecified": {
+            "type": "boolean",
+            "description": "Shows if this entity is an unspecified residual category. (Not applicable for foundation search )",
+            "readOnly": true
+          },
+          "chapter": {
+            "type": "string",
+            "description": "The chapter code for the entity",
+            "nullable": true,
+            "readOnly": true
+          },
+          "theCode": {
+            "type": "string",
+            "description": "The code for the entity (Not applicable for foundation )",
+            "nullable": true,
+            "readOnly": true
+          },
+          "score": {
+            "type": "number",
+            "description": "Shows how good is the search result. Higher numbers are better matches. There is no other meaning to this value than its relative value",
+            "format": "double",
+            "readOnly": true
+          },
+          "titleIsASearchResult": {
+            "type": "boolean",
+            "description": "Shows whether the title of the entity is among the search results",
+            "readOnly": true
+          },
+          "titleIsTopScore": {
+            "type": "boolean",
+            "description": "Shows whether the title is the top scored search result",
+            "readOnly": true
+          },
+          "entityType": {
+            "$ref": "#/components/schemas/EntityTypeEnum"
+          },
+          "important": {
+            "type": "boolean",
+            "description": "Identifies a very good match. The result matches all words from the search query.",
+            "readOnly": true
+          },
+          "descendants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISimpleEntity"
+            },
+            "description": "Used when the search result is not represented as flat list but rather organized according to ICD hierarchy",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "SimpleEntity class represents a single ICD Entity in a search result"
+      },
+      "GuessTypeEnum": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "GuessWord": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "nullable": true
+          },
+          "dontChangeResult": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a keyword returned as a as a word completion suggestion or as a next word suggestion"
+      },
+      "ISearchResult": {
+        "type": "object",
+        "properties": {
+          "destinationEntities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISimpleEntity"
+            },
+            "description": "List of entities that match the search query",
+            "nullable": true,
+            "readOnly": true
+          },
+          "error": {
+            "type": "boolean",
+            "description": "Returns true if an error is occurred during the search",
+            "readOnly": true
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "Error message if there was an error",
+            "nullable": true,
+            "readOnly": true
+          },
+          "resultChopped": {
+            "type": "boolean",
+            "description": "If the search matches too many results, then the result is chopped",
+            "readOnly": true
+          },
+          "wordSuggestionsChopped": {
+            "type": "boolean",
+            "description": "Shows if the word suggestion list is chopped as a result of too many matching words.",
+            "readOnly": true
+          },
+          "guessType": {
+            "$ref": "#/components/schemas/GuessTypeEnum"
+          },
+          "uniqueSearchId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "words": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GuessWord"
+            },
+            "description": "List of word suggestions if the search had includeKeywordResult parameter set to true",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the search result. The search result is organized by ICD entities and in each entity we provide matching property values"
+      },
+      "MultiVersion": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string",
+            "description": "JSON-LD Context for the endpoint",
+            "nullable": true
+          },
+          "@id": {
+            "type": "string",
+            "description": "unique id for the classification",
+            "nullable": true
+          },
+          "title": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "latestRelease": {
+            "type": "string",
+            "description": "Latest release available for this linearization",
+            "nullable": true
+          },
+          "release": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of available releases for this linearization",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class representing available versions of a given classification or classification entity\r\nThis is used when the request is made without a relase id (or minor version)"
+      },
+      "ICD10Entity": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string",
+            "description": "JSON-LD Context for the endpoint",
+            "nullable": true
+          },
+          "@id": {
+            "type": "string",
+            "description": "unique id for this linearization entity (URI)",
+            "nullable": true
+          },
+          "title": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "definition": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "longDefinition": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "fullySpecifiedName": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "source": {
+            "type": "string",
+            "description": "URI of the foundation entity that this entity is derived from",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "Code for the ICD-11 category",
+            "nullable": true
+          },
+          "note": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "codingHint": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "classKind": {
+            "type": "string",
+            "description": "Class kind for the category. It could be one of the following\r\n- chapter : if the entity is a chapter. (i.e. at the top level of the classification\r\n- block : huger level entity which don't have codes\r\n- category : An ICD entity that bears a code",
+            "nullable": true
+          },
+          "child": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of URIs for the child entities",
+            "nullable": true
+          },
+          "parent": {
+            "type": "string",
+            "description": "List of URIs for the parent entity",
+            "nullable": true
+          },
+          "indexTerm": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "ICD-11 Index terms are generated from the terms (titles, inclusions, narrower terms) included in the entity\r\nas well as from the foundation entities under the linearization shore line. The IndexTerm property includes \r\nall of the index terms of a linearization entity in one place.",
+            "nullable": true
+          },
+          "inclusion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "List of inclusions for this entity",
+            "nullable": true
+          },
+          "exclusion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "List of exclusions for this entity",
+            "nullable": true
+          },
+          "browserUrl": {
+            "type": "string",
+            "description": "ICD Browser is a web site that allows users see the ICD in its hierarchical structure at the same time providing search and post-coordination features.\r\nBrowser URL property provides a direct link to the classification in the WHO's on-line ICD Browser.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class representing an ICD-10 Entity"
+      },
+      "PostcoordinationScaleInfo": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "type": "string",
+            "description": "A unique id for for the entity and postcoordination axis combination",
+            "nullable": true
+          },
+          "axisName": {
+            "type": "string",
+            "description": "postcoordination axis name (a URI that uniquely identifies the axis)",
+            "nullable": true
+          },
+          "requiredPostcoordination": {
+            "type": "boolean",
+            "description": "If the post-coordination is required or just allowed. true means it is a required postcoordination"
+          },
+          "allowMultipleValues": {
+            "type": "string",
+            "description": "Shows the behaviour of the postcoordination\r\n- 'AllowAlways' means the user could post-coordinate multiple times using this axis.\r\n- 'NotAllowed' means the user only post-coordinate once using this axis\r\n- 'AllowedExceptFromSameBlock' means multiple values are allowed only if they are coming from different blocks within the value set",
+            "nullable": true
+          },
+          "scaleEntity": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of allowed values during postcoordination. \r\nNote that these are hierarchical starting points of the allowed value set. i.e. any descendant of the entities provided under the \r\n`scaleEntity` property can be used during postcoordination.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This class contains information on which axes allow or require postcoordination for an entity \r\ntogether with the valueset that could be used for the postcoordination"
+      },
+      "LinearizationEntity": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string",
+            "description": "JSON-LD Context for the endpoint",
+            "nullable": true
+          },
+          "@id": {
+            "type": "string",
+            "description": "unique id for this linearization entity (URI)",
+            "nullable": true
+          },
+          "title": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "definition": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "longDefinition": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "fullySpecifiedName": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "source": {
+            "type": "string",
+            "description": "URI of the foundation entity that this entity is derived from",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "Code for the ICD-11 category",
+            "nullable": true
+          },
+          "codingNote": {
+            "$ref": "#/components/schemas/LanguageSpecificText"
+          },
+          "blockId": {
+            "type": "string",
+            "description": "Block id for the block (only applicable to the blocks (groupings). e.g. BlockL2-1A0",
+            "nullable": true
+          },
+          "codeRange": {
+            "type": "string",
+            "description": "Code range for the block (only applicable to the blocks (groupings) e.g. 1A00-1A0Z",
+            "nullable": true
+          },
+          "classKind": {
+            "type": "string",
+            "description": "Class kind for the category. It could be one of the following\r\n- chapter : if the entity is a chapter. (i.e. at the top level of the classification\r\n- block : higher level entity which don't have codes\r\n- category : An ICD entity that bears a code\r\n- window : A special type of grouping which don;t have children underneath but just foundationChildElsewhere",
+            "nullable": true
+          },
+          "child": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of URIs for the child entities",
+            "nullable": true
+          },
+          "parent": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of URIs for the parent entity",
+            "nullable": true
+          },
+          "foundationChildElsewhere": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "ICD-11 Foundation allows multiple parenting which means a category could be located in more than place in \r\nthe foundation component. However, this is not possible for ICD-11 linearizations such as in ICD-11 MMS \r\nin which a category must be located at a single location. When looking at a linearization entity, this \r\nproperty would list the foundation children that are not children in the linearization.",
+            "nullable": true
+          },
+          "indexTerm": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "ICD-11 Index terms are generated from the terms (titles, inclusions, narrower terms) included in the entity\r\nas well as from the foundation entities under the linearization shore line. The IndexTerm property includes \r\nall of the index terms of a linearization entity in one place.",
+            "nullable": true
+          },
+          "inclusion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "List of inclusions for this entity",
+            "nullable": true
+          },
+          "exclusion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Term"
+            },
+            "description": "List of exclusions for this entity",
+            "nullable": true
+          },
+          "postcoordinationScale": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostcoordinationScaleInfo"
+            },
+            "description": "Contains information on which axes allows or requires postcoordination for an entity \r\ntogether with the value set that could be used for the postcoordination",
+            "nullable": true
+          },
+          "browserUrl": {
+            "type": "string",
+            "description": "ICD Browser is a web site that allows users see the ICD in its hierarchical structure at the same time providing search and post-coordination features.\r\nBrowser URL property provides a direct link to the classification in the WHO's on-line ICD Browser.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class representing a linearization entity such as a category in the MMS."
+      },
+      "CodeInfo": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string",
+            "description": "JSON-LD Context for the endpoint",
+            "nullable": true
+          },
+          "@id": {
+            "type": "string",
+            "description": "unique id for this linearization entity (URI)",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "Code as it is queried",
+            "nullable": true
+          },
+          "stemCode": {
+            "type": "string",
+            "description": "Code of the stem. i.e. the first code that is postcoordinated",
+            "nullable": true
+          },
+          "stemId": {
+            "type": "string",
+            "description": "Id of the stem.",
+            "nullable": true
+          },
+          "simplifiedCode": {
+            "type": "string",
+            "description": "In some cases the requested postcoordination combination may be simplified. In these cases, the simplifiedCode field contains\r\nthe code after simplification.",
+            "nullable": true
+          },
+          "causality": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "laterality": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "regional": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "distribution": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "relational": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "serotype": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "durationOfComa": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasPupilReactionScore": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasGCSEyeScore": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasGCSMotorScore": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasGCSVerbalScore": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "diagnosisConfirmedBy": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "typeOfInjury": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "fractureSubtype": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "fractureOpenOrClosed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "jointInvolvementInFracture": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "extentOfBurnByBodySurface": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "extentOfFullThicknessBurnByBodySurface": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "outcomeOfFullThicknessBurn": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "timeInLife": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "specificAnatomy": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "infectiousAgent": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "medication": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "chemicalAgent": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "histopathology": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "genomicAndChomosomalAnomaly": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasCausingCondition": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasManifestation": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "associatedWith": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "intent": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "violenceDescriptor": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "mechanismOfInjury": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "transportEventDescriptor": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "objectOrSubstanceProducingInjury": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "sportsActivityDescriptor": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "placeOfOccurrence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "placeOfOccurrenceDescriptor": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "activityWhenInjured": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "occupationalDescriptor": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "substanceUse": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hasSeverity": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "course": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "temporalPatternAndOnset": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This class is used when an ICD-11 linearization queried with a code or a postcoordination code cluster\r\nIt provides information on the entities referred in the code string"
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://icdaccessmanagement.who.int/connect/token",
+            "scopes": {
+              "icdapi_access": ""
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth2": [
+        "icdapi_access"
+      ]
+    }
+  ]
+}
