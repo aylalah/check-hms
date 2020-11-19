@@ -115,6 +115,19 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }})
   }
+  updateBranch(data) {
+    return this.http.post(`${this.baseUrl}updateBranch`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }});
+  }
+  onEditBranch(data){
+    return this.http.post(`${this.baseUrl}onEditBranch`,data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }});
+  }
+
+
+
   addCenter(data) {
     return this.http.post(`${this.baseUrl}/addCenter`, data,{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -134,9 +147,7 @@ export class JarwisService {
     return this.http.get<any>(`${this.baseUrl}/edtBranch/${id}`)
   }
 
-  updateBranch(data) {
-    return this.http.post(`${this.baseUrl}/updateBranch`, data)
-  }
+  
   deleteBranch(data) {
     return this.http.post(`${this.baseUrl}/deleteBranch`, data)
   }
@@ -146,9 +157,7 @@ export class JarwisService {
   activateBranch(data) {
     return this.http.post(`${this.baseUrl}/activateBranch`, data)
   }
-  onEditBranch(data){
-    return this.http.post(`${this.baseUrl}/onEditBranch`,data)
-  }
+  
   centerBranch() {
     return this.http.get(`${this.baseUrl}/centerBranch`,)
   }

@@ -144,17 +144,17 @@ class CenterController extends Controller
     public function displaysetBranch()
     {
         return response()->json([
-        'pharm'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->join('module', 'departments.module_id', '=', 'module.id')->where('branches.status', '!=', 'trash')->where('module.id',4)->select('branches.*', 'departments.name as dept_name')->get(),
-        'revenue'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->join('module', 'departments.module_id', '=', 'module.id')->where('branches.status', '!=', 'trash')->where('module.id', 6)->select('branches.*', 'departments.name as dept_name')->get(),
-        'clinic'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',2)->select('branches.*', 'departments.name as dept_name')->get(),
-        'admin'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',10)->select('branches.*', 'departments.name as dept_name')->get(),
-        'radio'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',12)->select('branches.*', 'departments.name as dept_name')->get(),
-        'lab'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',15)->select('branches.*', 'departments.name as dept_name')->get(),
-        'record'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',16)->select('branches.*', 'departments.name as dept_name')->get(),
-        'theater'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',17)->select('branches.*', 'departments.name as dept_name')->get(),
-        'nurse'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',18)->select('branches.*', 'departments.name as dept_name')->get(),
-        'ward'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',19)->select('branches.*', 'departments.name as dept_name')->get(),
-        'patient'=>DB::table('branches')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',20)->select('branches.*', 'departments.name as dept_name')->get()
+        'pharm'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->join('module', 'departments.module_id', '=', 'module.id')->where('branches.status', '!=', 'trash')->where('module.id',4)->select('branches.*', 'departments.name as dept_name')->get(),
+        'revenue'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->join('module', 'departments.module_id', '=', 'module.id')->where('branches.status', '!=', 'trash')->where('module.id', 6)->select('branches.*', 'departments.name as dept_name')->get(),
+        'clinic'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',2)->select('branches.*', 'departments.name as dept_name')->get(),
+        'admin'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',10)->select('branches.*', 'departments.name as dept_name')->get(),
+        'radio'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',12)->select('branches.*', 'departments.name as dept_name')->get(),
+        'lab'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',15)->select('branches.*', 'departments.name as dept_name')->get(),
+        'record'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',16)->select('branches.*', 'departments.name as dept_name')->get(),
+        'theater'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',17)->select('branches.*', 'departments.name as dept_name')->get(),
+        'nurse'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',18)->select('branches.*', 'departments.name as dept_name')->get(),
+        'ward'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',19)->select('branches.*', 'departments.name as dept_name')->get(),
+        'patient'=> Branches::orderBy('id', 'desc')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.status', '!=', 'trash')->where('branches.dept_id',20)->select('branches.*', 'departments.name as dept_name')->get()
     ]);
 
         // return Branches::all();
@@ -233,5 +233,54 @@ class CenterController extends Controller
                   }';
               }
           }
+
+    public function onEditBranch(Request $request){
+    $id=$request->id;
+        return
+        [
+        'branch'=>Branches::orderBy('id', 'desc')
+            ->join('departments','branches.dept_id','=','departments.id')
+            ->where('branches.id',$id)->select('branches.*','departments.name as dept_name')->get(),
+
+        'department'=> DB::table('departments')->select('departments.*')->where('departments.status', '=', 'active')->get()
+        ];
+    }
+
+    public function updateBranch(Request $request){
+
+        $dt = Carbon::now();
+        $cDate = $dt->toFormattedDateString();
+        $cTime = $dt->format('h:i:s A');
+
+        $table_name = 'branch_'.strtolower(trim(str_replace(' ', '', $request->branch_name)));
+        $name = $request->branch_name;
+        $description = $request->branch_adress;
+        $dept_id = $request->department_id;
+        $status = $request->branch_status;
+        $id = $request->branch_id;  
+
+        $update = DB::table('branches')->where('branches.id','=',$id)
+        ->update([
+            'name'=>$name,
+            'dept_id'=>$dept_id,
+            'status'=>$status,
+            'description'=> $description,
+            'updated_at'=> $cDate.' '.$cTime,
+            'br_name'=>$table_name
+            ]);
+ 
+        if($update){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+
+    }
 
 }

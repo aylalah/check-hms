@@ -1,3 +1,4 @@
+<ngx-ui-loader [loaderId]="'loader-02'"></ngx-ui-loader>
 <div id="main-content">
     <div class="container-fluid">
         <div class="block-header">
@@ -13,7 +14,7 @@
                     </nav>
                 </div>            
                 <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                    <button *ngIf="permission.write == 'true'" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddDepartments" (click)="branche()">Add</button>
+                    <button *ngIf="permission.read" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddDepartments" (click)="branche()">Add</button>
                 <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
                 </div>
             </div>
@@ -104,12 +105,11 @@
                                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
                                     <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                   
                                 </td>
-                                <td>
-                                    <!-- <button type="button" class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="editdept(b.id)"><i class="fa fa-pencil"></i></button> -->
-                                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;"  title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
+                                <td *ngIf ="permission.actions">
+                                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>                                                                  
                         </tbody>
@@ -142,11 +142,11 @@
                                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
                                     <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                  
                                 </td>                          
-                                <td>
-                                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
+                                <td *ngIf ="permission.actions">
+                                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>                                                                            
                         </tbody>
@@ -178,11 +178,11 @@
                                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
                                     <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                             
                                 </td>                          
-                                <td>
-                                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
+                                <td *ngIf ="permission.actions">
+                                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>                            
                                                                       
@@ -215,11 +215,11 @@
                                 <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
                                 <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                
                             </td>                          
-                            <td>
-                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                                     
                     </tbody>
@@ -251,11 +251,11 @@
                                 <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
                                 <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                 
                             </td>                          
-                            <td>
-                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                                    
                     </tbody>
@@ -290,11 +290,11 @@
                                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
                                     <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                
                             </td>                          
-                            <td>
-                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                   
                     </tbody>
@@ -326,11 +326,11 @@
                                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
                                     <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                   
                             </td>                          
-                            <td>
-                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                                            
                     </tbody>
@@ -362,11 +362,11 @@
                                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
                                     <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                   
                             </td>                          
-                            <td>
-                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                                   
                     </tbody>
@@ -398,11 +398,11 @@
                                 <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
                                 <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                
                             </td>                          
-                            <td>
-                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                                  
                     </tbody>
@@ -434,12 +434,11 @@
                                     <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
                                     <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                 
                             </td>                          
-                            <td>
-                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" title="Suspend" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend'" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
-                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash'" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
-                             
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                                            
                     </tbody>
@@ -502,88 +501,59 @@
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title h4" id="myLargeModalLabel">Update Branch</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" id="closemodal2" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <form class="form-auth-small m-t-20" role="form" [formGroup]="submissionForm" #form="ngForm">            
-                
-                    <div class="modal-body">             
-                        <div class="row clearfix">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label for="">Depertment</label>
-                                    <!-- <input type="text" > -->
-                                <select class="form-control"   formControlName="depart_id" required>    
-                                    <option value="">{{depart_name}}</option>                      
-                                    <option *ngFor="let dep of depart" value="{{dep.id}}">{{dep.name}}</option>
-                                </select>                       
-                                </div>
-                            </div>             
-                        </div>
-                    </div>    
-                    <div class="modal-body">       
-                        <div class="row clearfix">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label for="">Center Name</label>
-                                    <input type="text" class="form-control" formControlName="branch_name" required>
-                                    <input type="hidden" formControlName="branch_id" >
-
-                                </div>
-                            </div>             
-                        </div>
+            <form class="form-auth-small m-t-20" role="form" [formGroup]="submissionForm" #form="ngForm">          
+                <div class="modal-body">                     
+                    <div class="form-group">
+                        <label for="">Depertment</label>
+                        <select class="form-control"   formControlName="depart_id" required>    
+                            <option value="">{{depart_name}}</option>                      
+                            <option *ngFor="let dep of depart" value="{{dep.id}}">{{dep.name}}</option>
+                        </select>                       
                     </div>
-        
-        <div class="modal-body">             
-            <div class="row clearfix">
-                <div class="col-md-8">
+
+                    <div class="form-group">
+                        <label for="">Center Name</label>
+                        <input type="text" class="form-control" formControlName="branch_name" required>
+                        <input type="hidden" formControlName="branch_id" >
+                    </div>
+
                     <div class="form-group">
                         <label for="">Center Description</label>
                         <input type="text" class="form-control" formControlName="branch_adress" required>
-                        <input type="hidden" formControlName="manufid" >
-        
+                        <input type="hidden" formControlName="manufid" >        
                         
                     </div>
-                </div>             
-            </div>
-            </div>
-            <div class="modal-body">             
-                <div class="row clearfix">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label >CLINIC Unit</label>
-                            <!-- <input type="text" > -->
+
+                    <div class="form-group">
+                        <label >CLINIC Unit</label>                        
                         <select name="" id="" class="form-control" formControlName="clinic_type" required>
                             <option value="">Clinic Unit</option> 
                             <option *ngFor="let clinic of clinic_types" value="{{clinic.id}}">{{clinic.name}}</option>
                         </select>                               
-                        </div>
-                    </div>             
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Status</label>
+                        <select class="form-control show-tick" formControlName="branch_status" >
+                            <option value="">{{ branch_status}}</option>
+                            <option active value="active">Active</option>
+                            <option value="suspend">Suspend</option>                                
+                        </select>                  
+                    </div>                            
+                </div>   
+         
+                <div class="modal-footer">
+                    <button type="button" (click)="onUpdateBranch()" class="btn btn-round btn-success"><i *ngIf="disabled" class="fa fa-spin fa-spinner" aria-hidden="true"></i> Update</button>
+                    <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" >Close</button>
                 </div>
-                </div>
-                <div class="modal-body">             
-                    <div class="row clearfix">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="">Status</label>
-                                <select class="form-control show-tick" formControlName="branch_status" >
-                                    <option value="">{{ branch_status}}</option>
-                                    <option active value="active">Active</option>
-                                    <option value="suspend">Suspend</option>                                
-                                </select>                  
-                            </div>
-                        </div>             
-                    </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" (click)="onUpdateBranch()" class="btn btn-round btn-success" >Update</button>
-                        <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" >Close</button>
-                    </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 
     <div class="modal fade" id="EditDepartments2" tabindex="1" role="dialog">
         <div class="modal-dialog" role="document">

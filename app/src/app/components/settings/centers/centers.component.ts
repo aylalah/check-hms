@@ -88,6 +88,8 @@ export class CentersComponent implements OnInit {
     read: null,
     write: null,
   };
+
+  readpermission: boolean;
   position: any;
 
   constructor(
@@ -131,8 +133,6 @@ export class CentersComponent implements OnInit {
           this.permission.approve = this.userPermission[0].approve;
           this.permission.write = this.userPermission[0].write;
           this.position = this.permissionResponse.data.position_name;
-
-          alert(this.permission.read);
    
       });
 
@@ -251,7 +251,8 @@ export class CentersComponent implements OnInit {
 
   
   onEdit (id:any){
-    // console.log(id)
+    this.ngxService.startLoader('loader-02');
+
     this.Jarwis.onEditBranch({id:id}).subscribe(
       data=>{
         this.branch_details = data;
@@ -269,7 +270,9 @@ export class CentersComponent implements OnInit {
         this.branch_id =this.branch_details.branch[0].id;
         this.clinic_type = this.branch_details.branch[0].clinic_type;
         this.depart= this.branch_details.department;
-        this.staffs = this.branch_details.staffs;    
+        this.staffs = this.branch_details.staffs;  
+        
+        this.ngxService.stopLoader('loader-02');
         
         this.submissionForm = this.formBuilder.group(      
           {
@@ -303,7 +306,7 @@ export class CentersComponent implements OnInit {
   )
   }
   onUpdateBranch(){
-    
+    this.disabled = true;
     this.Jarwis.updateBranch(this.submissionForm.value).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error), 
@@ -312,6 +315,7 @@ export class CentersComponent implements OnInit {
   handleResponse(data) {   
    
     document.getElementById('closemodal').click()
+    document.getElementById('closemodal2').click()
     this.ngOnInit();
     // form=null;
     this.disabled = false;

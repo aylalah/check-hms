@@ -40,6 +40,8 @@ Route::group([
     Route::get('displaysetBranch','App\Http\Controllers\CenterController@displaysetBranch');
     Route::get('getAllUnits','App\Http\Controllers\CenterController@getAllUnits');
     Route::post('createCenters', 'App\Http\Controllers\CenterController@createCenters');
+    Route::post('onEditBranch','App\Http\Controllers\CenterController@onEditBranch');
+    Route::post('updateBranch', 'App\Http\Controllers\CenterController@updateBranch');
 });
 /*
 |--------------------------------------------------------------------------
