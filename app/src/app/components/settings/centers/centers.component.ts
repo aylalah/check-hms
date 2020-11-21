@@ -77,9 +77,10 @@ export class CentersComponent implements OnInit {
   deptDescrip:any;
   admin: any;
   center_type: any;
-  responseMsg:any;
-  permissionResponse: any
-  userPermission: any
+  responseMsg: any;
+  permissionResponse: any;
+  userPermission: any;
+  trash_id: any;
   public permission = {
     actions: null,
     approve: null,
@@ -149,17 +150,15 @@ export class CentersComponent implements OnInit {
             this.oppration_dept.push(d);
     
         })
-        // console.log(this.clinic_dept)
-        // console.log(this.oppration_dept)
+      
         
-        setTimeout(() => {
-          let de = this.department
-          let index = this.depts.filter(function(card) {
-            return card.name == de;
-            //  console.log(this.department)
-          })
-          this.center_dept=index;
-        },5000);
+        // setTimeout(() => {
+        //   let de = this.department
+        //   let index = this.depts.filter(function(card) {
+        //     return card.name == de;
+        //   })
+        //   this.center_dept=index;
+        // },5000);
         
        }
     )
@@ -212,9 +211,6 @@ export class CentersComponent implements OnInit {
     // $("#branch_search");
     // this.br_search = ""
    }
-   
-
-
 
   onSubmit(form: NgForm) {
    this.disabled = true;
@@ -235,11 +231,12 @@ export class CentersComponent implements OnInit {
       error => this.handleError(error), 
       
     );
-  }
+  } 
 
   onActivate(id: string) {
   this.activate_id=id
   }
+  
   activate(){
     this.Jarwis.activateBranch(this.activate_id).subscribe(  
         
@@ -249,6 +246,16 @@ export class CentersComponent implements OnInit {
     );
   }
 
+  ontrash(id: string) {
+    this.trash_id=id
+    }
+
+  trash(){
+    this.Jarwis.trashBranch(this.trash_id).subscribe(          
+      data => this.handleResponse(data),
+      error => this.handleError(error),      
+    );
+  }
   
   onEdit (id:any){
     this.ngxService.startLoader('loader-02');

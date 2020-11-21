@@ -161,4 +161,8 @@ export class PossitionComponent implements OnInit {
   });
   }
 
+  closeEdit(){
+    this.editingPossition = false;
+  }
+
 }

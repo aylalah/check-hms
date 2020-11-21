@@ -15,10 +15,13 @@ use Intervention\Image\ImageManager;
 use Faker\Provider\Image as ProviderImage;
 use League\CommonMark\Inline\Element\Image as ElementImage;
 
+use App\Http\Controllers\NotificationController;
+
 use App\Models\Possitions;
 use App\Models\User;
 use App\Models\General_Settings;
 use App\Models\Branches;
+use App\Models\Notification_settings;
 
 class CenterController extends Controller
 {
@@ -27,10 +30,11 @@ class CenterController extends Controller
      *
      * @return void
      */
-
-     public function __construct()
+     protected $NotificationController;
+     public function __construct(NotificationController $NotificationController)
      {
          $this->middleware('auth:api', ['except' => ['']]);
+         $this->NotificationController = $NotificationController;
      }
 
      public function centerType(){
@@ -136,10 +140,13 @@ class CenterController extends Controller
 
 
 
-    //CENTERS
+    // Get all Departments
+
     public function getDepertment(){
         return DB::table("departments")->orderBy('id')->where('departments.status', '=', 'active')->get();
     }
+
+    // Display All Centers
 
     public function displaysetBranch()
     {
@@ -161,11 +168,15 @@ class CenterController extends Controller
 
     }
 
+    // Get all unit
+
     public function getAllUnits(){
            return response()->json([
             'modules' =>  DB::table('center_type')->where('center_type.status', '=', 'active')->get(),
            ]);
           }
+
+    // Create new Branch Centers
          
     public function createCenters(Request $request)
           {
@@ -234,6 +245,8 @@ class CenterController extends Controller
               }
           }
 
+    // Get Details to update branch Centers
+
     public function onEditBranch(Request $request){
     $id=$request->id;
         return
@@ -245,6 +258,8 @@ class CenterController extends Controller
         'department'=> DB::table('departments')->select('departments.*')->where('departments.status', '=', 'active')->get()
         ];
     }
+
+    // Update Branch Centers
 
     public function updateBranch(Request $request){
 
@@ -281,6 +296,93 @@ class CenterController extends Controller
             }';
         }
 
+    }
+
+    // Suspent Selected branch Centers
+
+    public function suspendBranch(Request $request)
+    {
+        $id=$request[0];
+        $suspend=DB::table('branches')->where('id', $id)
+        ->update([
+            'status' => 'suspend'
+        ]);
+        if($suspend){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    // Activate selected branch centers
+
+    public function activateBranch(Request $request)
+    {
+        $id=$request[0];
+
+        $getData= Branches::orderBy('branches.id')->join('departments', 'branches.dept_id', '=', 'departments.id')->where('branches.id', $id)->select('branches.name as branch_name','departments.name', 'departments.image')->first();
+        $suspend=DB::table('branches')->where('id', $id)
+        ->update([
+            'status' => 'active'
+        ]);
+
+        if($suspend){
+
+            $notificationID = 10;
+            $title= '';
+            $message = $getData->branch_name.' center have been activated at '.$getData->name.' department Successfully';
+            $image = $getData->image;
+            $slug = '';
+            $ids = '';
+            $response = $this->NotificationController->notification($notificationID, $title, $message, $image, $slug, $ids);
+
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+
+            $notificationID = 10;
+            $title= '';
+            $message = $getData->branch_name.' failed to activate at '.$getData->name.' department';
+            $image = $getData->image;
+            $slug = '';
+            $ids = '';
+            $response = $this->NotificationController->notification($notificationID, $title, $message, $image, $slug, $ids); 
+
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
+    }
+
+    // Trash Selected branch center
+
+    public function trashBranch(Request $request)
+    {
+        $id=$request[0];
+        $suspend=DB::table('branches')->where('id', $id)
+        ->update([
+            'status' => 'trash'
+        ]);
+        if($suspend){
+            return '{
+                "success":true,
+                "message":"successful"
+            }' ;
+        } else {
+            return '{
+                "success":false,
+                "message":"Failed"
+            }';
+        }
     }
 
 }

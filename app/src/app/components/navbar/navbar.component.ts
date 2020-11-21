@@ -28,6 +28,10 @@ export class NavbarComponent implements OnInit {
   short_name: any;
   app_url: any;
   pos: any;
+  notifyResponse: any;
+  notifications: any;
+  countNotifications: any
+  web_url: any;
 
   loggedinUsers: any;
 
@@ -56,6 +60,15 @@ export class NavbarComponent implements OnInit {
       }
     )
 
+    this.Jarwis.getNotifications().subscribe(
+      datas =>{
+          this.notifyResponse = datas;
+          this.notifications = this.notifyResponse.notifications;
+          this.countNotifications = this.notifyResponse.countNotifications
+      });
+
+    
+
 
     this.Auth.authStatus.subscribe(Value => this.loggedIn = Value);
 
@@ -78,6 +91,7 @@ export class NavbarComponent implements OnInit {
         this.logo = this.appcheck.Data.logo;
         this.short_name = this.appcheck.Data.short_name;
         this.app_url = this.appcheck.Data.app_url;
+        this.web_url = this.appcheck.Data.web_url;
 
       }
       );
@@ -104,6 +118,14 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('/login');
 
     // window.location.reload();
+  }
+
+  checkNotification(val){
+    
+      this.Jarwis.seeNotification(val).subscribe(
+        datas =>{
+            
+        });
   }
 
 }

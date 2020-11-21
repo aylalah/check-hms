@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Possitions;
 use Faker\Provider\Image as ProviderImage;
 use League\CommonMark\Inline\Element\Image as ElementImage;
+use App\Models\Notification_settings;
 
 class SettingsController extends Controller
 {
@@ -23,9 +24,11 @@ class SettingsController extends Controller
      *
      * @return void
      */
-    public function __construct()
+     protected $NotificationController;
+     public function __construct(NotificationController $NotificationController)
     {
         $this->middleware('auth:api', ['except' => ['GETAllPosition']]);
+        $this->NotificationController = $NotificationController;
     }
 
     /**
@@ -90,9 +93,9 @@ class SettingsController extends Controller
     {
         $user_id = Auth()->user()->id;
         $request ->merge(['created_by'=>$user_id]);
-        $request ->merge(['updated_by'=>$user_id]);
-        $positioned = DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->select('status')->get();
-   
+        $request ->merge(['updated_by'=>$user_id]);                                                                   
+        $positioned = DB::table('possition_module')->join('positions','possition_module.position_id', '=', 'positions.id')->join('component_tb','possition_module.component_id', '=', 'component_tb.id')->where('possition_module.position_id', $request->id)->where('possition_module.component_id', $request->component_id)->select('component_tb.component_name','positions.image','possition_module.status','positions.position_name')->get();
+        
         if ($positioned->count()>0) {
             if ($positioned[0]->status =='permite') {
                 $update=  DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->update(['status' => 'unpermite','updated_by'=>$user_id]);
@@ -102,12 +105,30 @@ class SettingsController extends Controller
             }
 
             if($update){
+
+                $notificationID = 1;
+                $title= '';
+                $message = $positioned[0]->position_name.' position permited successfull to access '.$positioned[0]->component_name.' component';
+                $image = $positioned[0]->image;
+                $slug = '';
+                $ids = '';
+                $response = $this->NotificationController->notification($notificationID, $title, $message, $image, $slug, $ids);
+
                 return '{
                     "ResponseCode": 0,
                     "success":true,
                     "message":"Updated Successful"
                 }' ;
             } else {
+
+                $notificationID = 1;
+                $title= '';
+                $message = $positioned[0]->position_name.' position failed to access '.$positioned[0]->component_name.' component permision';
+                $image = $positioned[0]->image;
+                $slug = '';
+                $ids = '';
+                $response = $this->NotificationController->notification($notificationID, $title, $message, $image, $slug, $ids);
+
                 return '{
                     "ResponseCode": 1,
                     "success":false,
@@ -125,12 +146,29 @@ class SettingsController extends Controller
            ]); 
 
            if($update){
+
+            $notificationID = 1;
+            $title= '';
+            $message = $positioned[0]->position_name.' position permited successfull to access '.$positioned[0]->component_name.' component';
+            $image = $positioned[0]->image;
+            $slug = '';
+            $ids = '';
+            $response = $this->NotificationController->notification($notificationID, $title, $message, $image, $slug, $ids);
+
             return '{
                 "ResponseCode": 0,
                 "success":true,
                 "message":"Updated Successful"
             }' ;
         } else {
+            $notificationID = 1;
+            $title= '';
+            $message = $positioned[0]->position_name.' position failed to access '.$positioned[0]->component_name.' component permision';
+            $image = $positioned[0]->image;
+            $slug = '';
+            $ids = '';
+            $response = $this->NotificationController->notification($notificationID, $title, $message, $image, $slug, $ids);
+
             return '{
                 "ResponseCode": 1,
                 "success":false,

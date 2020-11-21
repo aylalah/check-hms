@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/Services/auth.service';
 import {FormBuilder, FormGroup, Validators, NgForm, FormControl} from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
+import { NotificationsService } from 'src/app/Services/notifications.service';
+
 declare let alert: any;
 declare let $: any;
 declare let swal: any;
@@ -32,6 +34,7 @@ export class AppSettingsComponent implements OnInit {
   logo2: any;
   icon2: any;
   disabled= false;
+  user_position: any;
 
   constructor(
     private Jarwis: JarwisService,
@@ -39,8 +42,30 @@ export class AppSettingsComponent implements OnInit {
     private router: Router,
     private Auth: AuthService,
     private formBuilder: FormBuilder,
-    private ngxService: NgxUiLoaderService
-  ) { }
+    private ngxService: NgxUiLoaderService,
+    private Notificate: NotificationsService,
+  ) {
+      this.Jarwis.profile().subscribe(
+        data=>{
+          this.appResponse = data
+          this.user_position = this.appResponse.position_id
+          this.Notificate.viewcustomizenotification(data)
+        }
+      )
+
+      this.Notificate.receivecustomizenotification().subscribe(
+        data=>{
+          if(this.user_position == data.identity[0].position_id){
+            $(function() {
+              toastr.options.timeOut = "1000";
+              toastr.options.closeButton = true;
+              toastr.options.positionClass = 'toast-bottom-right';
+              toastr['success'](data.message + ' ' + 'Accessed by ' + data.identity[0].position_name);
+            });
+          }
+        }
+      )
+   }
 
   ngOnInit(): void {
     this.ngxService.startLoader('loader-01'); 

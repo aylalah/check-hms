@@ -65,6 +65,23 @@ export class JarwisService {
   }
 
 
+  //NOTIFICATIOS
+
+  getNotifications(){
+    return this.http.get(this.baseUrl + 'getNotifications', {headers: {
+      Authorization:`Bearer ${localStorage.token}`
+    }}
+    );
+  }
+
+  seeNotification(id:string){
+    return this.http.get(this.baseUrl + 'seeNotification/' + id, {headers: {
+      Authorization:`Bearer ${localStorage.token}`
+    }}
+    );
+  }
+
+
   //DEPERTMENTS-CENTERS
   centerType() {
     return this.http.get(this.baseUrl + 'centerType', {headers:{
@@ -125,6 +142,24 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }});
   }
+  suspendBranch(data) {
+    return this.http.post(`${this.baseUrl}suspendBranch`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }});
+  }
+  activateBranch(data) {
+    return this.http.post(`${this.baseUrl}activateBranch`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }});
+  }
+  trashBranch(data) {
+    return this.http.post(`${this.baseUrl}trashBranch`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }});
+  }
+
+
+
 
 
 
@@ -151,12 +186,8 @@ export class JarwisService {
   deleteBranch(data) {
     return this.http.post(`${this.baseUrl}/deleteBranch`, data)
   }
-  suspendBranch(data) {
-    return this.http.post(`${this.baseUrl}/suspendBranch`, data)
-  }
-  activateBranch(data) {
-    return this.http.post(`${this.baseUrl}/activateBranch`, data)
-  }
+  
+  
   
   centerBranch() {
     return this.http.get(`${this.baseUrl}/centerBranch`,)

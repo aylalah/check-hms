@@ -23,6 +23,10 @@ Route::group([
     Route::post('updateGeneralset', 'App\Http\Controllers\SettingsController@updateGeneralset');
     Route::post('updateAppImage', 'App\Http\Controllers\SettingsController@updateAppImage');
 
+    // NOTIFICATIONS  
+    Route::get('getNotifications', 'App\Http\Controllers\NotificationController@getNotifications');
+    Route::get('seeNotification/{id}','App\Http\Controllers\NotificationController@seeNotification');
+
     //POSSITIONS
     Route::get('GETAllPosition', 'App\Http\Controllers\SettingsController@GETAllPosition');
     Route::get('onEditPos/{id}','App\Http\Controllers\SettingsController@onEditPos');
@@ -40,8 +44,11 @@ Route::group([
     Route::get('displaysetBranch','App\Http\Controllers\CenterController@displaysetBranch');
     Route::get('getAllUnits','App\Http\Controllers\CenterController@getAllUnits');
     Route::post('createCenters', 'App\Http\Controllers\CenterController@createCenters');
-    Route::post('onEditBranch','App\Http\Controllers\CenterController@onEditBranch');
+    Route::post('onEditBranch','App\Http\Controllers\CenterController@onEditBranch'); 
     Route::post('updateBranch', 'App\Http\Controllers\CenterController@updateBranch');
+    Route::post('suspendBranch', 'App\Http\Controllers\CenterController@suspendBranch');
+    Route::post('activateBranch', 'App\Http\Controllers\CenterController@activateBranch');
+    Route::post('trashBranch', 'App\Http\Controllers\CenterController@trashBranch');
 });
 /*
 |--------------------------------------------------------------------------
