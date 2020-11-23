@@ -233,11 +233,29 @@ class CenterController extends Controller
               $branch= Branches::create($request-> all());
           }
               if($branch){
+
+                $notificationID = 6;
+                $title= '';
+                $message = $request->bran_name.' branch have be created';
+                $image = '';
+                $slug = '';
+                $ids = '';
+                $response = $this->NotificationController->notification($notificationID, $title, $message, $image, $slug, $ids);
+
                   return '{
                       "success":true,
                       "message":"successful"
                   }' ;
               } else {
+
+                $notificationID = 6;
+                $title= '';
+                $message = 'New branch creation faied';
+                $image = '';
+                $slug = '';
+                $ids = '';
+                $response = $this->NotificationController->notification($notificationID, $title, $message, $image, $slug, $ids);
+
                     return '{
                       "success":false,
                       "message":"Failed"

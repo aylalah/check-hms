@@ -25,6 +25,7 @@ export class TokenService {
     localStorage.setItem('role', role);
     localStorage.setItem('pos', pos);
 
+
     if (look == 1001) {
       localStorage.setItem('face', 'horizontal')
     } else {

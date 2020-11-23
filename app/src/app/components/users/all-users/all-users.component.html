@@ -1,0 +1,299 @@
+<div id="main-content">
+    <div class="container-fluid">
+    <div class="block-header">
+    <div class="row clearfix">
+    <div class="col-md-6 col-sm-12">
+    <h2>User List</h2>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" [routerLink]="['/Admin', {outlets: {side: ['home']}}]">Dashboard</a></li>
+        <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
+        <li class="breadcrumb-item active" aria-current="page">Users</li>
+        </ol>
+    </nav>
+    </div>            
+    <!-- <div class="col-md-6 col-sm-12 text-right hidden-xs">
+    <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-round" title="">Add New</a>
+    </div> -->
+    </div>
+    </div>
+    <div class="row clearfix">
+    <div class="col-lg-12">
+    <div class="card">
+    <ul class="nav nav-tabs row">
+    <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Users">Users</a></li>
+    <li class="nav-item"><a class="nav-link float-right" data-toggle="tab" href="#addUser">Add User</a></li>        
+    </ul>
+    <div class="tab-content mt-0">
+        <div class=" tab-pane active show row " id="Users">
+           
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-hover table-custom spacing8">
+                        <thead>
+                            <tr> 
+                                <th>#</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>ID Number</th>
+                                <th>Designation</th> 
+                                <th>Department</th>                                     
+                                <th>Position</th>
+                                <th>Joining Date</th>   
+                                <th>Status</th>                                 
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr *ngFor="let s of allstaff; let r=index">
+                                <td>{{r+1}}</td>
+                                <td *ngIf="s.online_status == 'online'" class="w39 card c_grid c_green" style="width:1%;">
+                                    <div class="circle">
+                                    <img class="rounded-circle"  src="http://{{imgLink}}/backend/public/upload/uploads/{{s.image}}" >
+                                </div>
+                                </td>
+                                <td *ngIf="s.online_status == 'offline'"  class="w39 card c_yellow c_grid " style="width:1%;">
+                                    <div class="circle">
+                                        <img class="rounded-circle"  src="http://{{imgLink}}/backend/public/upload/uploads/{{s.image}}">
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" title="">{{s.firstname}} {{s.lastname}}</a>
+                                    <div>{{s.email}}</div>
+                                </td>
+                                <td style="color: #17C2D7;">{{s.id_number}}</td>
+                                <td>{{s.role_name}}</td> 
+                                <td>{{s.dept_name}}</td>                    
+                                <td style="color: #17C2D7;">{{s.position_name}}</td>
+                                <td>{{s.created_at}}</td>
+                                <td><span class="badge badge-warning" *ngIf ="s.status=== 'reg'">Registerd</span>
+                                    <span class="badge badge-success" *ngIf ="s.status=== 'approved'">Active</span>
+                                    <span class="badge badge-danger" *ngIf ="s.status=== 'suspended'">Suspended</span>
+                                </td>
+                                <td>
+                                        <button type="button" class="btn btn-default btn-sm" title="View this staff details" [routerLink]="['/Admin', {outlets: {side: ['Profile', s.id]}}]"><i class="fa fa-info"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" *ngIf="s.status === 'suspended' " title="Re-Activate this staff"><i class="fa fa-check" (click)="reStatus(s.id)"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" *ngIf="s.status === 'approved' " title="Suspend this staff"><i class="fa fa-times-circle" (click)="c_uStatus(s.id)"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" *ngIf="s.status === 'reg' " title="Approve this staff"><i class="fa fa-check" (click)="uStatus(s.id)"></i></button>
+                                        <!-- <button type="button" class="btn btn-default btn-sm" title="Delete"><i class="fa fa-trash-o" (click)="delete(s.id)"></i></button> -->
+                                </td>
+                            </tr>                    
+                            <div *ngIf="!allstaff">
+                                <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        <div class="spinner-grow text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+                              </div> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+    <div class="tab-pane" id="addUser">
+    <div class="body mt-2">
+    <div class="row clearfix">
+       <form  class="form-auth-small m-t-20 row" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm" >
+            <div class="col-lg-2 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <input type="text" class="form-control round" placeholder="Input staff ID number here" ngModel name="id_number" required>
+                </div>
+            </div>
+    
+            <div class="col-lg-8 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <input type="text" class="form-control round" placeholder="Input staff Firstname here" ngModel name="firstname" required>
+                    <div class="text-danger" [hidden]="!firstname">
+                        {{firstname}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <input type="text" class="form-control round" placeholder="Input staff Othername here" ngModel name="lastname" required>
+                    <div class="text-danger" [hidden]="!lastname">
+                        {{lastname}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="form-group">                            
+                        <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="male" type="radio" checked><span><i></i>Male</span></label>
+                        <label class="fancy-radio custom-color-green"><input name="gender" ngModel name="gender" value="female" type="radio"><span><i></i>Female</span></label>
+                    <div class="text-danger" [hidden]="!gender">
+                        {{gender}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <input type="email" class="form-control round"  placeholder="Input staff email address here" ngModel name="email" required>
+                    <div class="text-danger" [hidden]="!email">
+                        {{email}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Staff Role</label>
+                        </div> 
+                        <select class="custom-select" (change)="onSelectRole($event)" ngModel name="role_id"> 
+                            <option value="">Select Role...</option>   
+                            <ng-container *ngFor="let r of role">
+                                <ng-container *ngIf="roleID != r.id && r.id > roleID">
+                                    <option value="{{r.id}}" [value]="r.id">{{r.name}}</option>
+                                </ng-container>
+                            </ng-container>                                                                           
+                        </select>        
+                    </div>
+                </div>
+            </div>
+
+            
+           
+                <div class="col-lg-4 col-md-6 col-sm-12 clearfix" >
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">Staff Position</label>
+                            </div> 
+                            <select class="custom-select" (change)="onChange1($event)" ngModel name="position_id">   
+                                <option value="">Select Position...</option> 
+                                <ng-container *ngFor="let d of position">
+                                    <ng-container *ngIf="profile.dept_id == d.id || profile.dept_id == '10'">                                    
+                                        <option value="{{d.id}}" [value]="d.id">{{d.position_name}}</option> 
+                                    </ng-container>
+                                </ng-container>                                      
+                            </select>        
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">Staff Department</label>
+                            </div> 
+                            <span *ngIf="deptname" class="input-group-prepend">
+                                <span class="input-group-text"> {{deptname}}</span>
+                            </span> 
+                        </div>
+                    </div>
+                    
+                </div>
+                <div *ngIf="givenDept == '3'" class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">Staff Rank</label>
+                            </div> 
+                            <select class="custom-select"  ngModel name="rank_id"> 
+                                <option value="">Select Rank...</option>   
+                                <ng-container *ngFor="let r of ranks">
+                                        <option value="{{r.id}}" [value]="r.id">{{r.rank_name}}</option>
+                                </ng-container>                                                                           
+                            </select>        
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="givenDept == '3'" class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">Staff Team</label>
+                            </div> 
+                            <select class="custom-select"  ngModel name="team_id"> 
+                                <option value="">Select Team...</option>   
+                                <ng-container *ngFor="let t of teams">
+                                        <option value="{{t.id}}" [value]="t.id">{{t.team_name}}</option>
+                                </ng-container>                                                                           
+                            </select>        
+                        </div>
+                    </div>
+                </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12" *ngIf = "givenRole > '2003'">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Center</label>
+                        </div> 
+                        <select class="custom-select" ngModel name="branch_id"> 
+                            <option value="">Select Center...</option>   
+                            <ng-container *ngFor="let b of sbranch">
+                                <ng-container *ngIf="roleID != '4004' || profile.dept_id == '10'">                                     
+                                    <option value="{{b.id}}" [value]="b.id">{{b.name}}</option>  
+                                </ng-container>
+                            </ng-container>                                  
+                        </select>        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-6 col-sm-12">
+            <div class="form-group" >
+                <textarea  class="form-control" placeholder="Description" ngModel name="description"></textarea>
+            </div>
+            </div>
+            <!-- 
+            <div class="col-lg-3 col-md-4 col-sm-12">
+            <div class="form-group">
+            <input type="file" class="form-control" placeholder="Image" ngModel name="image">
+            </div>
+            </div>-->
+    <div class="col-12">
+    <h6>Module Permission</h6>
+    <div class="table-responsive">
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <td>Description</td>
+            <th>Read</th>
+            <th>Write</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let mod of modules">
+            <td>{{mod.component_name}}</td>
+            <td>{{mod.description}}</td>
+             <td>
+                <label class="fancy-checkbox">
+                    <input class="checkbox-tick" type="checkbox" (click)="check(mod.id,'read')" name="checkbox">
+                    <span></span>
+                </label>
+            </td>
+            <td>
+                <label class="fancy-checkbox">
+                    <input class="checkbox-tick" type="checkbox" (click)="check(mod.id,'write')" name="checkbox">
+                    <span></span>
+                </label>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    <div class="float-right">
+        <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner"></i></button>
+        <button type="button" class="btn btn-round btn-default" data-toggle="modal">Close</button>
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>            
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>

@@ -19,6 +19,9 @@ Route::group([
     Route::get('check', 'App\Http\Controllers\AuthController@check');
     Route::get('app_info', 'App\Http\Controllers\AuthController@app_info');
 
+    // USERS   
+    Route::get('displayAllstaff','App\Http\Controllers\UsersController@displayAllstaff');
+
     //GENERAL SETTINGS
     Route::post('updateGeneralset', 'App\Http\Controllers\SettingsController@updateGeneralset');
     Route::post('updateAppImage', 'App\Http\Controllers\SettingsController@updateAppImage');
@@ -49,6 +52,20 @@ Route::group([
     Route::post('suspendBranch', 'App\Http\Controllers\CenterController@suspendBranch');
     Route::post('activateBranch', 'App\Http\Controllers\CenterController@activateBranch');
     Route::post('trashBranch', 'App\Http\Controllers\CenterController@trashBranch');
+
+    //TEAMS
+    Route::get('Teams','App\Http\Controllers\TeamController@Teams');
+    Route::post('AddTeam','App\Http\Controllers\TeamController@AddTeam');
+    Route::post('editingTeam','App\Http\Controllers\TeamController@editingTeam');
+    Route::post('editTeam','App\Http\Controllers\TeamController@editTeam');
+    Route::post('deleteTeam','App\Http\Controllers\TeamController@deleteTeam');
+
+    // RANKS
+    Route::get('Ranks','App\Http\Controllers\RanksController@Ranks');
+    Route::post('AddRank','App\Http\Controllers\RanksController@AddRank');
+    Route::post('editingRank','App\Http\Controllers\RanksController@editingRank');
+    Route::post('editRank','App\Http\Controllers\RanksController@editRank');
+    Route::post('deleteRank','App\Http\Controllers\RanksController@deleteRank');
 });
 /*
 |--------------------------------------------------------------------------

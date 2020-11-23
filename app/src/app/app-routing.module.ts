@@ -20,22 +20,26 @@ import { PossitionComponent } from './components/settings/possition/possition.co
 import { CentersComponent } from './components/settings/centers/centers.component';
 import { UnitsComponent } from './components/settings/units/units.component';
 
+//USER
+import { AllUsersComponent } from './components/users/all-users/all-users.component';
+import { TeamsComponent } from './components/users/teams/teams.component';
+import { RanksComponent } from './components/users/ranks/ranks.component';
+
 const routes: Routes = [
 
   //AUTHORIZATION
+
   // {
   //   path : 'activation',
   //   component : ActivationComponent ,
   //   canActivate : [BeforeLoginService]
   // },
 
-
-
   {
     path : '',
-    redirectTo : 'login',
+    redirectTo : 'admin',
     pathMatch : 'full',
-    canActivate : [BeforeLoginService]
+    canActivate : [AfterLoginService]
   },
   {
     path: '',
@@ -60,14 +64,7 @@ const routes: Routes = [
     canActivate : [BeforeLoginService]
   },
 
-  //ADMIN
-
-  // {
-  //   path : '',
-  //   redirectTo : 'admin',
-  //   component : AdminhomeComponent,
-  //   canActivate : [AfterLoginService]
-  // },
+  //SETTINGS
   {
     path : 'appsettings',
     component : AppSettingsComponent,
@@ -106,6 +103,24 @@ const routes: Routes = [
   {
     path : 'response-password-reset',
     component : ResponseResetComponent,
+    canActivate : [AfterLoginService]
+  },
+
+  //USER
+
+  {
+    path : 'all-users',
+    component : AllUsersComponent,
+    canActivate : [AfterLoginService]
+  },
+  {
+    path : 'teams',
+    component : TeamsComponent,
+    canActivate : [AfterLoginService]
+  },
+  {
+    path : 'ranks',
+    component : RanksComponent,
     canActivate : [AfterLoginService]
   },
 ];

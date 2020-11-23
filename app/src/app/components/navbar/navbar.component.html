@@ -602,8 +602,8 @@
                    <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
                    <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
                    <li class="divider"></li>
-                   <li  *ngIf="loggedIn"><a href="../html/page-login.html"><i class="icon-power" (click)=logout($event)></i>Logout</a></li>
-                   <li *ngIf="!loggedIn"><a href="../html/page-login.html"><i class="icon-power" routerLink="login"></i>Login</a></li>
+                   <li  *ngIf="loggedIn"><a href=""><i class="icon-power" (click)=logout($event)></i>Logout</a></li>
+                   <li *ngIf="!loggedIn"><a href=""><i class="icon-power" routerLink="login"></i>Login</a></li>
                </ul>
            </div>
        </div>
@@ -622,6 +622,15 @@
                         <li><a href="dr-schedule.html">Doctors Schedule</a></li> -->
                     </ul>
                 </li>
+
+                <li>
+                  <a class="has-arrow"><i class="icon-user"></i><span>Users</span></a>
+                  <ul >
+                      <li><a [routerLink]="['all-users']">All Users</a></li>                     
+                      <li><a [routerLink]="['ranks']">Ranks</a></li>
+                      <li><a [routerLink]="['teams']">Team</a></li>
+                  </ul>
+              </li>
 
                 <li class="header">Configuration</li>
                 <li>
