@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit {
 
     this.disabled= false;
 
-    // window.location.reload();
+    window.location.reload();
 
     $(function() {
       toastr.options.timeOut = "1000";

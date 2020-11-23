@@ -1,28 +1,631 @@
+<!-- <ngx-ui-loader [loaderId]="'loader-02'"></ngx-ui-loader> -->
 <div id="main-content">
     <div class="container-fluid">
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h1>Setting</h1>
+                    <h1>Department Centers</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../html/index.html">Oculux</a></li>
-                        <li class="breadcrumb-item"><a href="index.html">Hospital</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Setting</li>
+                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                            <!-- <li class="breadcrumb-item"><a href="index.html">Hospital</a></li> -->
+                            <li class="breadcrumb-item active" aria-current="page">Centers</li>
                         </ol>
                     </nav>
                 </div>            
                 <div class="col-md-6 col-sm-12 text-right hidden-xs">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" title="">Create Campaign</a>
-                    <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a>
+                    <button *ngIf="permission.read" class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#AddDepartments" (click)="branche()">Add</button>
+                <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="suspend" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">  
+                    <div class="modal-header">
+                        <h4 class="modal-title">Note !</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">             
+                        <div class="row  justify-content-center">
+                            <h6>You are about to suspend this Center!</h6>     
+                        </div>
+                    </div>      
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+                        <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="suspend()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    <div class="modal fade" id="activate" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">  
+                <div class="modal-header">
+                    <h4 class="modal-title">Note !</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">             
+                    <div class="row  justify-content-center">
+                            <h6>You are about to reactivate this Center!</h6>     
+                    </div>
+                </div>      
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+                    <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="activate()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <div class="row clearfix">
+    <div class="modal fade" id="trash" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">  
+                <div class="modal-header">
+                    <h4 class="modal-title">Note !</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">             
+                    <div class="row  justify-content-center">
+                        <h6>You are about to Delete this Center!</h6>     
+                    </div>
+                </div>      
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+                    <button type="button" class="btn btn-round btn-success" data-dismiss="modal" aria-label="Close" aria-hidden="true"  (click)="trash()">Yes</button>
+                </div>
+            </div>    
+        </div>
+    </div>
 
-            <ngx-skeleton-loader count="5"></ngx-skeleton-loader>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#clinic" (click)="branch('clinic')" value="clinic">Clinic Services</a></li>
+                    <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#lab" (click)="branch('lab')">Lab</a></li>    
+                    <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#radio" (click)="branch('radio')">Radiology</a></li>
+                    <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#theater" (click)="branch('theater')">Theater</a></li>
+                    <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#pharmacy" (click)="branch('pharmacy')" >Sales Point</a></li>
+                    <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#record" (click)="branch('record')">Record</a></li>
+                    <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#revenue" (click)="branch('revenue')">Account/Revenue</a></li>
+                    <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#ward" (click)="branch('ward')">Ward</a></li>
 
+
+                    <!-- <li  *ngIf="role=='1001' || role==1002" class="nav-item"><a class="nav-link " data-toggle="tab" href="#admin" (click)="branch('admin')">Admin</a></li> -->
+                    
+                </ul>
+                <div  class="tab-content mt-0"  style="position: relative">
+                    <input type="text" class="form-control"  id="branch_search" placeholder="search......" [(ngModel)]="br_search">
+                    <div class="tab-pane active show" id="clinic">
+
+                        <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+
+                        <table class="table table-hover table-custom spacing8">
+                            <thead>
+                                <tr> 
+                                    <th>#</th>
+                                    <th>Name</th>
+                                        
+                                    <th>Department</th>
+                                    <th>Created Timestamp</th>      
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        <tbody id="branches">
+                            <tr *ngFor="let b of clinic; let r = index">
+                                <td>
+                                    {{r+1}}
+                                </td>                              
+                                <td style="color: #17C2D7;">{{b.name}}</td>        
+                                <td style="color: #17C2D7;">{{b.dept_name}}</td>
+                                <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
+                                <td>
+                                    <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                    <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
+                                    <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                   
+                                </td>
+                                <td *ngIf ="permission.actions">
+                                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'new' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>                                                                  
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="pharmacy">
+                    <table class="table table-hover table-custom spacing8">
+                        <thead>
+                            <tr> 
+                                <th>#</th>
+                                <th>Name</th>
+                                            
+                                <th>Department</th>
+                                <th>Created Timestamp</th>              
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="branches">
+                            <tr *ngFor="let b of pharmacy; let r = index">
+                                <td>
+                                    {{r+1}}
+                                </td>                              
+                                <td style="color: #17C2D7;">{{b.name}}</td>      
+                                <td style="color: #17C2D7;">{{b.dept_name}}</td> 
+                                <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
+                        
+                                <td>
+                                    <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                    <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
+                                    <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                  
+                                </td>                          
+                                <td *ngIf ="permission.actions">
+                                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'new' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>                                                                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="radio">
+                    <table class="table table-hover table-custom spacing8">
+                        <thead>
+                            <tr> 
+                                <th>#</th>
+                                <th>Name</th>
+                                
+                                <th>Department</th>                
+                                <th>Created Timestamp</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="branches">
+                            <tr *ngFor="let b of radio; let r = index">
+                                <td>
+                                    {{r+1}}
+                                </td>                              
+                                <td style="color: #17C2D7;">{{b.name}}</td>    
+                                <td style="color: #17C2D7;">{{b.dept_name}}</td> 
+                                <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
+                                <td>
+                                    <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                    <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
+                                    <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                             
+                                </td>                          
+                                <td *ngIf ="permission.actions">
+                                    <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'new' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>                            
+                                                                      
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="record">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            
+                            <th>Department</th>            
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="branches">
+                        <tr *ngFor="let b of record; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                            <td style="color: #17C2D7;">{{b.dept_name}}</td>            
+                            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
+                                <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                
+                            </td>                          
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'new' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>                                                                     
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="revenue">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                                
+                            <th>Department</th>               
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="branches">
+                        <tr *ngFor="let b of revenue; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>   
+                            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
+                            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
+                                <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                 
+                            </td>                          
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'new' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>                                                                    
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="theater">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                                                        
+                        
+                            <th>Department</th>                
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="branches">
+                        <tr *ngFor="let b of theater; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                                
+                            
+                            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
+                            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                    <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
+                                    <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                
+                            </td>                          
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'new' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>                                                   
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="nurse">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            
+                            <th>Department</th>               
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="branches">
+                        <tr *ngFor="let b of nurse; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>     
+                            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
+                            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                    <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
+                                    <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                   
+                            </td>                          
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>                                                                            
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="ward">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            
+                            <th>Department</th>               
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="branches">
+                        <tr *ngFor="let b of ward; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>                 
+                            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
+                            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                    <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
+                                    <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                   
+                            </td>                          
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>                                                                   
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="lab">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                                
+                            <th>Department</th>                
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="branches">
+                        <tr *ngFor="let b of lab; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>    
+                            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
+                            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
+                                <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                
+                            </td>                          
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>                                                                  
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="admin">
+                <table class="table table-hover table-custom spacing8">
+                    <thead>
+                        <tr> 
+                            <th>#</th>
+                            <th>Name</th>
+                            
+                            <th>Department</th>               
+                            <th>Created Timestamp</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="branches">
+                        <tr *ngFor="let b of admin; let r = index">
+                            <td>
+                                {{r+1}}
+                            </td>                              
+                            <td style="color: #17C2D7;">{{b.name}}</td>  
+                            <td style="color: #17C2D7;">{{b.dept_name}}</td> 
+                            <td style="color: #17C2D7;">  <small>{{b.created_at.slice(0,10)}}, </small> <small *ngIf="b.created_at.slice(10,13)%12==0"> {{b.created_at.slice(10,13)%12+12}}</small><small *ngIf="b.created_at.slice(10,13)%12!=0">{{b.created_at.slice(10,13)%12}}</small><small>{{b.created_at.slice(13,16)}}</small> <small *ngIf="b.created_at.slice(11,13)<=11">am</small><small *ngIf="b.created_at.slice(11,13)>=12">pm</small></td>                                         
+                            <td>
+                                <span class="badge badge-success" *ngIf ="b.status=== 'active'">Active</span>
+                                    <span class="badge badge-danger" *ngIf ="b.status=== 'suspend'">Suspend</span> 
+                                    <span class="badge badge-info" *ngIf ="b.status=== 'new'">New</span>                                 
+                            </td>                          
+                            <td *ngIf ="permission.actions">
+                                <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>                                                                            
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    </div>
+</div>
+ 
+        <!-- Default Size -->
+<div class="modal fade" id="AddDepartments" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="myLargeModalLabel">Add Center</h5>
+                <button type="button" id="closemodal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form  class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fm)" #fm="ngForm">                 
+            <div class="modal-body">  
+                
+                <div class="form-group">
+                    <label>Select department</label>
+                    <select class="form-control "  id="" (change)="dept($event)" ngModel name="dept_id" required  >
+                        <option value="">Select department</option>
+                        <option *ngFor="let dep of depts" value="{{dep.id}}">{{dep.name}}</option>
+                    </select>                     
+                </div>
+                <div class="form-group">
+                    <label>Branch Name</label>
+                    <input type="text" class="form-control" placeholder="Branch Name" ngModel name="bran_name" required>
+                </div>
+                <div class="form-group">
+                    <label>Branch Description</label>
+                    <input type="text" class="form-control" placeholder="Branch Description" ngModel name="description" required>
+                </div>
+                <div class="form-group">
+                    <label>Sellect Unit</label>
+                    <select name="center_type" id="" required ngModel class="form-control">
+                        <option value="">Center Unit</option>
+                        <option *ngFor="let dpt of app_type" value="{{dpt.id}}">{{dpt.name}}</option>
+                    </select>
+                </div>              
+            </div>  
+        
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-round btn-primary">Add<i *ngIf="disabled" class="fa fa-spin fa-spinner" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-round btn-default" data-toggle="modal" aria-hidden="true" (click)="close()">Close</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+
+<!-- Default Size -->
+<div class="modal fade" id="EditDepartments" tabindex="1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title h4" id="myLargeModalLabel">Update Branch</h5>
+                <button type="button" id="closemodal2" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form class="form-auth-small m-t-20" role="form" [formGroup]="submissionForm" #form="ngForm">          
+                <div class="modal-body">                     
+                    <div class="form-group">
+                        <label for="">Depertment</label>
+                        <select class="form-control"   formControlName="depart_id" required>    
+                            <option value="">{{depart_name}}</option>                      
+                            <option *ngFor="let dep of depart" value="{{dep.id}}">{{dep.name}}</option>
+                        </select>                       
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Center Name</label>
+                        <input type="text" class="form-control" formControlName="branch_name" required>
+                        <input type="hidden" formControlName="branch_id" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Center Description</label>
+                        <input type="text" class="form-control" formControlName="branch_adress" required>
+                        <input type="hidden" formControlName="manufid" >        
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <label >CLINIC Unit</label>                        
+                        <select name="" id="" class="form-control" formControlName="clinic_type" required>
+                            <option value="">Clinic Unit</option> 
+                            <option *ngFor="let clinic of clinic_types" value="{{clinic.id}}">{{clinic.name}}</option>
+                        </select>                               
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Status</label>
+                        <select class="form-control show-tick" formControlName="branch_status" >
+                            <option value="">{{ branch_status}}</option>
+                            <option active value="active">Active</option>
+                            <option value="suspend">Suspend</option>                                
+                        </select>                  
+                    </div>                            
+                </div>   
+         
+                <div class="modal-footer">
+                    <button type="button" (click)="onUpdateBranch()" class="btn btn-round btn-success"><i *ngIf="disabled" class="fa fa-spin fa-spinner" aria-hidden="true"></i> Update</button>
+                    <button type="button" class="btn btn-round btn-primary" data-dismiss="modal" >Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <div class="modal fade" id="EditDepartments2" tabindex="1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h4" id="myLargeModalLabel">Edit Branch Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onUpdate(ed)" #ed="ngForm"> 
+                <div class="modal-body">             
+                    <div class="row clearfix">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                        
+                                <input type="text" class="form-control" [value]="deptName" ngModel name="name" >
+                                <input hidden="true" [value]="deptid" ngModel name="id">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            
+                                <select class="form-control show-tick" ngModel name="position_id">
+                                <option value="">- Status -</option>
+                                <option Value="active">Active</option> 
+                                <option value="inactive">Inactive</option>  
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="col-sm-12">
+                            <div class="form-group mt-3">                            
+                                <textarea rows="6" class="form-control no-resize" placeholder="Edit about the depertment..." [value]="deptDescrip" ngModel name="description"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-round btn-primary">Update</button>
+                    <button type="button" class="btn btn-round btn-default" data-dismiss="modal">Close</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>

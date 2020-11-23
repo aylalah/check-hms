@@ -28,30 +28,32 @@ const routes: Routes = [
   //   component : ActivationComponent ,
   //   canActivate : [BeforeLoginService]
   // },
-  //  {
-  //   path : '',
-  //   redirectTo : 'admin',
-  //   pathMatch : 'full',
-  //   // component : AdminhomeComponent,
-  //   canActivate : [AfterLoginService]
-  // },
+
+
+
   {
     path : '',
     redirectTo : 'login',
     pathMatch : 'full',
-    // component : LoginComponent ,
     canActivate : [BeforeLoginService]
   },
+  {
+    path: '',
+    component: AdminhomeComponent,
+    canActivate : [AfterLoginService]
+  },
+  {
+    path: 'admin',
+    component: AdminhomeComponent,
+    canActivate : [AfterLoginService]
+  },
+
   {
     path : 'forget-password',
     component : ForgetPasswordComponent ,
     canActivate : [BeforeLoginService]
   },
-  {
-    path : 'login',
-    component : LoginComponent ,
-    canActivate : [BeforeLoginService]
-  },
+ 
   {
     path : 'signup',
     component : SignupComponent,
@@ -90,13 +92,6 @@ const routes: Routes = [
     component : UnitsComponent,
     canActivate : [AfterLoginService],
     data: {role: 'Administrator'}
-  },
-
-
-  {
-    path : 'admin',
-    component : AdminhomeComponent,
-    canActivate : [AfterLoginService]
   },
   {
     path : 'profile',

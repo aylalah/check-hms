@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { JarwisService } from 'src/app/Services/jarwis.service';
-
+import { GetFunctionsService } from 'src/app/Services/get-functions.service';
 import { NotificationsService } from 'src/app/Services/notifications.service';
 
 @Component({
@@ -27,6 +27,12 @@ export class NavbarComponent implements OnInit {
   logo: any;
   short_name: any;
   app_url: any;
+  pos: any;
+  notifyResponse: any;
+  notifications: any;
+  countNotifications: any
+  web_url: any;
+
   loggedinUsers: any;
 
 
@@ -41,6 +47,7 @@ export class NavbarComponent implements OnInit {
     private Token : TokenService,
     private Jarwis: JarwisService,
     private Notificate: NotificationsService,
+
   ) {
 
   }
@@ -52,6 +59,15 @@ export class NavbarComponent implements OnInit {
        this.loggedinUsers = data.identity
       }
     )
+
+    this.Jarwis.getNotifications().subscribe(
+      datas =>{
+          this.notifyResponse = datas;
+          this.notifications = this.notifyResponse.notifications;
+          this.countNotifications = this.notifyResponse.countNotifications
+      });
+
+    
 
 
     this.Auth.authStatus.subscribe(Value => this.loggedIn = Value);
@@ -75,6 +91,7 @@ export class NavbarComponent implements OnInit {
         this.logo = this.appcheck.Data.logo;
         this.short_name = this.appcheck.Data.short_name;
         this.app_url = this.appcheck.Data.app_url;
+        this.web_url = this.appcheck.Data.web_url;
 
       }
       );
@@ -87,7 +104,7 @@ export class NavbarComponent implements OnInit {
       datas =>{
           this.permissionResponse = datas;
           // this.menus = JSON.parse(this.permissionResponse.data[0].permission);
-          this.position = this.permissionResponse.data[0].position_name;
+          this.position = this.permissionResponse.data.position_name;
       });
   }
 
@@ -101,6 +118,14 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('/login');
 
     // window.location.reload();
+  }
+
+  checkNotification(val){
+    
+      this.Jarwis.seeNotification(val).subscribe(
+        datas =>{
+            
+        });
   }
 
 }

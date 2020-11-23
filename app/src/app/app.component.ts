@@ -42,69 +42,16 @@ export class AppComponent {
   ngOnInit(): void {
 
 
-
-
-    this.Jarwis.check().subscribe(
-      data => this.handleResponse(data, ),
-      error => this.handleError(error)
-      );
-
     this.Auth.authStatus.subscribe(Value => this.loggedIn = Value);
     this.admindash = this.Token.get2();
     this.Jarwis.getPermission().subscribe(
         datas =>{
             this.resp = datas;
-            this.profile = this.resp.data[0];
-            this.role=  this.resp.data[0].role_id;
+            this.profile = this.resp.data;
+            this.role=  this.resp.data.role_id;
             this.Token.dashboard(this.role, this.profile.slug, this.profile.position_name);
         });
     }
-
-  // tslint:disable-next-line: typedef
-  handleResponse(data){
-
-    this.status = data.Data.status;
-
-    if (this.status == 'activated') {
-
-      this.router.navigateByUrl('/admin');
-
-    } else if (this.status == 'license') {
-
-      this.router.navigateByUrl('/activation');
-
-    } else if (this.status == 'suspended') {
-
-      this.router.navigateByUrl('/404');
-
-    }
-
-    this.disabled= false;
-
-  //   $(function() {
-  //     toastr.options.timeOut = "true";
-  //     toastr.options.closeButton = true;
-  //     toastr.options.positionClass = 'toast-bottom-right';
-  //     toastr['success']('Login Successfull');
-  // });
-  }
-
-  handleError(error){
-    this.error = error.error.error;
-
-    this.disabled= false;
-
-    if (this.error) {
-
-    } else {
-      $(function() {
-        toastr.options.timeOut = "1000";
-        toastr.options.closeButton = true;
-        toastr.options.positionClass = 'toast-bottom-right';
-        toastr['error']('Oops, There is an error, you may check your connection');
-    });
-    }
-  }
 
 
 }

@@ -23,6 +23,10 @@ Route::group([
     Route::post('updateGeneralset', 'App\Http\Controllers\SettingsController@updateGeneralset');
     Route::post('updateAppImage', 'App\Http\Controllers\SettingsController@updateAppImage');
 
+    // NOTIFICATIONS  
+    Route::get('getNotifications', 'App\Http\Controllers\NotificationController@getNotifications');
+    Route::get('seeNotification/{id}','App\Http\Controllers\NotificationController@seeNotification');
+
     //POSSITIONS
     Route::get('GETAllPosition', 'App\Http\Controllers\SettingsController@GETAllPosition');
     Route::get('onEditPos/{id}','App\Http\Controllers\SettingsController@onEditPos');
@@ -31,9 +35,20 @@ Route::group([
     //DEPERTMENTS-CENTERS
     Route::get('centerType','App\Http\Controllers\CenterController@centerType');
     Route::post('CenterTypes','App\Http\Controllers\CenterController@CenterTypes');
-    Route::post('editCenterType','App\Http\Controllers\CenterController@editCenterType');
+    Route::post('updateCenterType','App\Http\Controllers\CenterController@updateCenterType');
     Route::post('editCentertype','App\Http\Controllers\CenterController@editCentertypes');
-    Route::post('deleteCenterType','App\Http\Controllers\CenterController@deleteCenterType');
+    Route::post('deleteCenterType','App\Http\Controllers\CenterController@deleteCenterType'); 
+
+    //CENTER
+    Route::get('getDepertment','App\Http\Controllers\CenterController@getDepertment');
+    Route::get('displaysetBranch','App\Http\Controllers\CenterController@displaysetBranch');
+    Route::get('getAllUnits','App\Http\Controllers\CenterController@getAllUnits');
+    Route::post('createCenters', 'App\Http\Controllers\CenterController@createCenters');
+    Route::post('onEditBranch','App\Http\Controllers\CenterController@onEditBranch'); 
+    Route::post('updateBranch', 'App\Http\Controllers\CenterController@updateBranch');
+    Route::post('suspendBranch', 'App\Http\Controllers\CenterController@suspendBranch');
+    Route::post('activateBranch', 'App\Http\Controllers\CenterController@activateBranch');
+    Route::post('trashBranch', 'App\Http\Controllers\CenterController@trashBranch');
 });
 /*
 |--------------------------------------------------------------------------

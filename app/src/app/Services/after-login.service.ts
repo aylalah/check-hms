@@ -16,7 +16,9 @@ export class AfterLoginService implements CanActivate {
 
   constructor(private Token: TokenService, private Jarwis: JarwisService, private getFunction: GetFunctionsService ) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-      this.pos = this.Token.getpos();
+    
+    
+    this.pos = this.Token.getpos();
 
       console.log(this.pos +' '+ route.data.role)
 

@@ -73,10 +73,19 @@
                <li class="dropdown">
                    <a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                        <i class="icon-bell"></i>
-                       <span class="notification-dot bg-azura">4</span>
+                       <span class="notification-dot bg-azura">{{countNotifications}}</span>
                    </a>
                    <ul class="dropdown-menu feeds_widget vivify fadeIn">
-                       <li class="header blue">You have 4 New Notifications</li>
+                       <li class="header blue">You have {{countNotifications}} New Notifications</li>
+                       <li *ngFor="let notification of notifications">
+                          <a routerLink="/{{notification.link}}" (click)="checkNotification(notification.id)">
+                              <div class="feeds-left bg-green"><i class="fa fa-check"></i></div>
+                              <div class="feeds-body">
+                                  <h4 class="title text-success">{{notification.title}}</h4>
+                                  <small>{{notification.message}}</small>
+                              </div>
+                          </a>
+                      </li>
                        <li>
                            <a href="javascript:void(0);">
                                <div class="feeds-left bg-green"><i class="fa fa-check"></i></div>
@@ -616,14 +625,14 @@
 
                 <li class="header">Configuration</li>
                 <li>
-                  <a class="has-arrow"><i class="icon-settings"></i><span>Patient</span></a>
+                  <a class="has-arrow"><i class="icon-user-follow"></i><span>Patient</span></a>
                   <ul >
                       <li><a href="dr-schedule.html">NHIS</a></li>
                       <li><a href="dr-schedule.html">Categories</a></li>
                   </ul>
               </li>
                <li>
-                   <a class="has-arrow"><i class="icon-settings"></i><span>Depertments</span></a>
+                   <a class="has-arrow"><i class="icon-grid"></i><span>Departments</span></a>
                    <ul >
                        <li><a [routerLink]="['/Centers']">Centers</a></li>
                        <li><a [routerLink]="['/Units']">Units</a></li>
