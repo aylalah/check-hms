@@ -1,0 +1,175 @@
+<ngx-ui-loader [loaderId]="'loader-02'"></ngx-ui-loader>
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-md-6 col-sm-12">
+                    <h1>Rank Categories</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="../html/index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="index.html">Users</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Rank</li>
+                        </ol>
+                    </nav>
+                </div>            
+                <div class="col-md-6 col-sm-12 text-right hidden-xs">
+                    <button class="btn btn-sm btn-primary" title="" data-toggle="modal" data-target="#Addrank">Add Rank</button>
+                    <!-- <a href="https://themeforest.net/item/oculux-bootstrap-4x-admin-dashboard-clean-modern-ui-kit/23091507" class="btn btn-sm btn-success" title="Themeforest"><i class="icon-basket"></i> Buy Now</a> -->
+                </div>
+            </div>
+        </div>
+  
+        <div style="position: relative">     
+            <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-hover table-custom spacing8">
+                        <thead>
+                            <tr> 
+                                <th>Rank Name </th>
+                                <th>Depertment</th>
+                                <th>Description</th>
+                                <!-- <th>Total Staff</th> -->
+                                <!-- <th>position</th> -->
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let rank of ranks">
+                                <!-- <td class="w60">
+                                    <img src="http://{{ imgLink}}/backend/public/upload/uploads/{{d.image}}" data-toggle="tooltip" data-placement="top" title="" alt="Avatar" class="w35 rounded" data-original-title="Avatar Name">
+                                </td> -->
+                                <td>{{rank.rank_name}}</td>
+                                <td>{{rank.dept_name}}</td>
+                                <td>{{rank.description}}</td>                               
+                                <!-- <td>{{d.position_name}}</td>    -->
+                                <td>
+                                    <button type="button" class="btn btn-default btn-sm" title="Edit" data-toggle="modal" data-target="#EditRank" (click)="editranck(rank.id)"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm" title="Delete" data-toggle="modal" data-target="#delete" (click)="onDelete(rank.id)"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                            </tr>                                                   
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="modal fade" id="Addrank" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title h4" id="myLargeModalLabel">Add Rank</h5>
+            <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <form class="form-auth-small m-t-20" role="form" (ngSubmit)="onSubmit(fmm)" #fmm="ngForm"> 
+        <div class="modal-body">             
+            <div class="row clearfix">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Rank Name</label>
+                        <input type="text" class="form-control" placeholder="Rank Name" ngModel name="rank_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deparmtent</label>
+                    <select class="form-control show-tick" ngModel name="dept_id">
+                        <option value="">- Select Department -</option>
+                        <option *ngFor="let dept of departments" [value]="dept.id">{{dept.name}}</option>                                
+                    </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" placeholder="Description" ngModel name="description" required>
+                    </div>
+                </div>
+            </div>
+        </div>      
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-round btn-primary" *ngIf="!disabled">Add</button>
+            <button type="submit" class="btn btn-round btn-primary" *ngIf="disabled" disabled disabled="disabled"><i class="fa fa-spinner fa-spin"></i> <span>Loading...</span></button>
+            <button type="button" class="btn btn-round btn-default" (click)="onClose()" data-toggle="modal">Close</button> 
+        </div>
+        </form>
+    </div>
+  </div>
+  </div>
+  
+  
+  <div class="modal fade" id="EditRank" tabindex="1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="myLargeModalLabel">Edit Rank</h5>
+              <button type="button" id="close2" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <form class="form-auth-small m-t-20" role="form" (ngSubmit)="Edit(fm)" #fm="ngForm"> 
+          <div class="modal-body">             
+              <div class="row clearfix">
+                  <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Rank Name</label>                        
+                            <input type="text" class="form-control" [(ngModel)]="editName" name="rank_name" required>
+                        </div>
+
+                        <div class="form-group">                           
+                            <label>Description</label>
+                            <input type="text" class="form-control"  [(ngModel)]="editDescription" name="description" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Deparmtent</label>
+                            <select class="form-control show-tick" ngModel name="dept_id">
+                                <option value="">{{editDepartment}}</option>
+                                <option *ngFor="let dept of departments" [value]="dept.id">{{dept.name}}</option>                                
+                            </select>
+                        </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-round btn-primary" *ngIf="!disabled">Update</button>
+            <button type="button" class="btn btn-round btn-primary" *ngIf="disabled" disabled disabled="disabled"><i class="fa fa-spinner fa-spin"></i> <span>Loading...</span></button>
+              <button type="button" class="btn btn-round btn-default" (click)="onClose()" data-toggle="modal">Close</button>  
+          </div>
+          </form>
+      </div>
+    </div>
+    </div>
+  
+  
+  
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">  
+          <div class="modal-header">
+              <h4 class="modal-title">Note !</h4>
+              <button type="button" id="close3" class="close" data-dismiss="modal">&times;</button>
+          </div>
+            <div class="modal-body">             
+                <div class="row  justify-content-center">
+                       <h6>You are about to delete this Rank !</h6>     
+                </div>
+            </div>      
+            <div class="modal-footer">
+                <button type="button" class="btn btn-round btn-primary" (click)="onClose()" data-dismiss="modal" aria-label="Close" aria-hidden="true">No</button>
+                <button type="button" class="btn btn-round btn-success" data-dismiss="modal" *ngIf="!disabled" aria-label="Close" aria-hidden="true"  (click)="delete()">Yes</button>
+                <button type="button" class="btn btn-round btn-primary" *ngIf="disabled" disabled disabled="disabled"><i class="fa fa-spinner fa-spin"></i> <span>Loading...</span></button>
+            </div>
+        </div>
+      </div>
+      </div>
+  
+  
+    
+    
+  

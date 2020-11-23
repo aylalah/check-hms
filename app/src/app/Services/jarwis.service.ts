@@ -17,9 +17,7 @@ export class JarwisService {
 
   constructor(private http : HttpClient) { }
 
-  check() {
-    return this.http.get(this.baseUrl + 'check' )
-  }
+  //USER & AUTHENTICATION;
 
   profile() {
     return this.http.get(this.baseUrl + 'me',{headers:{
@@ -45,11 +43,25 @@ export class JarwisService {
     return this.http.post(this.baseUrl + 'login', data);
   }
 
-  activation(data) {
-    return this.http.post(this.baseUrl + 'activation', data );
+  changePassword(data) {
+    return this.http.post<any>(`${this.baseUrl}/changePassword`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  sendPasswordResetLink(data) {
+    return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data)
+  }
+
+  resetPassword(data) {
+    return this.http.post(`${this.baseUrl}/resetPassword`, data)
   }
 
   //GENERAL SETINGS
+
+  check() {
+    return this.http.get(this.baseUrl + 'check' )
+  }
   updateGeneralSet(data) {
     return this.http.post(this.baseUrl + 'updateGeneralset', data, {headers: {
       Authorization:`Bearer ${localStorage.token}`
@@ -57,6 +69,9 @@ export class JarwisService {
     );
   }
 
+  activation(data) {
+    return this.http.post(this.baseUrl + 'activation', data );
+  }
   updateAppImage(data) {
     return this.http.post(this.baseUrl + 'updateAppImage', data, {headers: {
       Authorization:`Bearer ${localStorage.token}`
@@ -66,7 +81,6 @@ export class JarwisService {
 
 
   //NOTIFICATIOS
-
   getNotifications(){
     return this.http.get(this.baseUrl + 'getNotifications', {headers: {
       Authorization:`Bearer ${localStorage.token}`
@@ -79,6 +93,39 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }}
     );
+  }
+
+  // USERS
+  displayAllstaff() {
+    return this.http.get(`${this.baseUrl}displayAllstaff`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }});
+  }
+  displayRole() {
+    return this.http.get(`${this.baseUrl}/displayRole`,)
+  }
+  deptModules(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/deptModules/${id}`)
+  }
+  dashDeptModules(id:string) {
+    return this.http.get<any>(`${this.baseUrl}/dashDeptModules/${id}`)
+  }
+  permision(data) {
+    return this.http.post(`${this.baseUrl}/permision`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  uStatus(data) {
+    return this.http.post<any>(`${this.baseUrl}/uStatus`, data)
+  }
+  c_uStatus(data) {
+    return this.http.post<any>(`${this.baseUrl}/c_uStatus`, data)
+  }
+  reStatus(data) {
+    return this.http.post<any>(`${this.baseUrl}/reStatus`, data)
+  }
+  deleteUser(data) {
+    return this.http.post<any>(`${this.baseUrl}/deleteUser`, data)
   }
 
 
@@ -122,6 +169,11 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }});
   }
+
+  displayBranch() {
+    return this.http.get(`${this.baseUrl}/displayBranch`,)
+  }
+
   displaysetBranch() {
     return this.http.get(this.baseUrl + 'displaysetBranch',{headers:{
       Authorization:`Bearer ${localStorage.token}`
@@ -158,46 +210,20 @@ export class JarwisService {
     }});
   }
 
-
-
-
-
-
-  addCenter(data) {
-    return this.http.post(`${this.baseUrl}/addCenter`, data,{headers:{
-      Authorization:`Bearer ${localStorage.token}`
-    }})
-  }
   createCenters(data) {
   return this.http.post(this.baseUrl + 'createCenters', data,{headers:{
     Authorization:`Bearer ${localStorage.token}`
   }})
   }
-  createBranchs(data) {
-  return this.http.post(`${this.baseUrl}/addBranchs`, data,{headers:{
-    Authorization:`Bearer ${localStorage.token}`
-  }})
-  }
-  edtBranch(id:string) {
-    return this.http.get<any>(`${this.baseUrl}/edtBranch/${id}`)
-  }
-
-  
-  deleteBranch(data) {
-    return this.http.post(`${this.baseUrl}/deleteBranch`, data)
-  }
-  
-  
-  
-  centerBranch() {
-    return this.http.get(`${this.baseUrl}/centerBranch`,)
-  }
-
 
 
   //POSSITIONS
   GETAllPosition() {
     return this.http.get(this.baseUrl + 'GETAllPosition')
+  }
+
+  displayAllposition() {
+    return this.http.get(`${this.baseUrl}/displayAllposition`,)
   }
 
   getmodules(id) {
@@ -215,4 +241,68 @@ export class JarwisService {
       headers:{Authorization:`Bearer ${localStorage.token}`}})
   }
 
+  centerBranch() {
+    return this.http.get(`${this.baseUrl}/centerBranch`)
+  }
+
+
+  //TEAMS
+  Teams() {
+    return this.http.get(this.baseUrl + 'Teams', {
+      headers:{Authorization:`Bearer ${localStorage.token}`}});
+  }
+  AddTeam(data) {
+    return this.http.post<any>(`${this.baseUrl}AddTeam`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  editingTeam(data){
+    return this.http.post<any>(`${this.baseUrl}editingTeam`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  editTeam(data){
+    return this.http.post<any>(`${this.baseUrl}editTeam`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  deleteTeam(data){
+    return this.http.post<any>(`${this.baseUrl}deleteTeam`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  // RANKS
+
+  Ranks() {
+    return this.http.get(`${this.baseUrl}Ranks`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  AddRank(data) {
+    return this.http.post<any>(`${this.baseUrl}AddRank`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
+  editingRank(data){
+    return this.http.post<any>(`${this.baseUrl}editingRank`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  editRank(data){
+    return this.http.post<any>(`${this.baseUrl}editRank`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+  deleteRank(data){
+    return this.http.post<any>(`${this.baseUrl}deleteRank`, data,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }})
+  }
+
 }
+
+
+
+

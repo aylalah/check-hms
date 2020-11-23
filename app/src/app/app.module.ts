@@ -27,6 +27,9 @@ import { StaffNavbarComponent } from './components/navbar/staff-navbar/staff-nav
 import { PossitionComponent } from './components/settings/possition/possition.component';
 import { CentersComponent } from './components/settings/centers/centers.component';
 import { UnitsComponent } from './components/settings/units/units.component';
+import { AllUsersComponent } from './components/users/all-users/all-users.component';
+import { TeamsComponent } from './components/users/teams/teams.component';
+import { RanksComponent } from './components/users/ranks/ranks.component';
 
 
 const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
@@ -51,7 +54,10 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     StaffNavbarComponent,
     PossitionComponent,
     CentersComponent,
-    UnitsComponent
+    UnitsComponent,
+    AllUsersComponent,
+    TeamsComponent,
+    RanksComponent
   ],
   imports: [
     BrowserModule,
