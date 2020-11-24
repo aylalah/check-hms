@@ -21,6 +21,8 @@ Route::group([
 
     // USERS   
     Route::get('displayAllstaff','App\Http\Controllers\UsersController@displayAllstaff');
+    Route::get('getDesignations','App\Http\Controllers\UsersController@getDesignations');
+    Route::get('deptModules/{id}','App\Http\Controllers\UsersController@deptModules');
 
     //GENERAL SETTINGS
     Route::post('updateGeneralset', 'App\Http\Controllers\SettingsController@updateGeneralset');

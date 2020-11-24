@@ -70,12 +70,14 @@ export class AllUsersComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+      this.ngxService.startLoader('loader-01');
     this.Jarwis.displayAllstaff().subscribe(
       data=>{
       this.response = data;
       this.staff = this.response
      this.staff_countAll = this.staff.countAll
       this.allstaff=this.staff.all
+      this.ngxService.stopLoader('loader-01');
     })
     
     this.Jarwis.check().subscribe(
@@ -104,16 +106,17 @@ export class AllUsersComponent implements OnInit {
       this.response = data;
       this.department = this.response
     })
-    this.Jarwis.displayAllposition().subscribe(
-      data=>{
-        let res:any = data
-        this.position =res;
-      }
-    )
+    // this.Jarwis.displayAllposition().subscribe(
+    //   data=>{
+    //     let res:any = data
+    //     this.position =res;
+    //   }
+    // )
 
-    this.Jarwis.displayRole().subscribe(
+    this.Jarwis.getDesignations().subscribe(
       data=>{
       this.response = data;
+      this.position = this.response.positions;
       this.role = this.response.roles;
       this.ranks = this.response.ranks;
       this.teams = this.response.teams

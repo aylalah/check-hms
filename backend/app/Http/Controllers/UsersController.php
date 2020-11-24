@@ -18,8 +18,6 @@ use Faker\Provider\Image as ProviderImage;
 use League\CommonMark\Inline\Element\Image as ElementImage;
 use App\Models\Notification_settings;
 
-use Illuminate\Http\Request;
-
 class UsersController extends Controller
 {
     protected $NotificationController;
@@ -34,7 +32,7 @@ class UsersController extends Controller
         $id= Auth()->user()->id;
         return response()->json([
 
-            'all'=>$all = User::orderBy('id')->join('departments','users.dept_id','=','departments.id')
+            'all'=>$all = User::orderBy('id', 'desc')->join('departments','users.dept_id','=','departments.id')
                 ->join('positions','users.position_id','=','positions.id')
                 ->join('roles','users.role_id','=','roles.id')
                 ->select('users.*','departments.name AS dept_name', 'positions.position_name', 'roles.name AS role_name')
@@ -49,6 +47,44 @@ class UsersController extends Controller
                 ->get(),
             'countAll'=> User::count(),
         ]);
+    }
+
+    // ROLES
+
+    public function getDesignations()
+    {
+        return response()->json([
+            'positions' =>  DB::table('positions')->where('status', '=', 'active')->get(),
+           'roles' =>  DB::table('roles')->where('status', '=', 'active')->get(),
+           'ranks' => DB::table('rank_tb')->where('status', '=', 'active')->get(),
+           'teams' => DB::table('team_tb')->where('status', '=', 'active')->get()
+
+        ]) ;
+    }
+
+    public function deptModules($id)
+    {
+        return response()->json([
+           "dept" => DB::table('possition_module')
+            ->join('component_tb','possition_module.component_id','=','component_tb.id')
+            ->select('component_tb.*')
+            ->where('possition_module.status','=','permite')
+            ->where('possition_module.position_id','=', $id)
+            ->get(),
+            "department" => DB::table('positions')
+            ->join('departments','positions.dept_id','=','departments.id')
+            ->select('departments.*')
+            ->where('positions.id','=', $id)
+            ->get(),
+            "centers" => DB::table('branches')
+            ->join('departments','branches.dept_id','=','departments.id')
+            ->join('positions','departments.id','=','positions.dept_id')
+            ->select('branches.name','branches.id')
+            ->where('positions.id','=', $id)
+            ->get(),
+
+        ]);
+
     }
    
 }
