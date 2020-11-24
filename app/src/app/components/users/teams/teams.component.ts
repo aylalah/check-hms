@@ -141,7 +141,8 @@ export class TeamsComponent implements OnInit {
               this.Notificate.receiveallnotification().subscribe(
                 data=>{
                 this.allNotifications = data
-                console.log(this.allNotifications.message)  
+                console.log(this.allNotifications.message)
+                // location.reload()  
                 });
         });
       }else{
