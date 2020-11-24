@@ -6,6 +6,9 @@ import { TokenService } from 'src/app/Services/token.service';
 import { JarwisService } from 'src/app/Services/jarwis.service';
 import { GetFunctionsService } from 'src/app/Services/get-functions.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+
+import { NotificationsService } from 'src/app/Services/notifications.service'
+
  
 declare let alert: any;
 declare let $: any;
@@ -33,12 +36,20 @@ export class TeamsComponent implements OnInit {
     disabled= false;
     responseMsg: any;
     error: any;
+    updatedResultList: any;
+    notifyResponse: any;
+  allNotifications: any;
+   
 
   
     constructor(
       public Jarwis:JarwisService,
-      private ngxService: NgxUiLoaderService
-    ) { }
+      private ngxService: NgxUiLoaderService,
+      private Notificate: NotificationsService,
+      private router: Router,
+    ) { 
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
   
     ngOnInit(): void {
       this.ngxService.startLoader('loader-01');
@@ -120,8 +131,19 @@ export class TeamsComponent implements OnInit {
           toastr.options.timeOut = "1000";
           toastr.options.closeButton = true;
           toastr.options.positionClass = 'toast-bottom-right';
-          toastr['success']( permitRes.message);         
-      });
+          toastr['success']( permitRes.message);  
+                 
+        });
+        this.Jarwis.getNotifications().subscribe(
+          datas =>{
+              this.notifyResponse = datas;
+              this.Notificate.viewallnotification(this.notifyResponse)
+              this.Notificate.receiveallnotification().subscribe(
+                data=>{
+                this.allNotifications = data
+                console.log(this.allNotifications.message)  
+                });
+        });
       }else{
         $(function() {
           toastr.options.timeOut = "1000";

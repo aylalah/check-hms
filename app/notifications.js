@@ -58,6 +58,13 @@ io.on("connection", (socket) => {
                 console.log(err)
             }
         })
-    })
+    });
+
+    socket.on('view all notifications',(data)=>{
+        io.emit('all notifications sent',{
+            message: 'New notification',
+            datas: data
+        })
+    });
 
 })
