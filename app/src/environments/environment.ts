@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  baseUrl : 'http://localhost:8000/api/',
-  imageUrl : 'http://localhost:8000/upload',
-  login: 'http://localhost:8000/api/login',
-  signup: 'http://localhost:8000/api/signup',
+  baseUrl : 'http://localhost:8800/api/',
+  imageUrl : 'http://localhost:8800/upload',
+  login: 'http://localhost:8800/api/login',
+  signup: 'http://localhost:8800/api/signup',
 };
 
 /*

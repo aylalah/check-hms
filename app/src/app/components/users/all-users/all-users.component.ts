@@ -197,7 +197,6 @@ export class AllUsersComponent implements OnInit {
   
   onSelectRole(r){
     this.givenRole = r.target.value;
-    this.ngOnInit()
   }
 
   onSubmit(form: NgForm) {

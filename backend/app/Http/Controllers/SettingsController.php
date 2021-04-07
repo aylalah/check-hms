@@ -61,7 +61,7 @@ class SettingsController extends Controller
             ->join('departments','module.id','=','departments.module_id')
             ->join('positions','departments.id','=','positions.dept_id')
             ->select('component_tb.id','module.module','component_tb.component_name','component_tb.description')
-            ->get(); 
+            ->get();
         }else{
             $adminpos = DB::table('component_tb')
             ->join('module','component_tb.module_id','=','module.id')
@@ -69,7 +69,7 @@ class SettingsController extends Controller
             ->join('positions','departments.id','=','positions.dept_id')
             ->select('component_tb.id','module.module','component_tb.component_name','component_tb.description')
             ->where('positions.id','=', $id)
-            ->get(); 
+            ->get();
         }
 
 
@@ -93,15 +93,15 @@ class SettingsController extends Controller
     {
         $user_id = Auth()->user()->id;
         $request ->merge(['created_by'=>$user_id]);
-        $request ->merge(['updated_by'=>$user_id]);                                                                   
+        $request ->merge(['updated_by'=>$user_id]);
         $positioned = DB::table('possition_module')->join('positions','possition_module.position_id', '=', 'positions.id')->join('component_tb','possition_module.component_id', '=', 'component_tb.id')->where('possition_module.position_id', $request->id)->where('possition_module.component_id', $request->component_id)->select('component_tb.component_name','positions.image','possition_module.status','positions.position_name')->get();
-        
+
         if ($positioned->count()>0) {
             if ($positioned[0]->status =='permite') {
                 $update=  DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->update(['status' => 'unpermite','updated_by'=>$user_id]);
             } else {
                 $update=  DB::table('possition_module')->where('position_id',$request->id)->where('component_id',$request->component_id)->update(['status' => 'permite','updated_by'=>$user_id]);
-                
+
             }
 
             if($update){
@@ -135,15 +135,15 @@ class SettingsController extends Controller
                     "message":"Failed"
                 }';
             }
-            
+
         } else {
             $update= DB::table('possition_module')->insert([
                 'position_id' =>$request->id,
                 'component_id' => $request->component_id,
-                'status'       =>'permite',  
+                'status'       =>'permite',
                 'created_by'   =>  $user_id,
                 'updated_by'   =>  $user_id
-           ]); 
+           ]);
 
            if($update){
 
@@ -175,7 +175,7 @@ class SettingsController extends Controller
                 "message":"Failed"
             }';
         }
-           
+
         }
     }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import {Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { JarwisService } from './jarwis.service';
 
 @Injectable({
@@ -13,6 +13,19 @@ export class NotificationsService {
     private Jarwis:JarwisService
   ) { }
   
+  viewallnotification(data){
+    this.socket.emit('view all notifications', data)
+  }
+  receiveallnotification(){
+    let observable = new Observable<{message, datas}>(observer=>{
+      this.socket.on('all notifications sent',(data)=>{
+        observer.next(data);
+      })
+      return ()=>{this.socket.disconnect()}
+    })
+    return observable;
+  }
+
   viewloginnotification(data){
     this.socket.emit('view login notification', data)
   }

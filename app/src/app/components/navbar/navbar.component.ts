@@ -34,6 +34,9 @@ export class NavbarComponent implements OnInit {
   web_url: any;
 
   loggedinUsers: any;
+  allNotifications: any;
+  response: any;
+  arr = [];
 
 
   private tokenExpired(token: string) {
@@ -54,20 +57,34 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
 
+    setInterval(()=>{
+      this.Jarwis.getNotifications().subscribe(
+        datas =>{
+            this.notifyResponse = datas;
+            this.notifications = this.notifyResponse.notifications;
+            this.countNotifications = this.notifyResponse.countNotifications
+        });
+    }, 3000)
+
     this.Notificate.receiveloginnotification().subscribe(
       data=>{
        this.loggedinUsers = data.identity
       }
     )
+    this.Notificate.receiveallnotification().subscribe(
+      data=>{
+       this.allNotifications = data.datas
+      }
+    )
 
-    this.Jarwis.getNotifications().subscribe(
-      datas =>{
-          this.notifyResponse = datas;
-          this.notifications = this.notifyResponse.notifications;
-          this.countNotifications = this.notifyResponse.countNotifications
-      });
+    // this.Jarwis.getNotifications().subscribe(
+    //   datas =>{
+    //       this.notifyResponse = datas;
+    //       this.notifications = this.notifyResponse.notifications;
+    //       this.countNotifications = this.notifyResponse.countNotifications
+    //   });
 
-    
+
 
 
     this.Auth.authStatus.subscribe(Value => this.loggedIn = Value);
@@ -99,6 +116,9 @@ export class NavbarComponent implements OnInit {
     this. getPermission();
   }
 
+  // alertt(){
+  //   alert()
+  // }
   getPermission(){
     this.Jarwis.getPermission().subscribe(
       datas =>{
@@ -121,10 +141,10 @@ export class NavbarComponent implements OnInit {
   }
 
   checkNotification(val){
-    
+
       this.Jarwis.seeNotification(val).subscribe(
         datas =>{
-            
+
         });
   }
 
