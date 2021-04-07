@@ -57,15 +57,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    setInterval(()=>{
-      this.Jarwis.getNotifications().subscribe(
-        datas =>{
-            this.notifyResponse = datas;
-            this.notifications = this.notifyResponse.notifications;
-            this.countNotifications = this.notifyResponse.countNotifications
-        });
-    }, 3000)
-
     this.Notificate.receiveloginnotification().subscribe(
       data=>{
        this.loggedinUsers = data.identity
