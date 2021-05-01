@@ -17,8 +17,8 @@ const mysqlConnection = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
     password: '',
-    database: 'check_hms',
-    port: 3308,
+    database: 'checkhms',
+    port: 3306,
     multipleStatements: true
   });
 
@@ -33,12 +33,12 @@ mysqlConnection.connect((err)=> {
 
 // Importation of the SOCKET.IO  real-time bidirectional event-based communication module
 
-const io = require('socket.io')(server); 
+const io = require('socket.io')(server);
 
-// io.connection...Listen to any connection made to this app server 
+// io.connection...Listen to any connection made to this app server
 // and check the emitted event to perform the specific operation its requires to do
 
-io.on("connection", (socket) => { 
+io.on("connection", (socket) => {
     socket.on('view login notification',(data)=>{ // listen to the specified incoming event
         io.emit('login notification sent',{ // emit an event to all connected sockets
             message: 'New login alert!',
@@ -46,7 +46,7 @@ io.on("connection", (socket) => {
         })
     })
 
-    socket.on('view customize notification',(data)=>{ 
+    socket.on('view customize notification',(data)=>{
         let SQL_QUERY = `SELECT positions.position_name, users.position_id FROM users JOIN positions ON positions.id = users.position_id WHERE users.id = ${data.id}`
         mysqlConnection.query(SQL_QUERY,(err, responseRowData)=>{
             if (!err) {

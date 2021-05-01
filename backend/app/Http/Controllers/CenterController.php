@@ -61,7 +61,7 @@ class CenterController extends Controller
                 "success":false,
                 "message":"failed"
             }' ;
-        } 
+        }
     }
 
     public function updateCenterType(Request $request)
@@ -85,7 +85,7 @@ class CenterController extends Controller
                 "success":false,
                 "message":"failed"
             }' ;
-        } 
+        }
     }
     public function deleteCenterType(Request $request)
     {
@@ -105,13 +105,13 @@ class CenterController extends Controller
                 "success":false,
                 "message":"failed"
             }' ;
-        } 
+        }
     }
 
     public function editCentertypes(Request $request)
     {
      return $center_type = DB::table('center_type')->join('departments','center_type.dept_id','=','departments.id')->select('center_type.*','departments.name AS deptname')->where('center_type.id',$request[0])->get();
-    } 
+    }
 
     public function AddWardType(Request $request)
     {
@@ -135,7 +135,7 @@ class CenterController extends Controller
                 "success":false,
                 "message":"failed"
             }' ;
-        } 
+        }
     }
 
 
@@ -177,14 +177,14 @@ class CenterController extends Controller
           }
 
     // Create new Branch Centers
-         
+
     public function createCenters(Request $request)
           {
               // return $request->all();
               $creator = Auth()->user()->id;
-              $req_name=$request->bran_name;        
+              $req_name=$request->bran_name;
               $depts=DB::table("departments")->where('departments.id',$request->dept_id)->first();
-              $branch;
+            //   $branch;
               if ($depts->module_id==4){
               $dt = Carbon::now();
               $item_date = $dt->toFormattedDateString();
@@ -210,7 +210,7 @@ class CenterController extends Controller
                   $table->string('item_detail_id')->index();
                   $table->string('staff_id')->index()->default(0);
               });
-              $itemD = DB::table("item_details")->get(); 
+              $itemD = DB::table("item_details")->get();
               foreach($itemD as $rowID){
                   $insert = DB::table($table_name)->insertGetId(
                       [
@@ -221,10 +221,10 @@ class CenterController extends Controller
                       );
               }
               $request->merge(['name' => $req_name]);
-      
+
               $staffId= Auth()->user()->id;
               $request->merge(['staff_id' => $staffId]);
-      
+
               $request->merge(['br_name' => $table_name]);
               $branch= Branches::create($request-> all());
           }
@@ -290,7 +290,7 @@ class CenterController extends Controller
         $description = $request->branch_adress;
         $dept_id = $request->department_id;
         $status = $request->branch_status;
-        $id = $request->branch_id;  
+        $id = $request->branch_id;
 
         $update = DB::table('branches')->where('branches.id','=',$id)
         ->update([
@@ -301,7 +301,7 @@ class CenterController extends Controller
             'updated_at'=> $cDate.' '.$cTime,
             'br_name'=>$table_name
             ]);
- 
+
         if($update){
             return '{
                 "success":true,
@@ -372,7 +372,7 @@ class CenterController extends Controller
             $image = $getData->image;
             $slug = '';
             $ids = '';
-            $response = $this->NotificationController->notification($notificationID, $title, $message, $image, $slug, $ids); 
+            $response = $this->NotificationController->notification($notificationID, $title, $message, $image, $slug, $ids);
 
             return '{
                 "success":false,

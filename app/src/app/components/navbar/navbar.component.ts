@@ -68,14 +68,14 @@ export class NavbarComponent implements OnInit {
       }
     )
 
-    this.Jarwis.getNotifications().subscribe(
-      datas =>{
-          this.notifyResponse = datas;
-          this.notifications = this.notifyResponse.notifications;
-          this.countNotifications = this.notifyResponse.countNotifications
-      });
+    // this.Jarwis.getNotifications().subscribe(
+    //   datas =>{
+    //       this.notifyResponse = datas;
+    //       this.notifications = this.notifyResponse.notifications;
+    //       this.countNotifications = this.notifyResponse.countNotifications
+    //   });
 
-    
+
 
 
     this.Auth.authStatus.subscribe(Value => this.loggedIn = Value);
@@ -107,9 +107,9 @@ export class NavbarComponent implements OnInit {
     this. getPermission();
   }
 
-  alertt(){
-    alert()
-  }
+  // alertt(){
+  //   alert()
+  // }
   getPermission(){
     this.Jarwis.getPermission().subscribe(
       datas =>{
@@ -132,10 +132,10 @@ export class NavbarComponent implements OnInit {
   }
 
   checkNotification(val){
-    
+
       this.Jarwis.seeNotification(val).subscribe(
         datas =>{
-            
+
         });
   }
 

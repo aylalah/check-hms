@@ -358,6 +358,7 @@
                                 <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'new' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                                            
@@ -394,6 +395,7 @@
                                 <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'new' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                                   
@@ -430,6 +432,7 @@
                                 <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'new' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Trash" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                                  
@@ -466,6 +469,7 @@
                                 <button type="button" class="btn btn-default btn-sm" style="color: greenyellow;" *ngIf="permission.write" title="Edit" data-toggle="modal" data-target="#EditDepartments" (click)="onEdit(b.id)"><i class="fa fa-edit"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'active' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#suspend" (click)="onSuspend(b.id)"><i class="fa fa-times-circle"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'suspend' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
+                                <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status=== 'new' && permission.approve" style="color: greenyellow;" title="Activate" data-toggle="modal" data-target="#activate" (click)="onActivate(b.id)"><i class="fa fa-check"></i></button>
                                 <button type="button" class="btn btn-default btn-sm" *ngIf ="b.status != 'trash' && permission.delete" style="color: red;" title="Suspend" data-toggle="modal" data-target="#trash" (click)="ontrash(b.id)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>                                                                            

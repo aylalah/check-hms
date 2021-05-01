@@ -101,11 +101,15 @@ export class JarwisService {
       Authorization:`Bearer ${localStorage.token}`
     }});
   }
-  displayRole() {
-    return this.http.get(`${this.baseUrl}/displayRole`,)
+  getDesignations() {
+    return this.http.get(`${this.baseUrl}getDesignations`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }});
   }
   deptModules(id:string) {
-    return this.http.get<any>(`${this.baseUrl}/deptModules/${id}`)
+    return this.http.get<any>(`${this.baseUrl}deptModules/${id}`,{headers:{
+      Authorization:`Bearer ${localStorage.token}`
+    }});
   }
   dashDeptModules(id:string) {
     return this.http.get<any>(`${this.baseUrl}/dashDeptModules/${id}`)

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { JarwisService } from 'src/app/Services/jarwis.service';
-import { GetFunctionsService } from 'src/app/Services/get-functions.service';
 
 declare let $ : any;
 declare let  toastr : any;
@@ -36,7 +35,6 @@ export class AppComponent {
     private router: Router,
     private Jarwis: JarwisService,
     private Token: TokenService,
-    private getFunction: GetFunctionsService
   ) { }
 
   ngOnInit(): void {
