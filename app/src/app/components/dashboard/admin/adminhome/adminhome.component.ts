@@ -21,10 +21,10 @@ export class AdminhomeComponent implements OnInit {
   ) {
       this.Jarwis.profile().subscribe(
         data=>{
-          this.Notificate.viewloginnotification(data)
+         
         }
       )
-
+      this.Notificate.viewloginnotification({'id': 1, 'roomName': 'initial_room'})
       this.Notificate.receiveloginnotification().subscribe(
         data=>{
           $(function() {

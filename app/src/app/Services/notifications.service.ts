@@ -27,11 +27,13 @@ export class NotificationsService {
   }
 
   viewloginnotification(data){
-    this.socket.emit('view login notification', data)
+    console.log(this.socket)  
+    console.log(this.socket.emit('new_login_detection'));
+    this.socket.emit('new_login_detection', data)
   }
   receiveloginnotification(){
     let observable = new Observable<{message, identity}>(observer=>{
-      this.socket.on('login notification sent',(data)=>{
+      this.socket.on('new_login_alert',(data)=>{
         observer.next(data);
       })
       return ()=>{this.socket.disconnect()}
